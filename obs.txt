@@ -1,0 +1,14 @@
+O_Create Offer
+O_Create
+
+Validate App com
+O_Pending
+A_Accepted
+
+What are the throughput times per part of the process, in particular the difference between the time spent in the company's systems waiting for processing by a user and the time spent waiting on input from the applicant as this is currently unclear,
+
+What is the influence on the frequency of incompleteness to the final outcome. The hypothesis here is that if applicants are confronted with more requests for completion, they are more likely to not accept the final offer,
+
+How many customers ask for more than one offer (where it matters if these offers are asked for in a single conversation or in multiple conversations)? How does the conversion compare between applicants for whom a single offer is made and applicants for whom multiple offers are made?
+
+Any other interesting trends, dependencies etc.
