@@ -33,7 +33,7 @@ with open("data/app_log_cap.csv", "r") as f:
 
       # "CreditScore"
       # CreditScore
-      if not (line[15] == '' or line[15] == 'End' or line[15] == 0):
+      if not (line[15] == '' or line[15] == 'End' or line[15] == '0'):
         #if not (dct_casesinfo[line[0]].get("CreditScore") == None):
         #  print(int(line[15]), dct_casesinfo[line[0]][fields[15]])
         dct_casesinfo[line[0]]["CreditScore"] = int(line[15])
