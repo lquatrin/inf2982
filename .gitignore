@@ -2,3 +2,13 @@ BPI Challenge 2017 - Offer log.xes
 BPI Challenge 2017 - Offer log.xes.gz
 BPI Challenge 2017.xes
 BPI Challenge 2017.xes.gz
+
+##########################
+## Visual Studio ignores
+##########################
+
+*.opensdf
+*.sdf
+
+p_mining/ProcessGraph/bin
+p_mining/ProcessGraph/obj
