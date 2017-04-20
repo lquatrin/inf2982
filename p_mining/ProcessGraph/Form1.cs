@@ -8,13 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using CppWrapper;
+
 namespace ProcessGraph
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
+      public CppWrapper.CppDataProviderWrapper data_prov_wrapper;
+
+      public Form1()
+      {
+          InitializeComponent();
+      }
+
+      private void chart1_Click(object sender, EventArgs e)
+      {
+        Console.Out.WriteLine("Click Chart1");
+        data_prov_wrapper = new CppWrapper.CppDataProviderWrapper();
+        data_prov_wrapper.TestDataProvider();
+      }
     }
 }

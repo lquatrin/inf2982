@@ -15,7 +15,7 @@ std::vector<CaseData*> ReadCaseData (std::string filename)
 
   // header 
   getline(casedatalist, linecases);
-  
+
   std::string name;
   int success;
   float requestamount;

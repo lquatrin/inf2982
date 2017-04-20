@@ -10,6 +10,8 @@ BPI Challenge 2017.xes.gz
 *.opensdf
 *.sdf
 
+p_mining/ipch
+
 p_mining/ProcessGraph/bin
 p_mining/ProcessGraph/obj
 
