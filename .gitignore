@@ -12,3 +12,12 @@ BPI Challenge 2017.xes.gz
 
 p_mining/ProcessGraph/bin
 p_mining/ProcessGraph/obj
+
+p_mining/dataprovider/Release
+p_mining/dataprovider/Debug
+
+p_mining/Debug/*.exe
+p_mining/Debug/*.pdb
+
+p_mining/Release/*.exe
+p_mining/Release/*.pdb

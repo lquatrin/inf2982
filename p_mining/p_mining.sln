@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "clustering", "clustering\clustering.vcxproj", "{4FE446E0-0A14-491C-8D9C-19B64A498BED}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LAMP", "LAMP\LAMP.vcxproj", "{CA56698D-BD5D-4D59-91C4-FC883031E96B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessGraph", "ProcessGraph\ProcessGraph.csproj", "{D6CF2AEA-B966-4E5A-A8A3-77DCB02AB5E7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dataprovider", "dataprovider\dataprovider.vcxproj", "{98DC957E-3F17-45C8-9649-24A486A69D45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,16 @@ Global
 		{D6CF2AEA-B966-4E5A-A8A3-77DCB02AB5E7}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D6CF2AEA-B966-4E5A-A8A3-77DCB02AB5E7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D6CF2AEA-B966-4E5A-A8A3-77DCB02AB5E7}.Release|Win32.ActiveCfg = Release|Any CPU
+		{98DC957E-3F17-45C8-9649-24A486A69D45}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{98DC957E-3F17-45C8-9649-24A486A69D45}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{98DC957E-3F17-45C8-9649-24A486A69D45}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{98DC957E-3F17-45C8-9649-24A486A69D45}.Debug|Win32.ActiveCfg = Debug|Win32
+		{98DC957E-3F17-45C8-9649-24A486A69D45}.Debug|Win32.Build.0 = Debug|Win32
+		{98DC957E-3F17-45C8-9649-24A486A69D45}.Release|Any CPU.ActiveCfg = Release|Win32
+		{98DC957E-3F17-45C8-9649-24A486A69D45}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{98DC957E-3F17-45C8-9649-24A486A69D45}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{98DC957E-3F17-45C8-9649-24A486A69D45}.Release|Win32.ActiveCfg = Release|Win32
+		{98DC957E-3F17-45C8-9649-24A486A69D45}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
