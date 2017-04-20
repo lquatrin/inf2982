@@ -1,3 +1,5 @@
+#pragma once
+
 #include "casedata.h"
 
 #include <cmath>

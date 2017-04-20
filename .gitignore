@@ -21,3 +21,18 @@ p_mining/Debug/*.pdb
 
 p_mining/Release/*.exe
 p_mining/Release/*.pdb
+
+p_mining/Release/CppWrapper.dll
+p_mining/Release/CppWrapper.dll.metagen
+
+p_mining/clustering/Release
+p_mining/clustering/Debug
+
+p_mining/CppWrapper/Release
+p_mining/CppWrapper/Debug
+
+p_mining/LAMP/Release
+p_mining/LAMP/Debug
+
+p_mining/MDS/Release
+p_mining/MDS/Debug
