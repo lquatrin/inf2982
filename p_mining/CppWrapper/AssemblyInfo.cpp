@@ -15,7 +15,7 @@ using namespace System::Security::Permissions;
 [assembly:AssemblyDescriptionAttribute(L"")];
 [assembly:AssemblyConfigurationAttribute(L"")];
 [assembly:AssemblyCompanyAttribute(L"Microsoft")];
-[assembly:AssemblyProductAttribute(L"CppWrapper")];
+[assembly:AssemblyProductAttribute(L"CppDataProviderWrapper")];
 [assembly:AssemblyCopyrightAttribute(L"Copyright (c) Microsoft 2017")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];

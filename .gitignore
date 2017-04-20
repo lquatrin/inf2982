@@ -38,3 +38,6 @@ p_mining/LAMP/Debug
 
 p_mining/MDS/Release
 p_mining/MDS/Debug
+
+p_mining/Release
+data/app_log_cap.csv

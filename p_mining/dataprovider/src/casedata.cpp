@@ -3,10 +3,11 @@
 #include "casedata.h"
 
 #include <cmath>
+#include <iostream>
 
 double CaseData::CompositeDistance (CaseData* a, CaseData* b)
 {
-  return exp(abs((double)a->creditscore - (double)b->creditscore));
+  return abs((double)a->creditscore - (double)b->creditscore);
 }
 
 CaseData::CaseData ()
