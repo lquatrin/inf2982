@@ -7,7 +7,11 @@
 
 double CaseData::CompositeDistance (CaseData* a, CaseData* b)
 {
-  return abs((double)a->creditscore - (double)b->creditscore);
+  return 
+    abs((double)a->creditscore - (double)b->creditscore)
+    +
+    abs((double)a->requestamount - (double)b->requestamount)
+    ;
 }
 
 CaseData::CaseData ()

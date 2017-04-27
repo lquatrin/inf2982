@@ -19,12 +19,10 @@ namespace CppWrapper {
 
   public ref class CppMDSWrapper
   {
-    public:
-	CppMDSWrapper(/*array<double,2>^ tvalues, int arraySize*/);
-	array<double, 2>^ GetMDS();
-    void testMDS();
+  public:
+	  CppMDSWrapper ();
 
-    array<double, 2>^ TestDataProvider();
+    array<double, 2>^ DataProviderMDS ();
 
   private:
 

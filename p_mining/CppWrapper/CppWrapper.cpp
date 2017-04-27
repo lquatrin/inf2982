@@ -13,18 +13,16 @@
 #include "../dataprovider/src/reader.h"
 #include "../dataprovider/src/reader.cpp"
 
-CppWrapper::CppMDSWrapper::CppMDSWrapper(/*array<double, 2>^ tvalues, int arraySize*/)
-{
-}
+CppWrapper::CppMDSWrapper::CppMDSWrapper() { }
 
-array<double, 2>^ CppWrapper::CppMDSWrapper::TestDataProvider()
+array<double, 2>^ CppWrapper::CppMDSWrapper::DataProviderMDS ()
 {
   std::vector<CaseData*> casedata_v = ReadCaseData(
     //"F:/GitHub/inf2982/data/case_data.txt"
     "D:/GitHub/inf2982/data/case_data.txt"
     );
 
-  int number_of_cases = 20;
+  int number_of_cases = 30;
 
   double **m = (double**)malloc(number_of_cases * sizeof(double*));
   for (int i = 0; i < number_of_cases; i++){
@@ -45,14 +43,4 @@ array<double, 2>^ CppWrapper::CppMDSWrapper::TestDataProvider()
   }
 
   return dists;
-}
-
-array<double, 2>^ CppWrapper::CppMDSWrapper::GetMDS()
-{
-	return dists;
-}
-
-void CppWrapper::CppMDSWrapper::testMDS()
-{
-	pMDS->mdsTest();
 }

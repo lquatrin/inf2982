@@ -33,7 +33,7 @@ namespace ClassCppToCS_CS
 
     private void chart1_Click(object sender, EventArgs e)
     {
-      double[,] arrayMDS = data_prov_wrapper.TestDataProvider();
+      double[,] arrayMDS = data_prov_wrapper.DataProviderMDS();
        
       Chart chart = chart1;
       chart.Series[0].Points.Clear();
@@ -66,6 +66,9 @@ namespace ClassCppToCS_CS
         min_max_axis_limits[2] = Math.Min(min_max_axis_limits[2], mm_y);
         min_max_axis_limits[3] = Math.Max(min_max_axis_limits[3], mm_y);
       }
+
+      chart.ChartAreas[0].AxisY.LabelStyle.Format = "{0:0.00}";
+      chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.00}";
         
       min_max_axis_limits[0] *= expand_limtis;
       min_max_axis_limits[1] *= expand_limtis;

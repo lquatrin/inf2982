@@ -12,8 +12,15 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dataprovider", "dataprovider\dataprovider.vcxproj", "{98DC957E-3F17-45C8-9649-24A486A69D45}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppWrapper", "CppWrapper\cppwrapper.vcxproj", "{AFA1A63A-D003-4A89-8CCC-98F56163C58A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{98DC957E-3F17-45C8-9649-24A486A69D45} = {98DC957E-3F17-45C8-9649-24A486A69D45}
+		{E20FFA9A-B6AE-4D7F-A991-0F3AD3D57AFB} = {E20FFA9A-B6AE-4D7F-A991-0F3AD3D57AFB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDataVis", "PDataVis\PDataVis.csproj", "{DC53D44A-B16C-4293-9C72-03FA30783EC0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AFA1A63A-D003-4A89-8CCC-98F56163C58A} = {AFA1A63A-D003-4A89-8CCC-98F56163C58A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
