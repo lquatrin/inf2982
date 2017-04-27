@@ -1,9 +1,9 @@
-// CppWrapper.h
+// ClassCppToCS_Wrapper.h
 
 #pragma once
 
-//#include "../MDS/mds.cpp"
-//#include "../MDS/mds.h"
+#include "../MDS/mds.h"
+#include "../MDS/mds.cpp"
 
 #include "../dataprovider/src/casedata.h"
 #include "../dataprovider/src/casedata.cpp"
@@ -13,19 +13,24 @@
 
 #include <msclr\marshal_cppstd.h>
 #include <math.h>
-
 using namespace System;
 
 namespace CppWrapper {
 
-	public ref class CppDataProviderWrapper
-	{
-  public:
-    CppDataProviderWrapper ();
-	
-    array<double, 2>^ TestDataProvider ();
-    
+  public ref class CppMDSWrapper
+  {
+    public:
+	CppMDSWrapper(/*array<double,2>^ tvalues, int arraySize*/);
+	array<double, 2>^ GetMDS();
+    void testMDS();
+
+    array<double, 2>^ TestDataProvider();
+
   private:
-    CaseData* pCD;
+
+	MDSClass* pMDS;
+  CaseData* pCD;
+	array<double, 2>^ dists;
   };
+
 }

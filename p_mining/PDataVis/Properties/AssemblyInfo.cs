@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProcessGraph")]
+[assembly: AssemblyTitle("ClassCppToCS_CS")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProcessGraph")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCompany("tecgraf.pu-rio.br")]
+[assembly: AssemblyProduct("ClassCppToCS_CS")]
+[assembly: AssemblyCopyright("Copyright © tecgraf.pu-rio.br 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b68bc439-acaf-4261-a67b-c7622faa24ed")]
+[assembly: Guid("f3c026da-ff2c-40f6-b669-fa871a26cb7d")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -14,9 +14,9 @@ using namespace System::Security::Permissions;
 [assembly:AssemblyTitleAttribute(L"CppWrapper")];
 [assembly:AssemblyDescriptionAttribute(L"")];
 [assembly:AssemblyConfigurationAttribute(L"")];
-[assembly:AssemblyCompanyAttribute(L"Microsoft")];
-[assembly:AssemblyProductAttribute(L"CppDataProviderWrapper")];
-[assembly:AssemblyCopyrightAttribute(L"Copyright (c) Microsoft 2017")];
+[assembly:AssemblyCompanyAttribute(L"tecgraf.pu-rio.br")];
+[assembly:AssemblyProductAttribute(L"CppLAMPWrapper")];
+[assembly:AssemblyCopyrightAttribute(L"Copyright (c) tecgraf.pu-rio.br 2016")];
 [assembly:AssemblyTrademarkAttribute(L"")];
 [assembly:AssemblyCultureAttribute(L"")];
 
