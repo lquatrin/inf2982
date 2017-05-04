@@ -22,9 +22,7 @@ CppWrapper::CppMDSWrapper::CppMDSWrapper()
 
 array<double, 2>^ CppWrapper::CppMDSWrapper::DataProviderMDS ()
 {
-  casedata_v->swap(ReadCaseData(
-    "../../data/case_data.txt"
-    ));
+  casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF));
 
   int number_of_cases = 20;
 

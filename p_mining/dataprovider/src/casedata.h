@@ -13,6 +13,9 @@ public:
   double coef_numberofoffers;
   double coef_loangoal;
 
+  double max_creditscore;
+  double max_requestamount;
+
 private:
 
 };

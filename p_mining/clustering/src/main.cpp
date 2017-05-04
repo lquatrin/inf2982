@@ -169,5 +169,7 @@ int main()
   printf("\n\n--------------------------------------\n\n");
   clust_test(true);
   
+  getchar();
+
   return 0;
 }

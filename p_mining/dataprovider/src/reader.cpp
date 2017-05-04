@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 
-std::vector<CaseData*> ReadCaseData (std::string filename)
+std::vector<CaseData*> ReadCaseData (std::string filename, CaseDataCoeficients* cf)
 {
   std::vector<CaseData*> casedata;
 

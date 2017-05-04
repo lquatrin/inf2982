@@ -9,7 +9,7 @@
 
 int main()
 {
-  std::vector<CaseData*> casedata_v = ReadCaseData("../../data/case_data.txt");
+  std::vector<CaseData*> casedata_v = ReadCaseData("../../data/case_data.txt", NULL);
 
   for (int i = 0; i < casedata_v.size(); i++)
   {

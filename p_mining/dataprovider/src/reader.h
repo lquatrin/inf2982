@@ -6,6 +6,6 @@
 #include <vector>
 #include <iostream>
 
-std::vector<CaseData*> ReadCaseData (std::string filename);
+std::vector<CaseData*> ReadCaseData (std::string filename, CaseDataCoeficients* cf);
 
 #endif // SILHOUETTE_H
