@@ -24,10 +24,19 @@ namespace CppWrapper {
 
     array<double, 2>^ DataProviderMDS ();
 
+    void SetCreditScoreCoeficientValue (double coef);
+    void SetRequestAmountCoeficientValue (double coef);
+    void SetNumberOfOffersCoeficientValue (double coef);
+    void SetLoanGoalCoeficientValue (double coef);
+
+    System::String^ GetCaseDataInfo (int id);
   private:
+
+  std::vector<CaseData*>* casedata_v;
 
 	MDSClass* pMDS;
   CaseData* pCD;
+  CaseDataCoeficients* pCF;
 	array<double, 2>^ dists;
   };
 

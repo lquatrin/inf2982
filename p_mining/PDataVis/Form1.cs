@@ -23,7 +23,6 @@ namespace ClassCppToCS_CS
       InitializeComponent();
 
       data_prov_wrapper = new CppWrapper.CppMDSWrapper();
-       
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -51,13 +50,13 @@ namespace ClassCppToCS_CS
         double mm_x = arrayMDS[i, 0]; //Math.Round(arrayMDS[i, 0], 5);
         double mm_y = arrayMDS[i, 1]; //Math.Round(arrayMDS[i, 1], 5);
 
-        Console.Out.WriteLine(i + " [" + mm_x + ", " + mm_y + "]");
+        //Console.Out.WriteLine(i + " [" + mm_x + ", " + mm_y + "]");
       
         chart.Series[0].Points.AddXY(mm_x, mm_y);
       
         chart.Series[0].Points[i].LegendToolTip = "loadedpoint";
         chart.Series[0].Points[i].Tag = (i + 1).ToString();
-        chart.Series[0].Points[i].ToolTip = "Case " + (i+1) + "\n X= " + arrayMDS[i, 0] + " Y = " + arrayMDS[i, 1];
+        chart.Series[0].Points[i].ToolTip = data_prov_wrapper.GetCaseDataInfo(i);// "Case " + (i+1) + "\n X= " + arrayMDS[i, 0] + " Y = " + arrayMDS[i, 1];
         chart.Series[0].Points[i].Color = Color.Blue;
       
         min_max_axis_limits[0] = Math.Min(min_max_axis_limits[0], mm_x);
@@ -81,6 +80,40 @@ namespace ClassCppToCS_CS
       
       chart.ChartAreas[0].AxisY.Minimum = min_max_axis_limits[2];
       chart.ChartAreas[0].AxisY.Maximum = min_max_axis_limits[3];
+    }
+
+    private void label1_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void trackBar1_Scroll(object sender, EventArgs e)
+    {
+      double norm_creditscore = (creditscoretrackbar.Value - creditscoretrackbar.Minimum) / (double)creditscoretrackbar.Maximum;
+      data_prov_wrapper.SetCreditScoreCoeficientValue(norm_creditscore);
+    }
+
+    private void trackBar1_Scroll_1(object sender, EventArgs e)
+    {
+      double norm_requestamount = (requestamounttrackbar.Value - requestamounttrackbar.Minimum) / (double)requestamounttrackbar.Maximum;
+      data_prov_wrapper.SetRequestAmountCoeficientValue(norm_requestamount);
+    }
+
+    private void numberofofferstrackbar_Scroll(object sender, EventArgs e)
+    {
+      double norm_numberofoffers = (numberofofferstrackbar.Value - numberofofferstrackbar.Minimum) / (double)numberofofferstrackbar.Maximum;
+      data_prov_wrapper.SetNumberOfOffersCoeficientValue(norm_numberofoffers);
+    }
+
+    private void trackBar1_Scroll_2(object sender, EventArgs e)
+    {
+      double norm_loangoal = (loangoaltrackbar.Value - loangoaltrackbar.Minimum) / (double)loangoaltrackbar.Maximum;
+      data_prov_wrapper.SetLoanGoalCoeficientValue(norm_loangoal);
+    }
+
+    private void label4_Click(object sender, EventArgs e)
+    {
+
     }
   };
 }

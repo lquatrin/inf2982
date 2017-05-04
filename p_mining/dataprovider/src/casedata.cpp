@@ -5,12 +5,30 @@
 #include <cmath>
 #include <iostream>
 
-double CaseData::CompositeDistance (CaseData* a, CaseData* b)
+#ifndef EPSILON_DISTANCE
+#define EPSILON_DISTANCE 0.000001
+#endif
+
+CaseDataCoeficients::CaseDataCoeficients()
 {
-  return 
-    abs((double)a->creditscore - (double)b->creditscore)
+  coef_creditscore = 1.0;
+  coef_requestamount = 1.0;
+  coef_numberofoffers = 1.0;
+  coef_loangoal = 1.0;
+}
+
+double CaseData::CompositeDistance(CaseData* a, CaseData* b, CaseDataCoeficients* cf)
+{
+  return
+    cf->coef_creditscore * abs((double)a->creditscore - (double)b->creditscore)
     +
-    abs((double)a->requestamount - (double)b->requestamount)
+    cf->coef_requestamount * abs((double)a->requestamount - (double)b->requestamount)
+    +
+    cf->coef_numberofoffers * (double)abs(a->numberofoffers - b->numberofoffers)
+    +
+    cf->coef_loangoal * (double)(a->loangoal == b->loangoal)
+    + 
+    EPSILON_DISTANCE
     ;
 }
 

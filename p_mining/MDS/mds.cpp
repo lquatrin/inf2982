@@ -32,7 +32,7 @@ MDSClass::MDSClass(double** pInt, int arrSize){
 
 	mdists = Mat(arrSize, arrSize, CV_32FC1, **pInt);
 
-	printf("matriz de distancias iniciais\n");
+	//printf("matriz de distancias iniciais\n");
 
 	for (int k = 0; k < mdists.rows; ++k)
 	{
@@ -40,7 +40,7 @@ MDSClass::MDSClass(double** pInt, int arrSize){
 		{
 			mdists.at<float>(k, c) = pInt[k][c];
 		}
-		printf("\n");
+		//printf("\n");
 	}
 }
 
@@ -51,7 +51,7 @@ std::vector<std::vector<double>> MDSClass::calcMDS(void){
 	Mat evecs;
 	Mat P = cmdscale(mdists, 2, &evals, &evecs);
 
-	printf("Result of MDS called:\n - Matrix P: [%d, %d]\n", P.rows, P.cols);
+	//printf("Result of MDS called:\n - Matrix P: [%d, %d]\n", P.rows, P.cols);
 	std::vector<std::vector<double>> vect;
 	for (int k = 0; k < P.rows; ++k)
 	{
@@ -119,15 +119,14 @@ void MDSClass::mdsTest()
 	Mat evecs;
 	Mat P = cmdscale(dist, 2, &evals, &evecs);
 
-	printf("Result of MDS:\n - Matrix P: [%d, %d]\n", P.rows, P.cols);
-
-	for (int k = 0; k < P.rows; ++k)
-	{
-		for (int c = 0; c < P.cols; ++c)
-		{
-			printf("%.2f ", P.at<float>(k, c));
-		}
-		printf("\n");
-	}
+	//printf("Result of MDS:\n - Matrix P: [%d, %d]\n", P.rows, P.cols);
+	//for (int k = 0; k < P.rows; ++k)
+	//{
+	//	for (int c = 0; c < P.cols; ++c)
+	//	{
+	//		printf("%.2f ", P.at<float>(k, c));
+	//	}
+	//	printf("\n");
+	//}
 
 }

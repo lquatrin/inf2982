@@ -3,11 +3,25 @@
 
 #include <string>
 
+class CaseDataCoeficients
+{
+public:
+  CaseDataCoeficients();
+
+  double coef_creditscore;
+  double coef_requestamount;
+  double coef_numberofoffers;
+  double coef_loangoal;
+
+private:
+
+};
+
 class CaseData
 {
 public:
-  static double CompositeDistance (CaseData* a, CaseData* b);
-  
+  static double CompositeDistance (CaseData* a, CaseData* b, CaseDataCoeficients* cf);
+
   CaseData ();
   CaseData (std::string casename,
             int success,
