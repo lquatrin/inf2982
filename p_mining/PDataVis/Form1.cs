@@ -44,8 +44,8 @@ namespace ClassCppToCS_CS
       min_max_axis_limits[3] = Double.MinValue;
       
       double expand_limtis = 1.2;
-        
-      for (int i = 0; i < 20; i++)
+
+      for (int i = 0; i < data_prov_wrapper.GetNumberOfCases(); i++)
       {
         double mm_x = arrayMDS[i, 0]; //Math.Round(arrayMDS[i, 0], 5);
         double mm_y = arrayMDS[i, 1]; //Math.Round(arrayMDS[i, 1], 5);

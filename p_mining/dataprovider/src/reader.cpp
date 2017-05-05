@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 
-std::vector<CaseData*> ReadCaseData (std::string filename, CaseDataCoeficients* cf)
+std::vector<CaseData*> ReadCaseData (std::string filename, CaseDataCoeficients* cf, int r_number_of_cases)
 {
   std::vector<CaseData*> casedata;
 
@@ -35,6 +35,10 @@ std::vector<CaseData*> ReadCaseData (std::string filename, CaseDataCoeficients* 
       loangoal
     );
     casedata.push_back(cd);
+
+    r_number_of_cases--;
+    if (r_number_of_cases == 0)
+      break;
   }
   casedatalist.close();
 

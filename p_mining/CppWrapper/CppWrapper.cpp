@@ -22,23 +22,20 @@ CppWrapper::CppMDSWrapper::CppMDSWrapper()
 
 array<double, 2>^ CppWrapper::CppMDSWrapper::DataProviderMDS ()
 {
-  casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF));
-
-  int number_of_cases = 20;
-
-  double **m = (double**)malloc(number_of_cases * sizeof(double*));
-  for (int i = 0; i < number_of_cases; i++){
-    m[i] = (double*)malloc(number_of_cases * sizeof(double));
-    for (int j = 0; j < number_of_cases; j++){
+  
+  double **m = (double**)malloc((int)casedata_v->size() * sizeof(double*));
+  for (int i = 0; i < (int)casedata_v->size(); i++){
+    m[i] = (double*)malloc((int)casedata_v->size() * sizeof(double));
+    for (int j = 0; j < (int)casedata_v->size(); j++){
       m[i][j] = CaseData::CompositeDistance(casedata_v->at(i), casedata_v->at(j), pCF);
     }
   }
 
-  pMDS = new MDSClass(m, number_of_cases);
+  pMDS = new MDSClass(m, (int)casedata_v->size());
   std::vector<std::vector<double>> vec = pMDS->calcMDS();
 
-  array<double, 2>^ dists = gcnew array<double, 2>(number_of_cases, 2);
-  for (int i = 0; i < number_of_cases; i++){
+  array<double, 2>^ dists = gcnew array<double, 2>((int)casedata_v->size(), 2);
+  for (int i = 0; i < (int)casedata_v->size(); i++){
     for (int j = 0; j < 2; j++){
       dists[i, j] = vec[i][j];
     }
@@ -69,6 +66,11 @@ void CppWrapper::CppMDSWrapper::SetLoanGoalCoeficientValue (double coef)
 {
   if (pCF)
     pCF->coef_loangoal = coef;
+}
+
+int CppWrapper::CppMDSWrapper::GetNumberOfCases ()
+{
+  return (int)casedata_v->size();
 }
 
 System::String^ CppWrapper::CppMDSWrapper::GetCaseDataInfo (int id)

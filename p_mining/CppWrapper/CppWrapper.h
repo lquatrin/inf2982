@@ -29,6 +29,7 @@ namespace CppWrapper {
     void SetNumberOfOffersCoeficientValue (double coef);
     void SetLoanGoalCoeficientValue (double coef);
 
+    int GetNumberOfCases ();
     System::String^ GetCaseDataInfo (int id);
   private:
 
