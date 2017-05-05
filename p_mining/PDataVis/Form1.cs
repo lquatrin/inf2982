@@ -30,13 +30,25 @@ namespace ClassCppToCS_CS
 
     }
 
+    private Color GetPointColor (int idcolor)
+    {
+      if (idcolor == 0)
+        return Color.Green;
+      else if (idcolor == 1)
+        return Color.Red;
+      else if (idcolor == 2)
+        return Color.Purple;
+      
+      return Color.Black;
+    }
+
     private void chart1_Click(object sender, EventArgs e)
     {
       double[,] arrayMDS = data_prov_wrapper.DataProviderMDS();
-       
+
       Chart chart = chart1;
       chart.Series[0].Points.Clear();
-        
+
       double[] min_max_axis_limits = new Double[4];
       min_max_axis_limits[0] = Double.MaxValue;
       min_max_axis_limits[1] = Double.MinValue;
@@ -52,12 +64,15 @@ namespace ClassCppToCS_CS
 
         //Console.Out.WriteLine(i + " [" + mm_x + ", " + mm_y + "]");
       
+        int series_id = data_prov_wrapper.GetCaseEndInfo(i);
+
+        //Console.Out.WriteLine(series_id);
+
         chart.Series[0].Points.AddXY(mm_x, mm_y);
-      
         chart.Series[0].Points[i].LegendToolTip = "loadedpoint";
         chart.Series[0].Points[i].Tag = (i + 1).ToString();
         chart.Series[0].Points[i].ToolTip = data_prov_wrapper.GetCaseDataInfo(i);// "Case " + (i+1) + "\n X= " + arrayMDS[i, 0] + " Y = " + arrayMDS[i, 1];
-        chart.Series[0].Points[i].Color = Color.Blue;
+        chart.Series[0].Points[i].Color = GetPointColor(series_id);
       
         min_max_axis_limits[0] = Math.Min(min_max_axis_limits[0], mm_x);
         min_max_axis_limits[1] = Math.Max(min_max_axis_limits[1], mm_x);

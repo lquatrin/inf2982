@@ -74,6 +74,14 @@ int CppWrapper::CppMDSWrapper::GetNumberOfCases ()
   return (int)casedata_v->size();
 }
 
+// 0 - Success / A_Pending
+// 1 - Denied
+// 2 - Cancelled
+int CppWrapper::CppMDSWrapper::GetCaseEndInfo (int id)
+{
+  return casedata_v->at(id)->success;
+}
+
 System::String^ CppWrapper::CppMDSWrapper::GetCaseDataInfo (int id)
 {
   std::string str = casedata_v->at(id)->casename;

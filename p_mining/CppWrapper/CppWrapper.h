@@ -30,6 +30,10 @@ namespace CppWrapper {
     void SetLoanGoalCoeficientValue (double coef);
 
     int GetNumberOfCases ();
+    // 0 - Success / A_Pending
+    // 1 - Denied
+    // 2 - Cancelled
+    int GetCaseEndInfo (int id);
     System::String^ GetCaseDataInfo (int id);
   private:
 

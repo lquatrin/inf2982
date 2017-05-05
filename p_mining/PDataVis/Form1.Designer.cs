@@ -70,6 +70,7 @@
       series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
       series3.Legend = "Legend1";
       series3.Name = "Series1";
+      series3.IsVisibleInLegend = false;
       this.chart1.Series.Add(series3);
       this.chart1.Size = new System.Drawing.Size(579, 353);
       this.chart1.TabIndex = 0;
