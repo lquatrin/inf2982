@@ -56,6 +56,11 @@ namespace ClassCppToCS_CS
       for(int v = 0; v < chart.Series.Count; v++)
         chart.Series[v].Points.Clear();
 
+      chart.Series[0].Enabled = tgl_vis_peding_series.Checked;
+      chart.Series[1].Enabled = tgl_vis_denied_series.Checked;
+      chart.Series[2].Enabled = tgl_vis_cancelled_series.Checked;
+      chart.Series[3].Enabled = tgl_vis_undefined_series.Checked;
+
       hst_cases_to_points.Clear();
 
       double[] min_max_axis_limits = new Double[4];
@@ -115,29 +120,54 @@ namespace ClassCppToCS_CS
     {
       double norm_creditscore = (creditscoretrackbar.Value - creditscoretrackbar.Minimum) / (double)creditscoretrackbar.Maximum;
       data_prov_wrapper.SetCreditScoreCoeficientValue(norm_creditscore);
+      tooltiptrackbar.SetToolTip(creditscoretrackbar, norm_creditscore.ToString());
     }
 
     private void trackBar1_Scroll_1(object sender, EventArgs e)
     {
       double norm_requestamount = (requestamounttrackbar.Value - requestamounttrackbar.Minimum) / (double)requestamounttrackbar.Maximum;
       data_prov_wrapper.SetRequestAmountCoeficientValue(norm_requestamount);
+      tooltiptrackbar.SetToolTip(requestamounttrackbar, norm_requestamount.ToString());
     }
 
     private void numberofofferstrackbar_Scroll(object sender, EventArgs e)
     {
       double norm_numberofoffers = (numberofofferstrackbar.Value - numberofofferstrackbar.Minimum) / (double)numberofofferstrackbar.Maximum;
       data_prov_wrapper.SetNumberOfOffersCoeficientValue(norm_numberofoffers);
+      tooltiptrackbar.SetToolTip(numberofofferstrackbar, norm_numberofoffers.ToString());
     }
 
     private void trackBar1_Scroll_2(object sender, EventArgs e)
     {
       double norm_loangoal = (loangoaltrackbar.Value - loangoaltrackbar.Minimum) / (double)loangoaltrackbar.Maximum;
       data_prov_wrapper.SetLoanGoalCoeficientValue(norm_loangoal);
+      tooltiptrackbar.SetToolTip(loangoaltrackbar, norm_loangoal.ToString());
     }
 
     private void label4_Click(object sender, EventArgs e)
     {
 
+    }
+
+    private void tgl_vis_undefined_series_CheckedChanged(object sender, EventArgs e)
+    {
+      chart1.Series[3].Enabled = tgl_vis_undefined_series.Checked;
+    }
+
+    private void tgl_vis_cancelled_series_CheckedChanged(object sender, EventArgs e)
+    {
+      chart1.Series[2].Enabled = tgl_vis_cancelled_series.Checked;
+    }
+
+    private void tgl_vis_denied_series_CheckedChanged(object sender, EventArgs e)
+    {
+      chart1.Series[1].Enabled = tgl_vis_denied_series.Checked;
+
+    }
+
+    private void tgl_vis_peding_series_CheckedChanged(object sender, EventArgs e)
+    {
+      chart1.Series[0].Enabled = tgl_vis_peding_series.Checked;
     }
   };
 }
