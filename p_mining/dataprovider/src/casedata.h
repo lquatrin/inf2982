@@ -27,7 +27,7 @@ public:
 
   CaseData ();
   CaseData (std::string casename,
-            int success,
+            int endsit,
             float requestamount,
             int creditscore,
             int variant,
@@ -38,7 +38,7 @@ public:
   ~CaseData ();
 
   std::string casename;
-  int success;
+  int endsituation;
   float requestamount;
   int creditscore;
   int variant;

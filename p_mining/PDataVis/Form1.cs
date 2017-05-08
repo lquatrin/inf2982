@@ -32,12 +32,12 @@ namespace ClassCppToCS_CS
 
     private Color GetPointColor (int idcolor)
     {
-      if (idcolor == 0)
+      if (idcolor == 1)
         return Color.Green;
-      else if (idcolor == 1)
-        return Color.Red;
       else if (idcolor == 2)
-        return Color.Purple;
+        return Color.Red;
+      else if (idcolor == 3)
+        return Color.Blue;
       
       return Color.Black;
     }

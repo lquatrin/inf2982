@@ -22,7 +22,7 @@ CppWrapper::CppMDSWrapper::CppMDSWrapper()
 
 array<double, 2>^ CppWrapper::CppMDSWrapper::DataProviderMDS ()
 {
-  casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF, 20));
+  casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF, 100));
   
   double **m = (double**)malloc((int)casedata_v->size() * sizeof(double*));
   for (int i = 0; i < (int)casedata_v->size(); i++){
@@ -79,7 +79,7 @@ int CppWrapper::CppMDSWrapper::GetNumberOfCases ()
 // 2 - Cancelled
 int CppWrapper::CppMDSWrapper::GetCaseEndInfo (int id)
 {
-  return casedata_v->at(id)->success;
+  return casedata_v->at(id)->endsituation;
 }
 
 System::String^ CppWrapper::CppMDSWrapper::GetCaseDataInfo (int id)

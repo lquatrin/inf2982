@@ -53,7 +53,7 @@ CaseData::CaseData(std::string cn,
                    std::string lgoal)
 {
   casename = cn;
-  success = scs;
+  endsituation = scs;
   requestamount = reqam;
   creditscore = cdtscr;
   variant = var;
