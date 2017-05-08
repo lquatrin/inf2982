@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Drawing2D;
+using System.Collections;
 
 using CppWrapper;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -18,11 +19,16 @@ namespace ClassCppToCS_CS
   public partial class Form1 : Form
   {
     public CppWrapper.CppMDSWrapper data_prov_wrapper;
+
+    Hashtable hst_cases_to_points = new Hashtable();
+
     public Form1()
     {
       InitializeComponent();
 
       data_prov_wrapper = new CppWrapper.CppMDSWrapper();
+
+      hst_cases_to_points = new Hashtable();
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -32,11 +38,11 @@ namespace ClassCppToCS_CS
 
     private Color GetPointColor (int idcolor)
     {
-      if (idcolor == 1)
+      if (idcolor == 0)
         return Color.Green;
-      else if (idcolor == 2)
+      else if (idcolor == 1)
         return Color.Red;
-      else if (idcolor == 3)
+      else if (idcolor == 2)
         return Color.Blue;
       
       return Color.Black;
@@ -47,7 +53,10 @@ namespace ClassCppToCS_CS
       double[,] arrayMDS = data_prov_wrapper.DataProviderMDS();
 
       Chart chart = chart1;
-      chart.Series[0].Points.Clear();
+      for(int v = 0; v < chart.Series.Count; v++)
+        chart.Series[v].Points.Clear();
+
+      hst_cases_to_points.Clear();
 
       double[] min_max_axis_limits = new Double[4];
       min_max_axis_limits[0] = Double.MaxValue;
@@ -66,13 +75,13 @@ namespace ClassCppToCS_CS
       
         int series_id = data_prov_wrapper.GetCaseEndInfo(i);
 
-        //Console.Out.WriteLine(series_id);
+        hst_cases_to_points.Add(i, chart.Series[series_id].Points.Count);
+        int id_point = chart.Series[series_id].Points.Count;
 
-        chart.Series[0].Points.AddXY(mm_x, mm_y);
-        chart.Series[0].Points[i].LegendToolTip = "loadedpoint";
-        chart.Series[0].Points[i].Tag = (i + 1).ToString();
-        chart.Series[0].Points[i].ToolTip = data_prov_wrapper.GetCaseDataInfo(i);// "Case " + (i+1) + "\n X= " + arrayMDS[i, 0] + " Y = " + arrayMDS[i, 1];
-        chart.Series[0].Points[i].Color = GetPointColor(series_id);
+        chart.Series[series_id].Points.AddXY(mm_x, mm_y);
+        chart.Series[series_id].Points[id_point].LegendToolTip = "loadedpoint";
+        chart.Series[series_id].Points[id_point].Tag = (i + 1).ToString();
+        chart.Series[series_id].Points[id_point].ToolTip = data_prov_wrapper.GetCaseDataInfo(i);
       
         min_max_axis_limits[0] = Math.Min(min_max_axis_limits[0], mm_x);
         min_max_axis_limits[1] = Math.Max(min_max_axis_limits[1], mm_x);

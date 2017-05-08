@@ -28,9 +28,12 @@
     /// </summary>
     private void InitializeComponent()
     {
-      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-      System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+      System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+      System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
       System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
       this.openCFGDialog = new System.Windows.Forms.OpenFileDialog();
       this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -60,18 +63,44 @@
       // chart1
       // 
       this.chart1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-      chartArea3.Name = "ChartArea1";
-      this.chart1.ChartAreas.Add(chartArea3);
-      legend3.Name = "Legend1";
-      this.chart1.Legends.Add(legend3);
+      chartArea1.Name = "ChartArea1";
+      this.chart1.ChartAreas.Add(chartArea1);
+      legend1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
+      legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+      legend1.Name = "Legend1";
+      this.chart1.Legends.Add(legend1);
       this.chart1.Location = new System.Drawing.Point(12, 12);
       this.chart1.Name = "chart1";
+      series1.ChartArea = "ChartArea1";
+      series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series1.Legend = "Legend1";
+      series1.MarkerColor = System.Drawing.Color.Green;
+      series1.MarkerSize = 11;
+      series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
+      series1.Name = "A_Pending";
+      series2.ChartArea = "ChartArea1";
+      series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series2.Legend = "Legend1";
+      series2.MarkerColor = System.Drawing.Color.Red;
+      series2.MarkerSize = 10;
+      series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
+      series2.Name = "A_Denied";
       series3.ChartArea = "ChartArea1";
       series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
       series3.Legend = "Legend1";
-      series3.Name = "Series1";
-      series3.IsVisibleInLegend = false;
+      series3.MarkerColor = System.Drawing.Color.Blue;
+      series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+      series3.Name = "A_Cancelled";
+      series4.ChartArea = "ChartArea1";
+      series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series4.Legend = "Legend1";
+      series4.MarkerColor = System.Drawing.Color.Black;
+      series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+      series4.Name = "Undefined";
+      this.chart1.Series.Add(series1);
+      this.chart1.Series.Add(series2);
       this.chart1.Series.Add(series3);
+      this.chart1.Series.Add(series4);
       this.chart1.Size = new System.Drawing.Size(579, 353);
       this.chart1.TabIndex = 0;
       this.chart1.Text = "chart1";

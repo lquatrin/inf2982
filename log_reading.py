@@ -16,7 +16,7 @@ with open("data/app_log_cap.csv", "r") as f:
       
       if dct_casesinfo.get(line[0]) == None:
         dct_casesinfo[line[0]] = dict()
-        dct_casesinfo[line[0]]["EndPointSituation"] = 0
+        dct_casesinfo[line[0]]["EndPointSituation"] = 3
         dct_casesinfo[line[0]]["CreditScore"] = 0
         dct_casesinfo[line[0]]["NumberOfOffers"] = 0
         dct_casesinfo[line[0]]["LoanGoal"] = ''
@@ -24,15 +24,15 @@ with open("data/app_log_cap.csv", "r") as f:
 
       # "Success"
       # Loan Success
-      if line[1].lower() == 'A_Pending'.lower() and dct_casesinfo[line[0]]["EndPointSituation"] != 1:
-        assert(dct_casesinfo[line[0]]["EndPointSituation"] == 0)
+      if line[1].lower() == 'A_Pending'.lower() and dct_casesinfo[line[0]]["EndPointSituation"] != 0:
+        assert(dct_casesinfo[line[0]]["EndPointSituation"] == 3)
+        dct_casesinfo[line[0]]["EndPointSituation"] = 0
+      if line[1].lower() == 'A_Denied'.lower() and dct_casesinfo[line[0]]["EndPointSituation"] != 1:
+        assert(dct_casesinfo[line[0]]["EndPointSituation"] == 3)
         dct_casesinfo[line[0]]["EndPointSituation"] = 1
-      if line[1].lower() == 'A_Denied'.lower() and dct_casesinfo[line[0]]["EndPointSituation"] != 2:
-        assert(dct_casesinfo[line[0]]["EndPointSituation"] == 0)
+      if line[1].lower() == 'A_Cancelled'.lower() and dct_casesinfo[line[0]]["EndPointSituation"] != 2:
+        assert(dct_casesinfo[line[0]]["EndPointSituation"] == 3)
         dct_casesinfo[line[0]]["EndPointSituation"] = 2
-      if line[1].lower() == 'A_Cancelled'.lower() and dct_casesinfo[line[0]]["EndPointSituation"] != 3:
-        assert(dct_casesinfo[line[0]]["EndPointSituation"] == 0)
-        dct_casesinfo[line[0]]["EndPointSituation"] = 3
 
 
       # "RequestAmount"
