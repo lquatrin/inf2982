@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Drawing2D;
 using System.Collections;
+using System.Windows.Input;
 
 using CppWrapper;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -152,12 +153,16 @@ namespace ClassCppToCS_CS
         {
           foreach (DataPoint dp in chart1.Series[ith_series].Points)
           {
-            if (!selectedPoints.Contains(dp))
+            int x = (int)ax.ValueToPixelPosition(dp.XValue);
+            int y = (int)ay.ValueToPixelPosition(dp.YValues[0]);
+            
+            if (rect.Contains(new Point(x, y)))
             {
-              int x = (int)ax.ValueToPixelPosition(dp.XValue);
-              int y = (int)ay.ValueToPixelPosition(dp.YValues[0]);
-              
-              if (rect.Contains(new Point(x, y)))
+              // CTRL + ALT: Remove point
+              if (selectedPoints.Contains(dp) && ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Alt))
+                selectedPoints.Remove(dp);
+              // Else: Add Point
+              else if (!selectedPoints.Contains(dp))
                 selectedPoints.Add(dp);
             }
           }
