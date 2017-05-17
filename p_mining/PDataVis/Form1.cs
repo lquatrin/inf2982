@@ -212,7 +212,7 @@ namespace ClassCppToCS_CS
 
         int series_id = data_prov_wrapper.GetCaseEndInfo(i);
 
-        hst_cases_to_points.Add(i, chart.Series[series_id].Points.Count);
+        hst_cases_to_points.Add(i.ToString(), chart.Series[series_id].Points.Count);
         int id_point = chart.Series[series_id].Points.Count;
 
         chart.Series[series_id].Points.AddXY(mm_x, mm_y);
@@ -241,6 +241,41 @@ namespace ClassCppToCS_CS
 
       chart.ChartAreas[0].AxisY.Minimum = min_max_axis_limits[2];
       chart.ChartAreas[0].AxisY.Maximum = min_max_axis_limits[3];
+
+      //Update selectedPoints
+      ///////////////////////////////////////////////////////
+      if (selectedPoints.Count > 0)
+      {
+        DataPoint[] cpy_selectedPoints = new DataPoint[selectedPoints.Count];
+        selectedPoints.CopyTo(cpy_selectedPoints);
+        selectedPoints.Clear();
+       
+        for (int v = 0; v < cpy_selectedPoints.Length; v++)
+        {
+          DataPoint dp = cpy_selectedPoints[v];
+
+          // Get Global Point ID
+          // [1, size] to [0, size-1]
+          int point_id = int.Parse(dp.Tag.ToString()) - 1;
+
+          // Get Series ID
+          int series_id = data_prov_wrapper.GetCaseEndInfo(point_id);
+
+          // Add DataPoint using hashtable
+          int hash_point_series_id = (int)hst_cases_to_points[point_id.ToString()];
+          selectedPoints.Add(chart.Series[series_id].Points[hash_point_series_id]);
+        }
+
+        // Update Marker Colors
+        for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
+        {
+          foreach (DataPoint dp in chart1.Series[ith_series].Points)
+          {
+            dp.MarkerColor = selectedPoints.Contains(dp) ? Color.DarkOrange : GetPointColor(GetCaseEndInfo(dp));
+          }
+        }
+      }
+      ///////////////////////////////////////////////////////
     }
 
     private void exportSelectedDataPointsToolStripMenuItem_Click(object sender, EventArgs e)
