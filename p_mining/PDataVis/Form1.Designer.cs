@@ -29,12 +29,12 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-      System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-      System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+      System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+      System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
       this.openCFGDialog = new System.Windows.Forms.OpenFileDialog();
       this.tgl_vis_peding_series = new System.Windows.Forms.CheckBox();
@@ -53,11 +53,16 @@
       this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
       this.label6 = new System.Windows.Forms.Label();
       this.tooltiptrackbar = new System.Windows.Forms.ToolTip(this.components);
+      this.button1 = new System.Windows.Forms.Button();
+      this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+      this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.exportSelectedDataPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.creditscoretrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.requestamounttrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.numberofofferstrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.loangoaltrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+      this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // openFileDialog1
@@ -75,7 +80,7 @@
       this.tgl_vis_peding_series.AutoSize = true;
       this.tgl_vis_peding_series.Checked = true;
       this.tgl_vis_peding_series.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.tgl_vis_peding_series.Location = new System.Drawing.Point(12, 25);
+      this.tgl_vis_peding_series.Location = new System.Drawing.Point(12, 48);
       this.tgl_vis_peding_series.Name = "tgl_vis_peding_series";
       this.tgl_vis_peding_series.Size = new System.Drawing.Size(78, 17);
       this.tgl_vis_peding_series.TabIndex = 9;
@@ -88,7 +93,7 @@
       this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label5.AutoSize = true;
-      this.label5.Location = new System.Drawing.Point(12, 9);
+      this.label5.Location = new System.Drawing.Point(12, 29);
       this.label5.Name = "label5";
       this.label5.Size = new System.Drawing.Size(69, 13);
       this.label5.TabIndex = 10;
@@ -101,7 +106,7 @@
       this.tgl_vis_denied_series.AutoSize = true;
       this.tgl_vis_denied_series.Checked = true;
       this.tgl_vis_denied_series.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.tgl_vis_denied_series.Location = new System.Drawing.Point(96, 25);
+      this.tgl_vis_denied_series.Location = new System.Drawing.Point(96, 48);
       this.tgl_vis_denied_series.Name = "tgl_vis_denied_series";
       this.tgl_vis_denied_series.Size = new System.Drawing.Size(73, 17);
       this.tgl_vis_denied_series.TabIndex = 11;
@@ -116,7 +121,7 @@
       this.tgl_vis_cancelled_series.AutoSize = true;
       this.tgl_vis_cancelled_series.Checked = true;
       this.tgl_vis_cancelled_series.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.tgl_vis_cancelled_series.Location = new System.Drawing.Point(175, 25);
+      this.tgl_vis_cancelled_series.Location = new System.Drawing.Point(175, 48);
       this.tgl_vis_cancelled_series.Name = "tgl_vis_cancelled_series";
       this.tgl_vis_cancelled_series.Size = new System.Drawing.Size(86, 17);
       this.tgl_vis_cancelled_series.TabIndex = 12;
@@ -131,7 +136,7 @@
       this.tgl_vis_undefined_series.AutoSize = true;
       this.tgl_vis_undefined_series.Checked = true;
       this.tgl_vis_undefined_series.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.tgl_vis_undefined_series.Location = new System.Drawing.Point(267, 25);
+      this.tgl_vis_undefined_series.Location = new System.Drawing.Point(267, 48);
       this.tgl_vis_undefined_series.Name = "tgl_vis_undefined_series";
       this.tgl_vis_undefined_series.Size = new System.Drawing.Size(75, 17);
       this.tgl_vis_undefined_series.TabIndex = 13;
@@ -142,7 +147,7 @@
       // creditscoretrackbar
       // 
       this.creditscoretrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.creditscoretrackbar.Location = new System.Drawing.Point(816, 48);
+      this.creditscoretrackbar.Location = new System.Drawing.Point(816, 71);
       this.creditscoretrackbar.Name = "creditscoretrackbar";
       this.creditscoretrackbar.Size = new System.Drawing.Size(156, 45);
       this.creditscoretrackbar.TabIndex = 1;
@@ -154,7 +159,7 @@
       this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(727, 99);
+      this.label2.Location = new System.Drawing.Point(727, 122);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(83, 13);
       this.label2.TabIndex = 3;
@@ -163,7 +168,7 @@
       // requestamounttrackbar
       // 
       this.requestamounttrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.requestamounttrackbar.Location = new System.Drawing.Point(816, 99);
+      this.requestamounttrackbar.Location = new System.Drawing.Point(816, 122);
       this.requestamounttrackbar.Name = "requestamounttrackbar";
       this.requestamounttrackbar.Size = new System.Drawing.Size(156, 45);
       this.requestamounttrackbar.TabIndex = 4;
@@ -175,7 +180,7 @@
       this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(727, 150);
+      this.label3.Location = new System.Drawing.Point(727, 173);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(83, 13);
       this.label3.TabIndex = 5;
@@ -184,7 +189,7 @@
       // numberofofferstrackbar
       // 
       this.numberofofferstrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.numberofofferstrackbar.Location = new System.Drawing.Point(816, 150);
+      this.numberofofferstrackbar.Location = new System.Drawing.Point(816, 173);
       this.numberofofferstrackbar.Name = "numberofofferstrackbar";
       this.numberofofferstrackbar.Size = new System.Drawing.Size(156, 45);
       this.numberofofferstrackbar.TabIndex = 6;
@@ -196,7 +201,7 @@
       this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(727, 201);
+      this.label4.Location = new System.Drawing.Point(727, 224);
       this.label4.Name = "label4";
       this.label4.Size = new System.Drawing.Size(53, 13);
       this.label4.TabIndex = 7;
@@ -206,7 +211,7 @@
       // loangoaltrackbar
       // 
       this.loangoaltrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.loangoaltrackbar.Location = new System.Drawing.Point(816, 201);
+      this.loangoaltrackbar.Location = new System.Drawing.Point(816, 224);
       this.loangoaltrackbar.Name = "loangoaltrackbar";
       this.loangoaltrackbar.Size = new System.Drawing.Size(156, 45);
       this.loangoaltrackbar.TabIndex = 8;
@@ -218,7 +223,7 @@
       this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(727, 48);
+      this.label1.Location = new System.Drawing.Point(727, 71);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(62, 13);
       this.label1.TabIndex = 2;
@@ -231,65 +236,104 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.chart1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-      chartArea3.Name = "ChartArea1";
-      this.chart1.ChartAreas.Add(chartArea3);
-      legend3.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
-      legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-      legend3.Name = "Legend1";
-      this.chart1.Legends.Add(legend3);
-      this.chart1.Location = new System.Drawing.Point(12, 48);
+      chartArea5.Name = "ChartArea1";
+      this.chart1.ChartAreas.Add(chartArea5);
+      legend5.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
+      legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+      legend5.Name = "Legend1";
+      this.chart1.Legends.Add(legend5);
+      this.chart1.Location = new System.Drawing.Point(12, 71);
       this.chart1.Name = "chart1";
-      series9.ChartArea = "ChartArea1";
-      series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series9.Legend = "Legend1";
-      series9.MarkerColor = System.Drawing.Color.Green;
-      series9.MarkerSize = 11;
-      series9.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
-      series9.Name = "A_Pending";
-      series10.ChartArea = "ChartArea1";
-      series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series10.Legend = "Legend1";
-      series10.MarkerColor = System.Drawing.Color.Red;
-      series10.MarkerSize = 10;
-      series10.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
-      series10.Name = "A_Denied";
-      series11.ChartArea = "ChartArea1";
-      series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series11.Legend = "Legend1";
-      series11.MarkerColor = System.Drawing.Color.Blue;
-      series11.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-      series11.Name = "A_Cancelled";
-      series12.ChartArea = "ChartArea1";
-      series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series12.Legend = "Legend1";
-      series12.MarkerColor = System.Drawing.Color.Black;
-      series12.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-      series12.Name = "Undefined";
-      this.chart1.Series.Add(series9);
-      this.chart1.Series.Add(series10);
-      this.chart1.Series.Add(series11);
-      this.chart1.Series.Add(series12);
-      this.chart1.Size = new System.Drawing.Size(709, 502);
+      series17.ChartArea = "ChartArea1";
+      series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series17.Legend = "Legend1";
+      series17.MarkerColor = System.Drawing.Color.Green;
+      series17.MarkerSize = 11;
+      series17.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
+      series17.Name = "A_Pending";
+      series18.ChartArea = "ChartArea1";
+      series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series18.Legend = "Legend1";
+      series18.MarkerColor = System.Drawing.Color.Red;
+      series18.MarkerSize = 10;
+      series18.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
+      series18.Name = "A_Denied";
+      series19.ChartArea = "ChartArea1";
+      series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series19.Legend = "Legend1";
+      series19.MarkerColor = System.Drawing.Color.Blue;
+      series19.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+      series19.Name = "A_Cancelled";
+      series20.ChartArea = "ChartArea1";
+      series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series20.Legend = "Legend1";
+      series20.MarkerColor = System.Drawing.Color.Black;
+      series20.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+      series20.Name = "Undefined";
+      this.chart1.Series.Add(series17);
+      this.chart1.Series.Add(series18);
+      this.chart1.Series.Add(series19);
+      this.chart1.Series.Add(series20);
+      this.chart1.Size = new System.Drawing.Size(709, 488);
       this.chart1.TabIndex = 0;
       this.chart1.Text = "chart1";
-      this.chart1.Click += new System.EventHandler(this.chart1_Click);
+      this.chart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart_MouseDown);
+      this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart_MouseMove);
+      this.chart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart_MouseUp);
       // 
       // label6
       // 
       this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(727, 9);
+      this.label6.Location = new System.Drawing.Point(727, 32);
       this.label6.Name = "label6";
       this.label6.Size = new System.Drawing.Size(110, 13);
       this.label6.TabIndex = 14;
       this.label6.Text = "Weights for each field";
       // 
+      // button1
+      // 
+      this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.button1.Location = new System.Drawing.Point(730, 275);
+      this.button1.Name = "button1";
+      this.button1.Size = new System.Drawing.Size(242, 23);
+      this.button1.TabIndex = 15;
+      this.button1.Text = "Evaluate Data Points";
+      this.button1.UseVisualStyleBackColor = true;
+      this.button1.Click += new System.EventHandler(this.button1_Click);
+      // 
+      // menuStrip1
+      // 
+      this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+      this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+      this.menuStrip1.Name = "menuStrip1";
+      this.menuStrip1.Size = new System.Drawing.Size(984, 24);
+      this.menuStrip1.TabIndex = 16;
+      this.menuStrip1.Text = "menuStrip1";
+      // 
+      // fileToolStripMenuItem
+      // 
+      this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportSelectedDataPointsToolStripMenuItem});
+      this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+      this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+      this.fileToolStripMenuItem.Text = "File";
+      // 
+      // exportSelectedDataPointsToolStripMenuItem
+      // 
+      this.exportSelectedDataPointsToolStripMenuItem.Name = "exportSelectedDataPointsToolStripMenuItem";
+      this.exportSelectedDataPointsToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+      this.exportSelectedDataPointsToolStripMenuItem.Text = "Export Selected DataPoints";
+      this.exportSelectedDataPointsToolStripMenuItem.Click += new System.EventHandler(this.exportSelectedDataPointsToolStripMenuItem_Click);
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(984, 562);
+      this.ClientSize = new System.Drawing.Size(984, 571);
+      this.Controls.Add(this.button1);
       this.Controls.Add(this.label6);
       this.Controls.Add(this.tgl_vis_undefined_series);
       this.Controls.Add(this.tgl_vis_cancelled_series);
@@ -305,7 +349,8 @@
       this.Controls.Add(this.label1);
       this.Controls.Add(this.creditscoretrackbar);
       this.Controls.Add(this.chart1);
-      this.MinimumSize = new System.Drawing.Size(620, 300);
+      this.Controls.Add(this.menuStrip1);
+      this.MinimumSize = new System.Drawing.Size(620, 350);
       this.Name = "Form1";
       this.Text = "Property Projection Analysis";
       this.Load += new System.EventHandler(this.Form1_Load);
@@ -314,6 +359,8 @@
       ((System.ComponentModel.ISupportInitialize)(this.numberofofferstrackbar)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.loangoaltrackbar)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+      this.menuStrip1.ResumeLayout(false);
+      this.menuStrip1.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -340,6 +387,10 @@
     private System.Windows.Forms.Label label6;
     private System.Windows.Forms.TrackBar creditscoretrackbar;
     private System.Windows.Forms.ToolTip tooltiptrackbar;
+    private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.MenuStrip menuStrip1;
+    private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem exportSelectedDataPointsToolStripMenuItem;
   }
 }
 

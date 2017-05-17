@@ -20,7 +20,11 @@ namespace ClassCppToCS_CS
   {
     public CppWrapper.CppMDSWrapper data_prov_wrapper;
 
+    // ith case -> ith point in a specific series
     Hashtable hst_cases_to_points = new Hashtable();
+
+    Point mdown = Point.Empty;
+    List<DataPoint> selectedPoints = new List<DataPoint>();
 
     public Form1()
     {
@@ -46,69 +50,6 @@ namespace ClassCppToCS_CS
         return Color.Blue;
       
       return Color.Black;
-    }
-
-    private void chart1_Click(object sender, EventArgs e)
-    {
-      double[,] arrayMDS = data_prov_wrapper.DataProviderMDS();
-
-      Chart chart = chart1;
-      for(int v = 0; v < chart.Series.Count; v++)
-        chart.Series[v].Points.Clear();
-
-      chart.Series[0].Enabled = tgl_vis_peding_series.Checked;
-      chart.Series[1].Enabled = tgl_vis_denied_series.Checked;
-      chart.Series[2].Enabled = tgl_vis_cancelled_series.Checked;
-      chart.Series[3].Enabled = tgl_vis_undefined_series.Checked;
-
-      hst_cases_to_points.Clear();
-
-      double[] min_max_axis_limits = new Double[4];
-      min_max_axis_limits[0] = Double.MaxValue;
-      min_max_axis_limits[1] = Double.MinValue;
-      min_max_axis_limits[2] = Double.MaxValue;
-      min_max_axis_limits[3] = Double.MinValue;
-      
-      double expand_limtis = 1.2;
-
-      for (int i = 0; i < data_prov_wrapper.GetNumberOfCases(); i++)
-      {
-        double mm_x = arrayMDS[i, 0]; //Math.Round(arrayMDS[i, 0], 5);
-        double mm_y = arrayMDS[i, 1]; //Math.Round(arrayMDS[i, 1], 5);
-
-        //Console.Out.WriteLine(i + " [" + mm_x + ", " + mm_y + "]");
-      
-        int series_id = data_prov_wrapper.GetCaseEndInfo(i);
-
-        hst_cases_to_points.Add(i, chart.Series[series_id].Points.Count);
-        int id_point = chart.Series[series_id].Points.Count;
-
-        chart.Series[series_id].Points.AddXY(mm_x, mm_y);
-        chart.Series[series_id].Points[id_point].LegendToolTip = "loadedpoint";
-        chart.Series[series_id].Points[id_point].Tag = (i + 1).ToString();
-        chart.Series[series_id].Points[id_point].ToolTip = data_prov_wrapper.GetCaseDataInfo(i);
-      
-        min_max_axis_limits[0] = Math.Min(min_max_axis_limits[0], mm_x);
-        min_max_axis_limits[1] = Math.Max(min_max_axis_limits[1], mm_x);
-      
-        min_max_axis_limits[2] = Math.Min(min_max_axis_limits[2], mm_y);
-        min_max_axis_limits[3] = Math.Max(min_max_axis_limits[3], mm_y);
-      }
-
-      chart.ChartAreas[0].AxisY.LabelStyle.Format = "{0:0.00}";
-      chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.00}";
-        
-      min_max_axis_limits[0] *= expand_limtis;
-      min_max_axis_limits[1] *= expand_limtis;
-      
-      min_max_axis_limits[2] *= expand_limtis;
-      min_max_axis_limits[3] *= expand_limtis;
-      
-      chart.ChartAreas[0].AxisX.Minimum = min_max_axis_limits[0];
-      chart.ChartAreas[0].AxisX.Maximum = min_max_axis_limits[1];
-      
-      chart.ChartAreas[0].AxisY.Minimum = min_max_axis_limits[2];
-      chart.ChartAreas[0].AxisY.Maximum = min_max_axis_limits[3];
     }
 
     private void label1_Click(object sender, EventArgs e)
@@ -168,6 +109,165 @@ namespace ClassCppToCS_CS
     private void tgl_vis_peding_series_CheckedChanged(object sender, EventArgs e)
     {
       chart1.Series[0].Enabled = tgl_vis_peding_series.Checked;
+    }
+
+    //http://stackoverflow.com/questions/40056264/selecting-specific-values-on-a-chart
+    //////////////////////////////////////////////////////////////////////////////////
+    private void chart_MouseDown (object sender, MouseEventArgs e)
+    {
+      mdown = e.Location;
+      if (!ModifierKeys.HasFlag(Keys.Control))
+      {
+        selectedPoints = new List<DataPoint>();
+      }
+    }
+
+    private void chart_MouseMove (object sender, MouseEventArgs e)
+    {
+      if (e.Button == System.Windows.Forms.MouseButtons.Left)
+      {
+        chart1.Refresh();
+        using (Graphics g = chart1.CreateGraphics())
+          g.DrawRectangle(Pens.Red, GetRectangle(mdown, e.Location));
+      }
+    }
+
+    private void chart_MouseUp (object sender, MouseEventArgs e)
+    {
+      Axis ax = chart1.ChartAreas[0].AxisX;
+      Axis ay = chart1.ChartAreas[0].AxisY;
+      Rectangle rect = GetRectangle(mdown, e.Location);
+
+      for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
+      {
+        // select only if the series is enabled
+        if (chart1.Series[ith_series].Enabled)
+        {
+          foreach (DataPoint dp in chart1.Series[ith_series].Points)
+          {
+            if (!selectedPoints.Contains(dp))
+            {
+              int x = (int)ax.ValueToPixelPosition(dp.XValue);
+              int y = (int)ay.ValueToPixelPosition(dp.YValues[0]);
+              
+              if (rect.Contains(new Point(x, y)))
+                selectedPoints.Add(dp);
+            }
+          }
+
+          // optionally color the found datapoints:
+          foreach (DataPoint dp in chart1.Series[ith_series].Points)
+          {
+            dp.MarkerColor = selectedPoints.Contains(dp) ? Color.DarkOrange : GetPointColor(GetCaseEndInfo(dp));
+          }
+        }
+      }
+    }
+    
+    static public int GetDataPointID (DataPoint dp)
+    {
+      return int.Parse(dp.Tag.ToString()) - 1;
+    }
+
+    static public Rectangle GetRectangle(Point p1, Point p2)
+    {
+      return new Rectangle(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y),
+          Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y));
+    }
+    public int GetCaseEndInfo (DataPoint dp)
+    {
+      return data_prov_wrapper.GetCaseEndInfo(GetDataPointID(dp));
+    }
+    //////////////////////////////////////////////////////////////////////////////////
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+      double[,] arrayMDS = data_prov_wrapper.DataProviderMDS();
+
+      Chart chart = chart1;
+      for (int v = 0; v < chart.Series.Count; v++)
+        chart.Series[v].Points.Clear();
+
+      chart.Series[0].Enabled = tgl_vis_peding_series.Checked;
+      chart.Series[1].Enabled = tgl_vis_denied_series.Checked;
+      chart.Series[2].Enabled = tgl_vis_cancelled_series.Checked;
+      chart.Series[3].Enabled = tgl_vis_undefined_series.Checked;
+
+      hst_cases_to_points.Clear();
+
+      double[] min_max_axis_limits = new Double[4];
+      min_max_axis_limits[0] = Double.MaxValue;
+      min_max_axis_limits[1] = Double.MinValue;
+      min_max_axis_limits[2] = Double.MaxValue;
+      min_max_axis_limits[3] = Double.MinValue;
+
+      double expand_limtis = 1.2;
+
+      for (int i = 0; i < data_prov_wrapper.GetNumberOfCases(); i++)
+      {
+        double mm_x = arrayMDS[i, 0]; //Math.Round(arrayMDS[i, 0], 5);
+        double mm_y = arrayMDS[i, 1]; //Math.Round(arrayMDS[i, 1], 5);
+
+        //Console.Out.WriteLine(i + " [" + mm_x + ", " + mm_y + "]");
+
+        int series_id = data_prov_wrapper.GetCaseEndInfo(i);
+
+        hst_cases_to_points.Add(i, chart.Series[series_id].Points.Count);
+        int id_point = chart.Series[series_id].Points.Count;
+
+        chart.Series[series_id].Points.AddXY(mm_x, mm_y);
+        chart.Series[series_id].Points[id_point].LegendToolTip = "loadedpoint";
+        chart.Series[series_id].Points[id_point].Tag = (i + 1).ToString();
+        chart.Series[series_id].Points[id_point].ToolTip = data_prov_wrapper.GetCaseDataInfo(i);
+
+        min_max_axis_limits[0] = Math.Min(min_max_axis_limits[0], mm_x);
+        min_max_axis_limits[1] = Math.Max(min_max_axis_limits[1], mm_x);
+
+        min_max_axis_limits[2] = Math.Min(min_max_axis_limits[2], mm_y);
+        min_max_axis_limits[3] = Math.Max(min_max_axis_limits[3], mm_y);
+      }
+
+      chart.ChartAreas[0].AxisY.LabelStyle.Format = "{0:0.00}";
+      chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.00}";
+
+      min_max_axis_limits[0] *= expand_limtis;
+      min_max_axis_limits[1] *= expand_limtis;
+
+      min_max_axis_limits[2] *= expand_limtis;
+      min_max_axis_limits[3] *= expand_limtis;
+
+      chart.ChartAreas[0].AxisX.Minimum = min_max_axis_limits[0];
+      chart.ChartAreas[0].AxisX.Maximum = min_max_axis_limits[1];
+
+      chart.ChartAreas[0].AxisY.Minimum = min_max_axis_limits[2];
+      chart.ChartAreas[0].AxisY.Maximum = min_max_axis_limits[3];
+    }
+
+    private void exportSelectedDataPointsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      if (selectedPoints != null && selectedPoints.Count > 0)
+      {
+        SaveFileDialog save_file_datapoints = new SaveFileDialog();
+        save_file_datapoints.Filter = "txt files (*.txt)|*.txt";
+        save_file_datapoints.RestoreDirectory = true;
+
+        if(save_file_datapoints.ShowDialog() == DialogResult.OK)
+        {
+          System.IO.StreamWriter file = new System.IO.StreamWriter(save_file_datapoints.FileName);
+
+          int[] cases_ids = new int[selectedPoints.Count];
+          
+          for (int i = 0; i < selectedPoints.Count; i++)
+            cases_ids[i] = int.Parse(selectedPoints[i].Tag.ToString());
+          
+          Array.Sort(cases_ids);
+
+          for (int i = 0; i < cases_ids.Length; i++)
+            file.WriteLine(cases_ids[i].ToString());
+          
+          file.Close();
+        }
+      }
     }
   };
 }
