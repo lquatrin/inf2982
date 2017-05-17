@@ -29,12 +29,12 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-      System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-      System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+      System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+      System.Windows.Forms.DataVisualization.Charting.Series series29 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series30 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series31 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series32 = new System.Windows.Forms.DataVisualization.Charting.Series();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
       this.openCFGDialog = new System.Windows.Forms.OpenFileDialog();
       this.tgl_vis_peding_series = new System.Windows.Forms.CheckBox();
@@ -236,44 +236,44 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.chart1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-      chartArea5.Name = "ChartArea1";
-      this.chart1.ChartAreas.Add(chartArea5);
-      legend5.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
-      legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-      legend5.Name = "Legend1";
-      this.chart1.Legends.Add(legend5);
+      chartArea8.Name = "ChartArea1";
+      this.chart1.ChartAreas.Add(chartArea8);
+      legend8.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
+      legend8.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+      legend8.Name = "Legend1";
+      this.chart1.Legends.Add(legend8);
       this.chart1.Location = new System.Drawing.Point(12, 71);
       this.chart1.Name = "chart1";
-      series17.ChartArea = "ChartArea1";
-      series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series17.Legend = "Legend1";
-      series17.MarkerColor = System.Drawing.Color.Green;
-      series17.MarkerSize = 11;
-      series17.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
-      series17.Name = "A_Pending";
-      series18.ChartArea = "ChartArea1";
-      series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series18.Legend = "Legend1";
-      series18.MarkerColor = System.Drawing.Color.Red;
-      series18.MarkerSize = 10;
-      series18.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
-      series18.Name = "A_Denied";
-      series19.ChartArea = "ChartArea1";
-      series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series19.Legend = "Legend1";
-      series19.MarkerColor = System.Drawing.Color.Blue;
-      series19.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-      series19.Name = "A_Cancelled";
-      series20.ChartArea = "ChartArea1";
-      series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series20.Legend = "Legend1";
-      series20.MarkerColor = System.Drawing.Color.Black;
-      series20.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-      series20.Name = "Undefined";
-      this.chart1.Series.Add(series17);
-      this.chart1.Series.Add(series18);
-      this.chart1.Series.Add(series19);
-      this.chart1.Series.Add(series20);
+      series29.ChartArea = "ChartArea1";
+      series29.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series29.Legend = "Legend1";
+      series29.MarkerColor = System.Drawing.Color.Green;
+      series29.MarkerSize = 11;
+      series29.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
+      series29.Name = "A_Pending";
+      series30.ChartArea = "ChartArea1";
+      series30.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series30.Legend = "Legend1";
+      series30.MarkerColor = System.Drawing.Color.Red;
+      series30.MarkerSize = 10;
+      series30.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
+      series30.Name = "A_Denied";
+      series31.ChartArea = "ChartArea1";
+      series31.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series31.Legend = "Legend1";
+      series31.MarkerColor = System.Drawing.Color.Blue;
+      series31.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+      series31.Name = "A_Cancelled";
+      series32.ChartArea = "ChartArea1";
+      series32.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series32.Legend = "Legend1";
+      series32.MarkerColor = System.Drawing.Color.Black;
+      series32.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+      series32.Name = "Undefined";
+      this.chart1.Series.Add(series29);
+      this.chart1.Series.Add(series30);
+      this.chart1.Series.Add(series31);
+      this.chart1.Series.Add(series32);
       this.chart1.Size = new System.Drawing.Size(709, 488);
       this.chart1.TabIndex = 0;
       this.chart1.Text = "chart1";
@@ -305,6 +305,7 @@
       // 
       // menuStrip1
       // 
+      this.menuStrip1.BackColor = System.Drawing.SystemColors.Window;
       this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem});
       this.menuStrip1.Location = new System.Drawing.Point(0, 0);
