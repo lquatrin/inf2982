@@ -118,7 +118,14 @@ namespace ClassCppToCS_CS
       mdown = e.Location;
       if (!ModifierKeys.HasFlag(Keys.Control))
       {
-        selectedPoints = new List<DataPoint>();
+        selectedPoints.Clear();
+        
+        // Set default marker color to all Data Points
+        // for each series
+        for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
+          // for each point in the ith series
+          foreach (DataPoint dp in chart1.Series[ith_series].Points)
+            dp.MarkerColor = GetPointColor(GetCaseEndInfo(dp));
       }
     }
 
@@ -155,7 +162,7 @@ namespace ClassCppToCS_CS
             }
           }
 
-          // optionally color the found datapoints:
+          // set color to enabled datapoints:
           foreach (DataPoint dp in chart1.Series[ith_series].Points)
           {
             dp.MarkerColor = selectedPoints.Contains(dp) ? Color.DarkOrange : GetPointColor(GetCaseEndInfo(dp));
