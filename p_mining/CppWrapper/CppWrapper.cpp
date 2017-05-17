@@ -22,7 +22,7 @@ CppWrapper::CppMDSWrapper::CppMDSWrapper()
 
 array<double, 2>^ CppWrapper::CppMDSWrapper::DataProviderMDS ()
 {
-  casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF, 100));
+  casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF, 250));
   
   double **m = (double**)malloc((int)casedata_v->size() * sizeof(double*));
   for (int i = 0; i < (int)casedata_v->size(); i++){

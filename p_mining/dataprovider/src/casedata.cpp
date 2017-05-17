@@ -16,21 +16,22 @@ CaseDataCoeficients::CaseDataCoeficients()
   coef_numberofoffers = 1.0;
   coef_loangoal = 1.0;
 
-  max_creditscore = 1300.0;
-  max_requestamount = 55000.0;
+  max_numberofoffers = -1.0;
+  max_creditscore = -1.0;
+  max_requestamount = -1.0;
 }
 
 double CaseData::CompositeDistance(CaseData* a, CaseData* b, CaseDataCoeficients* cf)
 {
   return
     // Credit Score
-    exp(cf->coef_creditscore * abs((double)(a->creditscore) / cf->max_creditscore - (double)(b->creditscore) / cf->max_creditscore))
+    exp(cf->coef_creditscore * std::fabs((double)(a->creditscore - b->creditscore)) / cf->max_creditscore)
     *
     // Request Amount
-    exp(cf->coef_requestamount * abs((double)(a->requestamount) / cf->max_requestamount - (double)(b->requestamount) / cf->max_requestamount))
+    exp(cf->coef_requestamount * std::fabs((double)(a->requestamount - b->requestamount)) / cf->max_requestamount)
     *
     // Number Of Offers
-    exp(cf->coef_numberofoffers * (double)abs(a->numberofoffers - b->numberofoffers))
+    exp(cf->coef_numberofoffers * std::fabs((double)(a->numberofoffers - b->numberofoffers)) / cf->max_numberofoffers)
     *
     // Loan Goal
     exp(cf->coef_loangoal * (double)(a->loangoal == b->loangoal))

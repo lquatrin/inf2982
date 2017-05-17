@@ -25,6 +25,10 @@ std::vector<CaseData*> ReadCaseData (std::string filename, CaseDataCoeficients* 
   std::string loangoal;
   while (casedatalist >> name >> success >> requestamount >> creditscore >> variant >> numberofoffers >> loangoal)
   {
+    cf->max_requestamount = std::fmax(cf->max_requestamount, (double)requestamount);
+    cf->max_creditscore = std::fmax(cf->max_creditscore, (double)creditscore);
+    cf->max_numberofoffers = std::fmax(cf->max_numberofoffers, (double)numberofoffers);
+
     CaseData* cd = new CaseData(
       name,
       success,
