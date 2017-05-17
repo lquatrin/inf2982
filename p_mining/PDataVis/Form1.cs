@@ -159,11 +159,15 @@ namespace ClassCppToCS_CS
             if (rect.Contains(new Point(x, y)))
             {
               // CTRL + ALT: Remove point
-              if (selectedPoints.Contains(dp) && ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Alt))
-                selectedPoints.Remove(dp);
+              if (ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Alt))
+              {
+                if (selectedPoints.Contains(dp)) selectedPoints.Remove(dp);
+              }
               // Else: Add Point
-              else if (!selectedPoints.Contains(dp))
-                selectedPoints.Add(dp);
+              else
+              { 
+                if (!selectedPoints.Contains(dp)) selectedPoints.Add(dp);
+              }
             }
           }
 
