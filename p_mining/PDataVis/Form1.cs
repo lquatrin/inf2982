@@ -22,6 +22,7 @@ namespace ClassCppToCS_CS
     public CppWrapper.CppMDSWrapper data_prov_wrapper;
 
     int param_number_of_cases = 250;
+    bool auto_update_chart = true;
 
     // ith case -> ith point in a specific series
     Hashtable hst_cases_to_points = new Hashtable();
@@ -48,6 +49,9 @@ namespace ClassCppToCS_CS
       tkb_ninputpoints.Minimum = 0;
 
       tkb_ninputpoints.Value = param_number_of_cases;
+
+
+      autoUpdateChartToolStripMenuItem.Checked = auto_update_chart;
 
       MDSProjectDataCasesToChart();
     }
@@ -100,6 +104,12 @@ namespace ClassCppToCS_CS
       double norm_loangoal = (loangoaltrackbar.Value - loangoaltrackbar.Minimum) / (double)loangoaltrackbar.Maximum;
       data_prov_wrapper.SetLoanGoalCoeficientValue(norm_loangoal);
       tooltiptrackbar.SetToolTip(loangoaltrackbar, norm_loangoal.ToString());
+    }
+
+    private void ParamsUpdateMouseUp (object sender, MouseEventArgs e)
+    {
+      if (auto_update_chart)
+        MDSProjectDataCasesToChart();  
     }
 
     private void label4_Click(object sender, EventArgs e)
@@ -426,6 +436,12 @@ namespace ClassCppToCS_CS
         }
       }
       ///////////////////////////////////////////////////////
+    }
+
+    private void autoUpdateChartToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      autoUpdateChartToolStripMenuItem.Checked = !autoUpdateChartToolStripMenuItem.Checked;
+      auto_update_chart = autoUpdateChartToolStripMenuItem.Checked;
     }
   };
 }
