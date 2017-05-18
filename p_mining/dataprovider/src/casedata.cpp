@@ -66,3 +66,17 @@ CaseData::~CaseData ()
 {
 
 }
+
+void UpdateMaxValues (int number_of_cases, std::vector<CaseData*>* case_datas, CaseDataCoeficients* cf)
+{
+  cf->max_numberofoffers = -1.0;
+  cf->max_creditscore = -1.0;
+  cf->max_requestamount = -1.0;
+
+  for (int i = 0; i < number_of_cases; i++)
+  {
+    cf->max_requestamount = std::fmax(cf->max_requestamount, case_datas->at(i)->requestamount);
+    cf->max_creditscore = std::fmax(cf->max_creditscore, case_datas->at(i)->creditscore);
+    cf->max_numberofoffers = std::fmax(cf->max_numberofoffers, case_datas->at(i)->numberofoffers);
+  }
+}

@@ -22,13 +22,14 @@ namespace CppWrapper {
   public:
 	  CppMDSWrapper ();
 
-    array<double, 2>^ DataProviderMDS (int number_of_cases);
+    array<double, 2>^ DataProviderMDS ();
 
     void SetCreditScoreCoeficientValue (double coef);
     void SetRequestAmountCoeficientValue (double coef);
     void SetNumberOfOffersCoeficientValue (double coef);
     void SetLoanGoalCoeficientValue (double coef);
 
+    void SetNumberOfCases (int n_cases);
     int GetNumberOfCases ();
     int GetMaxCasesCount ();
     // 0 - Success / A_Pending

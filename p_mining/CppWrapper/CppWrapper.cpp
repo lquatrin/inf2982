@@ -23,12 +23,12 @@ CppWrapper::CppMDSWrapper::CppMDSWrapper()
   casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF));
 }
 
-array<double, 2>^ CppWrapper::CppMDSWrapper::DataProviderMDS (int number_of_cases)
+array<double, 2>^ CppWrapper::CppMDSWrapper::DataProviderMDS ()
 {
+  printf("Number of Cases: %d\n", param_number_of_cases);
+  assert(param_number_of_cases <= (int)casedata_v->size());
   
-  assert(number_of_cases <= (int)casedata_v->size());
-  
-  param_number_of_cases = number_of_cases;
+  int number_of_cases = param_number_of_cases;
 
   double **m = (double**)malloc(number_of_cases * sizeof(double*));
   for (int i = 0; i < number_of_cases; i++){
@@ -78,6 +78,15 @@ void CppWrapper::CppMDSWrapper::SetLoanGoalCoeficientValue (double coef)
 int CppWrapper::CppMDSWrapper::GetMaxCasesCount ()
 {
   return (int)casedata_v->size();
+}
+
+void CppWrapper::CppMDSWrapper::SetNumberOfCases (int n_cases)
+{
+  assert(n_cases <= (int)casedata_v->size());
+
+  param_number_of_cases = n_cases;
+
+  UpdateMaxValues(param_number_of_cases, casedata_v, pCF);
 }
 
 int CppWrapper::CppMDSWrapper::GetNumberOfCases ()

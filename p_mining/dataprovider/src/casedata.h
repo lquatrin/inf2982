@@ -2,6 +2,7 @@
 #define CASE_DATA_H
 
 #include <string>
+#include <vector>
 
 class CaseDataCoeficients
 {
@@ -51,5 +52,7 @@ protected:
 private:
   
 };
+
+static void UpdateMaxValues (int number_of_cases, std::vector<CaseData*>* case_datas, CaseDataCoeficients* cf);
 
 #endif // PAM_H

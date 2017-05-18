@@ -48,8 +48,9 @@ namespace ClassCppToCS_CS
       txb_min_track_n_cases.Text = "0";
       tkb_ninputpoints.Minimum = 0;
 
-      tkb_ninputpoints.Value = param_number_of_cases;
+      data_prov_wrapper.SetNumberOfCases(param_number_of_cases);
 
+      tkb_ninputpoints.Value = param_number_of_cases;
 
       autoUpdateChartToolStripMenuItem.Checked = auto_update_chart;
 
@@ -328,6 +329,8 @@ namespace ClassCppToCS_CS
       //data_prov_wrapper.SetLoanGoalCoeficientValue(npoints);
       tooltiptrackbar.SetToolTip(tkb_ninputpoints, npoints.ToString());
       param_number_of_cases = (int)npoints;
+
+      data_prov_wrapper.SetNumberOfCases(param_number_of_cases);
     }
 
     private void label7_Click(object sender, EventArgs e)
@@ -342,7 +345,7 @@ namespace ClassCppToCS_CS
 
     private void MDSProjectDataCasesToChart ()
     {
-      double[,] arrayMDS = data_prov_wrapper.DataProviderMDS(param_number_of_cases);
+      double[,] arrayMDS = data_prov_wrapper.DataProviderMDS();
 
       Chart chart = chart1;
       for (int v = 0; v < chart.Series.Count; v++)
