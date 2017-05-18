@@ -337,6 +337,16 @@ namespace ClassCppToCS_CS
 
     private void exportSelectedDataPointsToolStripMenuItem_Click(object sender, EventArgs e)
     {
+      
+    }
+
+    private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void usingOnlySelectedDataPointsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
       if (selectedPoints != null && selectedPoints.Count > 0)
       {
         SaveFileDialog save_file_datapoints = new SaveFileDialog();
@@ -345,18 +355,18 @@ namespace ClassCppToCS_CS
 
         Dictionary<string, int> dictionary = new Dictionary<string, int>();
 
-        if(save_file_datapoints.ShowDialog() == DialogResult.OK)
+        if (save_file_datapoints.ShowDialog() == DialogResult.OK)
         {
           int[] cases_ids = new int[selectedPoints.Count];
-          
+
           for (int i = 0; i < selectedPoints.Count; i++)
             cases_ids[i] = int.Parse(selectedPoints[i].Tag.ToString());
-          
+
           Array.Sort(cases_ids);
 
           for (int i = 0; i < cases_ids.Length; i++)
             dictionary.Add(data_prov_wrapper.GetCaseName(cases_ids[i] - 1), 1);
-        
+
           try
           {
             System.IO.StreamWriter file = new System.IO.StreamWriter(save_file_datapoints.FileName);
@@ -368,7 +378,7 @@ namespace ClassCppToCS_CS
             for (int i = 1; i < lines.Length; i++)
             {
               // Get CaseName!
-              string casename_line = lines[i].Substring(0,lines[i].IndexOf(';'));
+              string casename_line = lines[i].Substring(0, lines[i].IndexOf(';'));
 
               // TODO: otimize this!
               if (dictionary.ContainsKey(casename_line))
@@ -379,7 +389,7 @@ namespace ClassCppToCS_CS
           catch
           {
             Console.Out.WriteLine("Exception thrown while trying to export a csv file");
-          }  
+          }
         }
       }
     }
