@@ -140,7 +140,6 @@ namespace ClassCppToCS_CS
         if (!ModifierKeys.HasFlag(Keys.Control))
         {
           selectedPoints.Clear();
-          
           // Set default marker color to all Data Points
           // for each series
           for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
