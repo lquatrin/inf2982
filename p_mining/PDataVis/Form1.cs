@@ -14,6 +14,7 @@ using System.Windows.Input;
 
 using CppWrapper;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Collections.Generic;
 
 namespace ClassCppToCS_CS
 {
@@ -339,13 +340,13 @@ namespace ClassCppToCS_CS
       if (selectedPoints != null && selectedPoints.Count > 0)
       {
         SaveFileDialog save_file_datapoints = new SaveFileDialog();
-        save_file_datapoints.Filter = "txt files (*.txt)|*.txt";
+        save_file_datapoints.Filter = "csv files (*.csv)|*.csv";
         save_file_datapoints.RestoreDirectory = true;
+
+        Dictionary<string, int> dictionary = new Dictionary<string, int>();
 
         if(save_file_datapoints.ShowDialog() == DialogResult.OK)
         {
-          System.IO.StreamWriter file = new System.IO.StreamWriter(save_file_datapoints.FileName);
-
           int[] cases_ids = new int[selectedPoints.Count];
           
           for (int i = 0; i < selectedPoints.Count; i++)
@@ -354,9 +355,31 @@ namespace ClassCppToCS_CS
           Array.Sort(cases_ids);
 
           for (int i = 0; i < cases_ids.Length; i++)
-            file.WriteLine(cases_ids[i].ToString());
-          
-          file.Close();
+            dictionary.Add(data_prov_wrapper.GetCaseName(cases_ids[i] - 1), 1);
+        
+          try
+          {
+            System.IO.StreamWriter file = new System.IO.StreamWriter(save_file_datapoints.FileName);
+
+            // TODO: diferent sources?
+            var lines = File.ReadAllLines("../../data/app_log_cap.csv");
+            // Write Header!
+            file.WriteLine(lines[0]);
+            for (int i = 1; i < lines.Length; i++)
+            {
+              // Get CaseName!
+              string casename_line = lines[i].Substring(0,lines[i].IndexOf(';'));
+
+              // TODO: otimize this!
+              if (dictionary.ContainsKey(casename_line))
+                file.WriteLine(lines[i]);
+            }
+            file.Close();
+          }
+          catch
+          {
+            Console.Out.WriteLine("Exception thrown while trying to export a csv file");
+          }  
         }
       }
     }

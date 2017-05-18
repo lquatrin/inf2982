@@ -34,6 +34,9 @@ namespace CppWrapper {
     // 1 - Denied
     // 2 - Cancelled
     int GetCaseEndInfo (int id);
+    
+    System::String^ GetCaseName (int id);
+    
     System::String^ GetCaseDataInfo (int id);
   private:
 

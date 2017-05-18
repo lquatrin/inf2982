@@ -82,6 +82,12 @@ int CppWrapper::CppMDSWrapper::GetCaseEndInfo (int id)
   return casedata_v->at(id)->endsituation;
 }
 
+System::String^ CppWrapper::CppMDSWrapper::GetCaseName (int id)
+{
+  std::string str = casedata_v->at(id)->casename;
+  return  msclr::interop::marshal_as<System::String^>(str);
+}
+
 System::String^ CppWrapper::CppMDSWrapper::GetCaseDataInfo (int id)
 {
   std::string str = casedata_v->at(id)->casename;
