@@ -22,7 +22,7 @@ namespace CppWrapper {
   public:
 	  CppMDSWrapper ();
 
-    array<double, 2>^ DataProviderMDS ();
+    array<double, 2>^ DataProviderMDS (int number_of_cases);
 
     void SetCreditScoreCoeficientValue (double coef);
     void SetRequestAmountCoeficientValue (double coef);
@@ -30,6 +30,7 @@ namespace CppWrapper {
     void SetLoanGoalCoeficientValue (double coef);
 
     int GetNumberOfCases ();
+    int GetMaxCasesCount ();
     // 0 - Success / A_Pending
     // 1 - Denied
     // 2 - Cancelled
@@ -46,6 +47,7 @@ namespace CppWrapper {
   CaseData* pCD;
   CaseDataCoeficients* pCF;
 	array<double, 2>^ dists;
+  int param_number_of_cases;
   };
 
 }

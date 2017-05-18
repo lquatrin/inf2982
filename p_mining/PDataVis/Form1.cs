@@ -14,13 +14,14 @@ using System.Windows.Input;
 
 using CppWrapper;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Collections.Generic;
 
 namespace ClassCppToCS_CS
 {
   public partial class Form1 : Form
   {
     public CppWrapper.CppMDSWrapper data_prov_wrapper;
+
+    int param_number_of_cases = 250;
 
     // ith case -> ith point in a specific series
     Hashtable hst_cases_to_points = new Hashtable();
@@ -39,6 +40,16 @@ namespace ClassCppToCS_CS
       data_prov_wrapper = new CppWrapper.CppMDSWrapper();
 
       hst_cases_to_points = new Hashtable();
+
+      txb_max_track_n_cases.Text = data_prov_wrapper.GetMaxCasesCount().ToString();
+      tkb_ninputpoints.Maximum = data_prov_wrapper.GetMaxCasesCount();
+      
+      txb_min_track_n_cases.Text = "0";
+      tkb_ninputpoints.Minimum = 0;
+
+      tkb_ninputpoints.Value = param_number_of_cases;
+
+      MDSProjectDataCasesToChart();
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -239,7 +250,89 @@ namespace ClassCppToCS_CS
 
     private void button1_Click(object sender, EventArgs e)
     {
-      double[,] arrayMDS = data_prov_wrapper.DataProviderMDS();
+      MDSProjectDataCasesToChart();
+    }
+
+    private void exportSelectedDataPointsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      
+    }
+
+    private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void usingOnlySelectedDataPointsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      if (selectedPoints != null && selectedPoints.Count > 0)
+      {
+        SaveFileDialog save_file_datapoints = new SaveFileDialog();
+        save_file_datapoints.Filter = "csv files (*.csv)|*.csv";
+        save_file_datapoints.RestoreDirectory = true;
+
+        Dictionary<string, int> dictionary = new Dictionary<string, int>();
+
+        if (save_file_datapoints.ShowDialog() == DialogResult.OK)
+        {
+          int[] cases_ids = new int[selectedPoints.Count];
+
+          for (int i = 0; i < selectedPoints.Count; i++)
+            cases_ids[i] = int.Parse(selectedPoints[i].Tag.ToString());
+
+          Array.Sort(cases_ids);
+
+          for (int i = 0; i < cases_ids.Length; i++)
+            dictionary.Add(data_prov_wrapper.GetCaseName(cases_ids[i] - 1), 1);
+
+          try
+          {
+            System.IO.StreamWriter file = new System.IO.StreamWriter(save_file_datapoints.FileName);
+
+            // TODO: diferent sources?
+            var lines = File.ReadAllLines("../../data/app_log_cap.csv");
+            // Write Header!
+            file.WriteLine(lines[0]);
+            for (int i = 1; i < lines.Length; i++)
+            {
+              // Get CaseName!
+              string casename_line = lines[i].Substring(0, lines[i].IndexOf(';'));
+
+              // TODO: otimize this!
+              if (dictionary.ContainsKey(casename_line))
+                file.WriteLine(lines[i]);
+            }
+            file.Close();
+          }
+          catch
+          {
+            Console.Out.WriteLine("Exception thrown while trying to export a csv file");
+          }
+        }
+      }
+    }
+
+    private void tkb_ninputpoints_Scroll(object sender, EventArgs e)
+    {
+      double npoints = tkb_ninputpoints.Value;
+      //data_prov_wrapper.SetLoanGoalCoeficientValue(npoints);
+      tooltiptrackbar.SetToolTip(tkb_ninputpoints, npoints.ToString());
+      param_number_of_cases = (int)npoints;
+    }
+
+    private void label7_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void textBox2_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void MDSProjectDataCasesToChart ()
+    {
+      double[,] arrayMDS = data_prov_wrapper.DataProviderMDS(param_number_of_cases);
 
       Chart chart = chart1;
       for (int v = 0; v < chart.Series.Count; v++)
@@ -306,7 +399,7 @@ namespace ClassCppToCS_CS
         DataPoint[] cpy_selectedPoints = new DataPoint[selectedPoints.Count];
         selectedPoints.CopyTo(cpy_selectedPoints);
         selectedPoints.Clear();
-       
+
         for (int v = 0; v < cpy_selectedPoints.Length; v++)
         {
           DataPoint dp = cpy_selectedPoints[v];
@@ -333,65 +426,6 @@ namespace ClassCppToCS_CS
         }
       }
       ///////////////////////////////////////////////////////
-    }
-
-    private void exportSelectedDataPointsToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-      
-    }
-
-    private void fileToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    private void usingOnlySelectedDataPointsToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-      if (selectedPoints != null && selectedPoints.Count > 0)
-      {
-        SaveFileDialog save_file_datapoints = new SaveFileDialog();
-        save_file_datapoints.Filter = "csv files (*.csv)|*.csv";
-        save_file_datapoints.RestoreDirectory = true;
-
-        Dictionary<string, int> dictionary = new Dictionary<string, int>();
-
-        if (save_file_datapoints.ShowDialog() == DialogResult.OK)
-        {
-          int[] cases_ids = new int[selectedPoints.Count];
-
-          for (int i = 0; i < selectedPoints.Count; i++)
-            cases_ids[i] = int.Parse(selectedPoints[i].Tag.ToString());
-
-          Array.Sort(cases_ids);
-
-          for (int i = 0; i < cases_ids.Length; i++)
-            dictionary.Add(data_prov_wrapper.GetCaseName(cases_ids[i] - 1), 1);
-
-          try
-          {
-            System.IO.StreamWriter file = new System.IO.StreamWriter(save_file_datapoints.FileName);
-
-            // TODO: diferent sources?
-            var lines = File.ReadAllLines("../../data/app_log_cap.csv");
-            // Write Header!
-            file.WriteLine(lines[0]);
-            for (int i = 1; i < lines.Length; i++)
-            {
-              // Get CaseName!
-              string casename_line = lines[i].Substring(0, lines[i].IndexOf(';'));
-
-              // TODO: otimize this!
-              if (dictionary.ContainsKey(casename_line))
-                file.WriteLine(lines[i]);
-            }
-            file.Close();
-          }
-          catch
-          {
-            Console.Out.WriteLine("Exception thrown while trying to export a csv file");
-          }
-        }
-      }
     }
   };
 }
