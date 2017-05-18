@@ -26,6 +26,10 @@ namespace ClassCppToCS_CS
 
     Point mdown = Point.Empty;
     List<DataPoint> selectedPoints = new List<DataPoint>();
+    Rectangle left_rectangle = Rectangle.Empty;
+
+    Point r_mdown = Point.Empty;
+    Rectangle right_rectangle = Rectangle.Empty;
 
     public Form1()
     {
@@ -112,72 +116,109 @@ namespace ClassCppToCS_CS
       chart1.Series[0].Enabled = tgl_vis_peding_series.Checked;
     }
 
+    private void chart_Paint (object sender, PaintEventArgs e)
+    {
+      if (!left_rectangle.IsEmpty)
+      {
+        e.Graphics.DrawRectangle(Pens.DarkOrange, left_rectangle);
+      }
+
+      if (!right_rectangle.IsEmpty)
+      {
+        e.Graphics.DrawRectangle(Pens.Purple, right_rectangle);
+      }
+    }
+
     //http://stackoverflow.com/questions/40056264/selecting-specific-values-on-a-chart
     //////////////////////////////////////////////////////////////////////////////////
     private void chart_MouseDown (object sender, MouseEventArgs e)
     {
-      mdown = e.Location;
-      if (!ModifierKeys.HasFlag(Keys.Control))
+      if (e.Button == System.Windows.Forms.MouseButtons.Left)
       {
-        selectedPoints.Clear();
-        
-        // Set default marker color to all Data Points
-        // for each series
-        for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
-          // for each point in the ith series
-          foreach (DataPoint dp in chart1.Series[ith_series].Points)
-            dp.MarkerColor = GetPointColor(GetCaseEndInfo(dp));
+        mdown = e.Location;
+        left_rectangle = Rectangle.Empty;
+        if (!ModifierKeys.HasFlag(Keys.Control))
+        {
+          selectedPoints.Clear();
+          
+          // Set default marker color to all Data Points
+          // for each series
+          for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
+            // for each point in the ith series
+            foreach (DataPoint dp in chart1.Series[ith_series].Points)
+              dp.MarkerColor = GetPointColor(GetCaseEndInfo(dp));
+        }
       }
+      else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+      {
+        r_mdown = e.Location;
+        right_rectangle = Rectangle.Empty;
+      }
+
+      chart1.Refresh();
     }
 
     private void chart_MouseMove (object sender, MouseEventArgs e)
     {
       if (e.Button == System.Windows.Forms.MouseButtons.Left)
       {
-        chart1.Refresh();
-        using (Graphics g = chart1.CreateGraphics())
-          g.DrawRectangle(Pens.Red, GetRectangle(mdown, e.Location));
+        left_rectangle = GetRectangle(mdown, e.Location);
       }
+      else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+      {
+        right_rectangle = GetRectangle(r_mdown, e.Location);
+      }
+
+      chart1.Refresh();
     }
 
     private void chart_MouseUp (object sender, MouseEventArgs e)
     {
-      Axis ax = chart1.ChartAreas[0].AxisX;
-      Axis ay = chart1.ChartAreas[0].AxisY;
-      Rectangle rect = GetRectangle(mdown, e.Location);
-
-      for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
+      if (e.Button == System.Windows.Forms.MouseButtons.Left)
       {
-        // select only if the series is enabled
-        if (chart1.Series[ith_series].Enabled)
+        Axis ax = chart1.ChartAreas[0].AxisX;
+        Axis ay = chart1.ChartAreas[0].AxisY;
+        left_rectangle = GetRectangle(mdown, e.Location);
+
+        for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
         {
-          foreach (DataPoint dp in chart1.Series[ith_series].Points)
+          // select only if the series is enabled
+          if (chart1.Series[ith_series].Enabled)
           {
-            int x = (int)ax.ValueToPixelPosition(dp.XValue);
-            int y = (int)ay.ValueToPixelPosition(dp.YValues[0]);
-            
-            if (rect.Contains(new Point(x, y)))
+            foreach (DataPoint dp in chart1.Series[ith_series].Points)
             {
-              // CTRL + ALT: Remove point
-              if (ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Alt))
+              int x = (int)ax.ValueToPixelPosition(dp.XValue);
+              int y = (int)ay.ValueToPixelPosition(dp.YValues[0]);
+
+              if (left_rectangle.Contains(new Point(x, y)))
               {
-                if (selectedPoints.Contains(dp)) selectedPoints.Remove(dp);
-              }
-              // Else: Add Point
-              else
-              { 
-                if (!selectedPoints.Contains(dp)) selectedPoints.Add(dp);
+                // CTRL + ALT: Remove point
+                if (ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Alt))
+                {
+                  if (selectedPoints.Contains(dp)) selectedPoints.Remove(dp);
+                }
+                // Else: Add Point
+                else
+                { 
+                  if (!selectedPoints.Contains(dp)) selectedPoints.Add(dp);
+                }
               }
             }
-          }
 
-          // set color to enabled datapoints:
-          foreach (DataPoint dp in chart1.Series[ith_series].Points)
-          {
-            dp.MarkerColor = selectedPoints.Contains(dp) ? Color.DarkOrange : GetPointColor(GetCaseEndInfo(dp));
+            // set color to enabled datapoints:
+            foreach (DataPoint dp in chart1.Series[ith_series].Points)
+            {
+              dp.MarkerColor = selectedPoints.Contains(dp) ? Color.DarkOrange : GetPointColor(GetCaseEndInfo(dp));
+            }
           }
         }
+        left_rectangle = Rectangle.Empty;
       }
+      else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+      {
+      }
+
+      chart1.Refresh();
     }
     
     static public int GetDataPointID (DataPoint dp)
