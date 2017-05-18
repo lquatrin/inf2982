@@ -37,6 +37,8 @@ namespace CppWrapper {
     // 2 - Cancelled
     int GetCaseEndInfo (int id);
     
+    void UpdateMaxValuesUsingAllDataPoints (bool up_using_all);
+
     System::String^ GetCaseName (int id);
     
     System::String^ GetCaseDataInfo (int id);
@@ -49,6 +51,7 @@ namespace CppWrapper {
   CaseDataCoeficients* pCF;
 	array<double, 2>^ dists;
   int param_number_of_cases;
+  bool update_using_all_data_points;
   };
 
 }

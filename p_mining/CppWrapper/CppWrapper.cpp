@@ -19,6 +19,7 @@ CppWrapper::CppMDSWrapper::CppMDSWrapper()
 
   casedata_v = new std::vector<CaseData*>();
 
+  update_using_all_data_points = false;
   param_number_of_cases = 0;
   casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF));
 }
@@ -86,7 +87,8 @@ void CppWrapper::CppMDSWrapper::SetNumberOfCases (int n_cases)
 
   param_number_of_cases = n_cases;
 
-  UpdateMaxValues(param_number_of_cases, casedata_v, pCF);
+  if (!update_using_all_data_points)
+    UpdateMaxValues(param_number_of_cases, casedata_v, pCF);
 }
 
 int CppWrapper::CppMDSWrapper::GetNumberOfCases ()
@@ -100,6 +102,16 @@ int CppWrapper::CppMDSWrapper::GetNumberOfCases ()
 int CppWrapper::CppMDSWrapper::GetCaseEndInfo (int id)
 {
   return casedata_v->at(id)->endsituation;
+}
+
+void CppWrapper::CppMDSWrapper::UpdateMaxValuesUsingAllDataPoints (bool up_using_all)
+{
+  update_using_all_data_points = up_using_all;
+
+  if (update_using_all_data_points)
+    UpdateMaxValues((int)casedata_v->size(), casedata_v, pCF);
+  else
+    UpdateMaxValues(param_number_of_cases, casedata_v, pCF);
 }
 
 System::String^ CppWrapper::CppMDSWrapper::GetCaseName (int id)

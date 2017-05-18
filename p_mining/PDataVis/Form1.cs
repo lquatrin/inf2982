@@ -49,6 +49,7 @@ namespace ClassCppToCS_CS
       tkb_ninputpoints.Minimum = 0;
 
       data_prov_wrapper.SetNumberOfCases(param_number_of_cases);
+      data_prov_wrapper.UpdateMaxValuesUsingAllDataPoints(updateMaxValuesUsingAllDataPointsToolStripMenuItem.Checked);
 
       tkb_ninputpoints.Value = param_number_of_cases;
 
@@ -441,10 +442,24 @@ namespace ClassCppToCS_CS
       ///////////////////////////////////////////////////////
     }
 
+    private void UpdateCurrentChartProjection ()
+    {
+      MDSProjectDataCasesToChart();
+    }
+
     private void autoUpdateChartToolStripMenuItem_Click(object sender, EventArgs e)
     {
       autoUpdateChartToolStripMenuItem.Checked = !autoUpdateChartToolStripMenuItem.Checked;
       auto_update_chart = autoUpdateChartToolStripMenuItem.Checked;
+    }
+
+    private void updateMaxValuesUsingAllDataPointsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      updateMaxValuesUsingAllDataPointsToolStripMenuItem.Checked = !updateMaxValuesUsingAllDataPointsToolStripMenuItem.Checked;
+    
+      data_prov_wrapper.UpdateMaxValuesUsingAllDataPoints(updateMaxValuesUsingAllDataPointsToolStripMenuItem.Checked);
+    
+      UpdateCurrentChartProjection();
     }
   };
 }

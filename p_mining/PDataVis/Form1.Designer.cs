@@ -58,6 +58,7 @@
       this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.exportSelectedDataPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.usingOnlySelectedDataPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.autoUpdateChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.projectionModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.mDSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.lAMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +68,7 @@
       this.label7 = new System.Windows.Forms.Label();
       this.tkb_lamp_progress = new System.Windows.Forms.TrackBar();
       this.label8 = new System.Windows.Forms.Label();
-      this.autoUpdateChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.creditscoretrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.requestamounttrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.numberofofferstrackbar)).BeginInit();
@@ -337,7 +338,8 @@
       // 
       this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportSelectedDataPointsToolStripMenuItem,
-            this.autoUpdateChartToolStripMenuItem});
+            this.autoUpdateChartToolStripMenuItem,
+            this.updateMaxValuesUsingAllDataPointsToolStripMenuItem});
       this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
       this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
       this.fileToolStripMenuItem.Text = "File";
@@ -348,7 +350,7 @@
       this.exportSelectedDataPointsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usingOnlySelectedDataPointsToolStripMenuItem});
       this.exportSelectedDataPointsToolStripMenuItem.Name = "exportSelectedDataPointsToolStripMenuItem";
-      this.exportSelectedDataPointsToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+      this.exportSelectedDataPointsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
       this.exportSelectedDataPointsToolStripMenuItem.Text = "Export csv";
       this.exportSelectedDataPointsToolStripMenuItem.Click += new System.EventHandler(this.exportSelectedDataPointsToolStripMenuItem_Click);
       // 
@@ -358,6 +360,15 @@
       this.usingOnlySelectedDataPointsToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
       this.usingOnlySelectedDataPointsToolStripMenuItem.Text = "Using only selected DataPoints";
       this.usingOnlySelectedDataPointsToolStripMenuItem.Click += new System.EventHandler(this.usingOnlySelectedDataPointsToolStripMenuItem_Click);
+      // 
+      // autoUpdateChartToolStripMenuItem
+      // 
+      this.autoUpdateChartToolStripMenuItem.Checked = true;
+      this.autoUpdateChartToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.autoUpdateChartToolStripMenuItem.Name = "autoUpdateChartToolStripMenuItem";
+      this.autoUpdateChartToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+      this.autoUpdateChartToolStripMenuItem.Text = "Auto Update Chart";
+      this.autoUpdateChartToolStripMenuItem.Click += new System.EventHandler(this.autoUpdateChartToolStripMenuItem_Click);
       // 
       // projectionModeToolStripMenuItem
       // 
@@ -452,14 +463,12 @@
       this.label8.TabIndex = 23;
       this.label8.Text = "TODO: LAMP add point interaction";
       // 
-      // autoUpdateChartToolStripMenuItem
+      // updateMaxValuesUsingAllDataPointsToolStripMenuItem
       // 
-      this.autoUpdateChartToolStripMenuItem.Checked = true;
-      this.autoUpdateChartToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.autoUpdateChartToolStripMenuItem.Name = "autoUpdateChartToolStripMenuItem";
-      this.autoUpdateChartToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-      this.autoUpdateChartToolStripMenuItem.Text = "Auto Update Chart";
-      this.autoUpdateChartToolStripMenuItem.Click += new System.EventHandler(this.autoUpdateChartToolStripMenuItem_Click);
+      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Name = "updateMaxValuesUsingAllDataPointsToolStripMenuItem";
+      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Text = "Update Max Values Using all DataPoints";
+      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Click += new System.EventHandler(this.updateMaxValuesUsingAllDataPointsToolStripMenuItem_Click);
       // 
       // Form1
       // 
@@ -543,6 +552,7 @@
     private System.Windows.Forms.TrackBar tkb_lamp_progress;
     private System.Windows.Forms.Label label8;
     private System.Windows.Forms.ToolStripMenuItem autoUpdateChartToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem updateMaxValuesUsingAllDataPointsToolStripMenuItem;
   }
 }
 
