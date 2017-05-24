@@ -21,29 +21,10 @@ using namespace System;
 
 namespace CppWrapper {
 
-  
-	public ref class CppLAMPWrapper
-	{
-	public:
-		CppLAMPWrapper();
-		CppLAMPWrapper(int* pInt, int arraySize);
-		array<double, 2>^ GetLAMP(array<double, 2>^ tvalues, array<double, 2>^ controlPoints, array<int>^controlsidx, int controlsize, int arraySize);
-
-		double GetSum();
-		double sum;
-
-		void testLamp();
-
-	private:
-		LAMPClass* pCC;
-		array<double, 2>^ dists;
-	};
-
-
-  public ref class CppMDSWrapper
+  public ref class CppDataProjProviderWrapper
   {
   public:
-	  CppMDSWrapper ();
+    CppDataProjProviderWrapper();
 
     array<double, 2>^ DataProviderMDS ();
 
@@ -65,6 +46,15 @@ namespace CppWrapper {
     System::String^ GetCaseName(int id);
 
     System::String^ GetCaseDataInfo (int id);
+
+    void InitLAMP(int* pInt, int arraySize);
+    array<double, 2>^ GetLAMP(array<double, 2>^ tvalues, array<double, 2>^ controlPoints, array<int>^controlsidx, int controlsize, int arraySize);
+
+    double GetSum();
+    double sum;
+
+    void testLamp();
+
   private:
     std::vector<CaseData*>* casedata_v;
 
@@ -74,6 +64,9 @@ namespace CppWrapper {
 	  array<double, 2>^ dists;
     int param_number_of_cases;
     bool update_using_all_data_points;
+
+    LAMPClass* pCC;
+    array<double, 2>^ lamp_dists;
   };
 
 }

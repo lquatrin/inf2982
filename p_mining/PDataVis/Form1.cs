@@ -19,7 +19,7 @@ namespace ClassCppToCS_CS
 {
   public partial class Form1 : Form
   {
-    public CppWrapper.CppMDSWrapper data_prov_wrapper;
+    public CppWrapper.CppDataProjProviderWrapper data_prov_wrapper;
 
     public enum ProjectionMode
     {
@@ -52,7 +52,7 @@ namespace ClassCppToCS_CS
     {
       InitializeComponent();
 
-      data_prov_wrapper = new CppWrapper.CppMDSWrapper();
+      data_prov_wrapper = new CppWrapper.CppDataProjProviderWrapper();
 
       hst_cases_to_points = new Hashtable();
 

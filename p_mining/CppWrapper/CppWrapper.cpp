@@ -18,79 +18,21 @@
 #include "../dataprovider/src/reader.h"
 #include "../dataprovider/src/reader.cpp"
 
-
-
-
-CppWrapper::CppLAMPWrapper::CppLAMPWrapper()
-{
-	pCC = new LAMPClass();
-}
-
-CppWrapper::CppLAMPWrapper::CppLAMPWrapper(int *pInt, int arraySize)
-{
-	pCC = new LAMPClass(pInt, arraySize);
-}
-
-array<double, 2>^ CppWrapper::CppLAMPWrapper::GetLAMP(array<double, 2>^ tvalues, array<double, 2>^ controlPoints, array<int>^controlsidx, int controlsize, int arraySize)
-{
-	dists = tvalues;
-	double **m = (double**)malloc(arraySize * sizeof(double*));
-	double **cpoints = (double**)malloc(controlsize * sizeof(double*));
-	int *cindex = (int*)malloc(controlsize * sizeof(int));
-
-	for (int i = 0; i < arraySize; i++) {
-		m[i] = (double*)malloc(2 * sizeof(double));
-		for (int j = 0; j < 2; j++) {
-			m[i][j] = tvalues[i, j];
-		}
-	}
-
-	for (int i = 0; i < controlsize; i++) {
-		cpoints[i] = (double*)malloc(2 * sizeof(double));
-		cindex[i] = controlsidx[i];
-		for (int j = 0; j < 2; j++) {
-			cpoints[i][j] = controlPoints[i, j];
-		}
-	}
-
-	pCC = new LAMPClass();
-	std::vector<std::vector<double>> vec = pCC->calcLAMP(m, cindex, cpoints, arraySize, controlsize);
-
-	for (int i = 0; i < vec.size(); i++) {
-		for (int j = 0; j < vec[i].size(); j++) {
-			dists[i, j] = vec[i][j];
-		}
-	}
-
-	return dists;
-}
-
-
-
-double CppWrapper::CppLAMPWrapper::GetSum()
-{
-	sum = pCC->SumArray();
-
-	return sum;
-}
-
-void CppWrapper::CppLAMPWrapper::testLamp()
-{
-	pCC->lampTest();
-}
-
-CppWrapper::CppMDSWrapper::CppMDSWrapper()
+CppWrapper::CppDataProjProviderWrapper::CppDataProjProviderWrapper()
 {
   pCF = new CaseDataCoeficients();
+  pMDS = NULL;
 
   casedata_v = new std::vector<CaseData*>();
 
   update_using_all_data_points = false;
   param_number_of_cases = 0;
   casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF));
+
+  pCC = new LAMPClass();
 }
 
-array<double, 2>^ CppWrapper::CppMDSWrapper::DataProviderMDS ()
+array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDS ()
 {
   printf("Number of Cases: %d\n", param_number_of_cases);
   assert(param_number_of_cases <= (int)casedata_v->size());
@@ -107,6 +49,8 @@ array<double, 2>^ CppWrapper::CppMDSWrapper::DataProviderMDS ()
     }
   }
 
+  if (pMDS)
+    delete pMDS;
   pMDS = new MDSClass(m, number_of_cases);
   std::vector<std::vector<double>> vec = pMDS->calcMDS();
 
@@ -122,36 +66,36 @@ array<double, 2>^ CppWrapper::CppMDSWrapper::DataProviderMDS ()
   return dists;
 }
 
-void CppWrapper::CppMDSWrapper::SetCreditScoreCoeficientValue (double coef)
+void CppWrapper::CppDataProjProviderWrapper::SetCreditScoreCoeficientValue (double coef)
 {
   if (pCF)
     pCF->coef_creditscore = coef;
 }
 
-void CppWrapper::CppMDSWrapper::SetRequestAmountCoeficientValue(double coef)
+void CppWrapper::CppDataProjProviderWrapper::SetRequestAmountCoeficientValue(double coef)
 {
   if (pCF)
     pCF->coef_requestamount = coef;
 }
 
-void CppWrapper::CppMDSWrapper::SetNumberOfOffersCoeficientValue (double coef)
+void CppWrapper::CppDataProjProviderWrapper::SetNumberOfOffersCoeficientValue (double coef)
 {
   if (pCF)
     pCF->coef_numberofoffers = coef;
 }
 
-void CppWrapper::CppMDSWrapper::SetLoanGoalCoeficientValue (double coef)
+void CppWrapper::CppDataProjProviderWrapper::SetLoanGoalCoeficientValue (double coef)
 {
   if (pCF)
     pCF->coef_loangoal = coef;
 }
 
-int CppWrapper::CppMDSWrapper::GetMaxCasesCount()
+int CppWrapper::CppDataProjProviderWrapper::GetMaxCasesCount()
 {
   return (int)casedata_v->size();
 }
 
-void CppWrapper::CppMDSWrapper::SetNumberOfCases(int n_cases)
+void CppWrapper::CppDataProjProviderWrapper::SetNumberOfCases(int n_cases)
 {
   assert(n_cases <= (int)casedata_v->size());
 
@@ -161,7 +105,7 @@ void CppWrapper::CppMDSWrapper::SetNumberOfCases(int n_cases)
     UpdateMaxValues(param_number_of_cases, casedata_v, pCF);
 }
 
-int CppWrapper::CppMDSWrapper::GetNumberOfCases ()
+int CppWrapper::CppDataProjProviderWrapper::GetNumberOfCases ()
 {
   return param_number_of_cases;
 }
@@ -169,12 +113,12 @@ int CppWrapper::CppMDSWrapper::GetNumberOfCases ()
 // 0 - Success / A_Pending
 // 1 - Denied
 // 2 - Cancelled
-int CppWrapper::CppMDSWrapper::GetCaseEndInfo (int id)
+int CppWrapper::CppDataProjProviderWrapper::GetCaseEndInfo (int id)
 {
   return casedata_v->at(id)->endsituation;
 }
 
-void CppWrapper::CppMDSWrapper::UpdateMaxValuesUsingAllDataPoints(bool up_using_all)
+void CppWrapper::CppDataProjProviderWrapper::UpdateMaxValuesUsingAllDataPoints(bool up_using_all)
 {
   update_using_all_data_points = up_using_all;
 
@@ -184,13 +128,13 @@ void CppWrapper::CppMDSWrapper::UpdateMaxValuesUsingAllDataPoints(bool up_using_
     UpdateMaxValues(param_number_of_cases, casedata_v, pCF);
 }
 
-System::String^ CppWrapper::CppMDSWrapper::GetCaseName(int id)
+System::String^ CppWrapper::CppDataProjProviderWrapper::GetCaseName(int id)
 {
   std::string str = casedata_v->at(id)->casename;
   return  msclr::interop::marshal_as<System::String^>(str);
 }
 
-System::String^ CppWrapper::CppMDSWrapper::GetCaseDataInfo (int id)
+System::String^ CppWrapper::CppDataProjProviderWrapper::GetCaseDataInfo (int id)
 {
   std::string str = casedata_v->at(id)->casename;
   str.append("\n");
@@ -212,4 +156,58 @@ System::String^ CppWrapper::CppMDSWrapper::GetCaseDataInfo (int id)
   str.append("\n");
 
   return msclr::interop::marshal_as<System::String^>(str);
+}
+
+void CppWrapper::CppDataProjProviderWrapper::InitLAMP (int *pInt, int arraySize)
+{
+  if (pCC)
+    delete pCC;
+
+  pCC = new LAMPClass(pInt, arraySize);
+}
+
+array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::GetLAMP(array<double, 2>^ tvalues, array<double, 2>^ controlPoints, array<int>^controlsidx, int controlsize, int arraySize)
+{
+  lamp_dists = tvalues;
+  double **m = (double**)malloc(arraySize * sizeof(double*));
+  double **cpoints = (double**)malloc(controlsize * sizeof(double*));
+  int *cindex = (int*)malloc(controlsize * sizeof(int));
+
+  for (int i = 0; i < arraySize; i++) {
+    m[i] = (double*)malloc(2 * sizeof(double));
+    for (int j = 0; j < 2; j++) {
+      m[i][j] = tvalues[i, j];
+    }
+  }
+
+  for (int i = 0; i < controlsize; i++) {
+    cpoints[i] = (double*)malloc(2 * sizeof(double));
+    cindex[i] = controlsidx[i];
+    for (int j = 0; j < 2; j++) {
+      cpoints[i][j] = controlPoints[i, j];
+    }
+  }
+
+  pCC = new LAMPClass();
+  std::vector<std::vector<double>> vec = pCC->calcLAMP(m, cindex, cpoints, arraySize, controlsize);
+
+  for (int i = 0; i < vec.size(); i++) {
+    for (int j = 0; j < vec[i].size(); j++) {
+      lamp_dists[i, j] = vec[i][j];
+    }
+  }
+
+  return lamp_dists;
+}
+
+double CppWrapper::CppDataProjProviderWrapper::GetSum()
+{
+  sum = pCC->SumArray();
+
+  return sum;
+}
+
+void CppWrapper::CppDataProjProviderWrapper::testLamp()
+{
+  pCC->lampTest();
 }
