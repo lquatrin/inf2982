@@ -21,8 +21,17 @@ namespace ClassCppToCS_CS
   {
     public CppWrapper.CppMDSWrapper data_prov_wrapper;
 
+    public enum ProjectionMode
+    {
+      MDS = 0,
+      LAMP = 1,
+    }
+    ProjectionMode project_mode = ProjectionMode.MDS;
+    int CONTROL_POINT_SERIES = 4;
+
+
     int param_number_of_cases = 250;
-    bool auto_update_chart = true;
+    bool auto_update_chart = false;
 
     // ith case -> ith point in a specific series
     Hashtable hst_cases_to_points = new Hashtable();
@@ -33,6 +42,10 @@ namespace ClassCppToCS_CS
 
     Point r_mdown = Point.Empty;
     Rectangle right_rectangle = Rectangle.Empty;
+
+    Point cp_r_mdown = Point.Empty;
+    DataPoint cp_point_ref = null;
+    double ref_max_dist_hit = 0.1;
 
     public Form1()
     {
@@ -51,11 +64,17 @@ namespace ClassCppToCS_CS
       data_prov_wrapper.SetNumberOfCases(param_number_of_cases);
       data_prov_wrapper.UpdateMaxValuesUsingAllDataPoints(updateMaxValuesUsingAllDataPointsToolStripMenuItem.Checked);
 
+      // Set Number of Projected Cases
       tkb_ninputpoints.Value = param_number_of_cases;
-
+      // Set Menu Item Auto Update Chart
       autoUpdateChartToolStripMenuItem.Checked = auto_update_chart;
 
-      MDSProjectDataCasesToChart();
+      MDSMenuItem.Checked = project_mode == ProjectionMode.MDS;
+      LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
+
+      //chart1.ChartAreas[0].AxisX.Interval = 1;
+
+      UpdateCurrentChartProjection();
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -111,7 +130,7 @@ namespace ClassCppToCS_CS
     private void ParamsUpdateMouseUp (object sender, MouseEventArgs e)
     {
       if (auto_update_chart)
-        MDSProjectDataCasesToChart();  
+        UpdateCurrentChartProjection();  
     }
 
     private void label4_Click(object sender, EventArgs e)
@@ -167,15 +186,44 @@ namespace ClassCppToCS_CS
           // Set default marker color to all Data Points
           // for each series
           for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
+          {
+            if (ith_series == CONTROL_POINT_SERIES) continue;
+
             // for each point in the ith series
             foreach (DataPoint dp in chart1.Series[ith_series].Points)
               dp.MarkerColor = GetPointColor(GetCaseEndInfo(dp));
+          }
         }
       }
-      else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+      else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
       {
         r_mdown = e.Location;
         right_rectangle = Rectangle.Empty;
+      }
+      else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+      {
+        cp_point_ref = null;
+
+        cp_r_mdown = e.Location;
+
+        double x = chart1.ChartAreas[0].AxisX.PixelPositionToValue(cp_r_mdown.X);
+        double y = chart1.ChartAreas[0].AxisY.PixelPositionToValue(cp_r_mdown.Y);
+
+        double min_dist = double.MaxValue;
+        foreach (DataPoint dp in chart1.Series[CONTROL_POINT_SERIES].Points)
+        {
+          double px = dp.XValue;
+          double py = dp.YValues[0];
+          
+          double distance_p = Math.Sqrt(Math.Pow(x - px, 2.0) + Math.Pow(y - py, 2.0));
+
+          if (distance_p < ref_max_dist_hit && distance_p < min_dist)
+          {
+            
+            min_dist = distance_p;
+            cp_point_ref = dp;
+          }
+        }
       }
 
       chart1.Refresh();
@@ -187,9 +235,20 @@ namespace ClassCppToCS_CS
       {
         left_rectangle = GetRectangle(mdown, e.Location);
       }
-      else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+      else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
       {
         right_rectangle = GetRectangle(r_mdown, e.Location);
+      }
+      else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+      {
+        if (cp_point_ref != null)
+        {
+          double x = chart1.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X);
+          double y = chart1.ChartAreas[0].AxisY.PixelPositionToValue(e.Location.Y);
+
+          cp_point_ref.XValue = x;
+          cp_point_ref.YValues[0] = y;
+        }
       }
 
       chart1.Refresh();
@@ -205,6 +264,8 @@ namespace ClassCppToCS_CS
 
         for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
         {
+          if (ith_series == CONTROL_POINT_SERIES) continue;
+
           // select only if the series is enabled
           if (chart1.Series[ith_series].Enabled)
           {
@@ -237,9 +298,15 @@ namespace ClassCppToCS_CS
         }
         left_rectangle = Rectangle.Empty;
       }
-      else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+      else if (e.Button == System.Windows.Forms.MouseButtons.Middle)
       {
       }
+      else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+      {
+        cp_r_mdown = Point.Empty;
+        cp_point_ref = null;
+      }
+     
 
       chart1.Refresh();
     }
@@ -262,7 +329,7 @@ namespace ClassCppToCS_CS
 
     private void button1_Click(object sender, EventArgs e)
     {
-      MDSProjectDataCasesToChart();
+      UpdateCurrentChartProjection();
     }
 
     private void exportSelectedDataPointsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -356,6 +423,7 @@ namespace ClassCppToCS_CS
       chart.Series[1].Enabled = tgl_vis_denied_series.Checked;
       chart.Series[2].Enabled = tgl_vis_cancelled_series.Checked;
       chart.Series[3].Enabled = tgl_vis_undefined_series.Checked;
+      chart.Series[CONTROL_POINT_SERIES].Enabled = false;
 
       hst_cases_to_points.Clear();
 
@@ -444,7 +512,10 @@ namespace ClassCppToCS_CS
 
     private void UpdateCurrentChartProjection ()
     {
-      MDSProjectDataCasesToChart();
+      if(project_mode == ProjectionMode.MDS)
+        MDSProjectDataCasesToChart();
+      else if (project_mode == ProjectionMode.LAMP)
+        LAMPProjectDataCasesToChart();
     }
 
     private void autoUpdateChartToolStripMenuItem_Click(object sender, EventArgs e)
@@ -460,6 +531,93 @@ namespace ClassCppToCS_CS
       data_prov_wrapper.UpdateMaxValuesUsingAllDataPoints(updateMaxValuesUsingAllDataPointsToolStripMenuItem.Checked);
     
       UpdateCurrentChartProjection();
+    }
+
+    private void MDSMenuItem_Click(object sender, EventArgs e)
+    {
+      project_mode = ProjectionMode.MDS;
+      
+      MDSMenuItem.Checked = project_mode == ProjectionMode.MDS;
+      LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
+
+      UpdateCurrentChartProjection();
+    }
+
+    private void LAMPMenuItem_Click(object sender, EventArgs e)
+    {
+      project_mode = ProjectionMode.LAMP;
+
+      MDSMenuItem.Checked = project_mode == ProjectionMode.MDS;
+      LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
+
+      UpdateCurrentChartProjection();
+    }
+
+    private void LAMPProjectDataCasesToChart()
+    {
+      Chart chart = chart1;
+      for (int v = 0; v < chart.Series.Count; v++)
+        chart.Series[v].Points.Clear();
+
+      chart.Series[0].Enabled = tgl_vis_peding_series.Checked;
+      chart.Series[1].Enabled = tgl_vis_denied_series.Checked;
+      chart.Series[2].Enabled = tgl_vis_cancelled_series.Checked;
+      chart.Series[3].Enabled = tgl_vis_undefined_series.Checked;
+      chart.Series[CONTROL_POINT_SERIES].Enabled = true;
+
+      hst_cases_to_points.Clear();
+
+      double[] min_max_axis_limits = new Double[4];
+      min_max_axis_limits[0] = Double.MaxValue;
+      min_max_axis_limits[1] = Double.MinValue;
+      min_max_axis_limits[2] = Double.MaxValue;
+      min_max_axis_limits[3] = Double.MinValue;
+
+      double expand_limtis = 1.2;
+
+      //Adding static controlPoints
+      for (int i = 0; i < 4; i++)
+      {
+        double mm_x = i;
+        double mm_y = i;
+
+        chart.Series[4].Points.AddXY(mm_x, mm_y);
+        chart.Series[4].Points[i].LegendToolTip = "controlpoint";
+        chart.Series[4].Points[i].Tag = (i + 1).ToString();
+
+        chart.Series[4].Points[i].MarkerStyle = MarkerStyle.Circle;
+        chart.Series[4].Points[i].MarkerColor = Color.Chartreuse;
+        chart.Series[4].Points[i].MarkerSize = 15;
+        chart.Series[4].Points[i].MarkerBorderColor = Color.Indigo;
+        chart.Series[4].Points[i].MarkerBorderWidth = 3;
+
+        min_max_axis_limits[0] = Math.Min(min_max_axis_limits[0], mm_x);
+        min_max_axis_limits[1] = Math.Max(min_max_axis_limits[1], mm_x);
+
+        min_max_axis_limits[2] = Math.Min(min_max_axis_limits[2], mm_y);
+        min_max_axis_limits[3] = Math.Max(min_max_axis_limits[3], mm_y);
+      }
+
+      chart.ChartAreas[0].AxisY.LabelStyle.Format = "{0:0.00}";
+      chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.00}";
+
+      min_max_axis_limits[0] *= expand_limtis;
+      min_max_axis_limits[1] *= expand_limtis;
+
+      min_max_axis_limits[2] *= expand_limtis;
+      min_max_axis_limits[3] *= expand_limtis;
+
+      chart.ChartAreas[0].AxisX.Minimum = min_max_axis_limits[0];
+      chart.ChartAreas[0].AxisX.Maximum = min_max_axis_limits[1];
+
+      chart.ChartAreas[0].AxisY.Minimum = min_max_axis_limits[2];
+      chart.ChartAreas[0].AxisY.Maximum = min_max_axis_limits[3];
+
+      //Update selectedPoints
+      ///////////////////////////////////////////////////////
+      if (selectedPoints.Count > 0)
+        selectedPoints.Clear();
+      ///////////////////////////////////////////////////////
     }
   };
 }

@@ -35,6 +35,7 @@
       System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
       System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
       System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
       this.openCFGDialog = new System.Windows.Forms.OpenFileDialog();
       this.tgl_vis_peding_series = new System.Windows.Forms.CheckBox();
@@ -59,16 +60,16 @@
       this.exportSelectedDataPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.usingOnlySelectedDataPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.autoUpdateChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.projectionModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.mDSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.lAMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.MDSMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.LAMPMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.tkb_ninputpoints = new System.Windows.Forms.TrackBar();
       this.txb_max_track_n_cases = new System.Windows.Forms.TextBox();
       this.txb_min_track_n_cases = new System.Windows.Forms.TextBox();
       this.label7 = new System.Windows.Forms.Label();
       this.tkb_lamp_progress = new System.Windows.Forms.TrackBar();
       this.label8 = new System.Windows.Forms.Label();
-      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.creditscoretrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.requestamounttrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.numberofofferstrackbar)).BeginInit();
@@ -254,6 +255,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.chart1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
+      chartArea1.AxisX.IsLabelAutoFit = false;
+      chartArea1.AxisY.IsLabelAutoFit = false;
       chartArea1.Name = "ChartArea1";
       this.chart1.ChartAreas.Add(chartArea1);
       legend1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
@@ -280,7 +283,8 @@
       series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
       series3.Legend = "Legend1";
       series3.MarkerColor = System.Drawing.Color.Blue;
-      series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+      series3.MarkerSize = 8;
+      series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
       series3.Name = "A_Cancelled";
       series4.ChartArea = "ChartArea1";
       series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
@@ -288,10 +292,17 @@
       series4.MarkerColor = System.Drawing.Color.Black;
       series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
       series4.Name = "Undefined";
+      series5.ChartArea = "ChartArea1";
+      series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series5.Enabled = false;
+      series5.Legend = "Legend1";
+      series5.Name = "ControlPoints";
+      series5.YValuesPerPoint = 2;
       this.chart1.Series.Add(series1);
       this.chart1.Series.Add(series2);
       this.chart1.Series.Add(series3);
       this.chart1.Series.Add(series4);
+      this.chart1.Series.Add(series5);
       this.chart1.Size = new System.Drawing.Size(659, 527);
       this.chart1.TabIndex = 0;
       this.chart1.Text = "chart1";
@@ -363,33 +374,40 @@
       // 
       // autoUpdateChartToolStripMenuItem
       // 
-      this.autoUpdateChartToolStripMenuItem.Checked = true;
-      this.autoUpdateChartToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.autoUpdateChartToolStripMenuItem.Name = "autoUpdateChartToolStripMenuItem";
       this.autoUpdateChartToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
       this.autoUpdateChartToolStripMenuItem.Text = "Auto Update Chart";
       this.autoUpdateChartToolStripMenuItem.Click += new System.EventHandler(this.autoUpdateChartToolStripMenuItem_Click);
       // 
+      // updateMaxValuesUsingAllDataPointsToolStripMenuItem
+      // 
+      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Name = "updateMaxValuesUsingAllDataPointsToolStripMenuItem";
+      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Text = "Update Max Values Using all DataPoints";
+      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Click += new System.EventHandler(this.updateMaxValuesUsingAllDataPointsToolStripMenuItem_Click);
+      // 
       // projectionModeToolStripMenuItem
       // 
       this.projectionModeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mDSToolStripMenuItem,
-            this.lAMPToolStripMenuItem});
+            this.MDSMenuItem,
+            this.LAMPMenuItem});
       this.projectionModeToolStripMenuItem.Name = "projectionModeToolStripMenuItem";
       this.projectionModeToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
       this.projectionModeToolStripMenuItem.Text = "Projection Mode";
       // 
-      // mDSToolStripMenuItem
+      // MDSMenuItem
       // 
-      this.mDSToolStripMenuItem.Name = "mDSToolStripMenuItem";
-      this.mDSToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-      this.mDSToolStripMenuItem.Text = "MDS";
+      this.MDSMenuItem.Name = "MDSMenuItem";
+      this.MDSMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.MDSMenuItem.Text = "MDS";
+      this.MDSMenuItem.Click += new System.EventHandler(this.MDSMenuItem_Click);
       // 
-      // lAMPToolStripMenuItem
+      // LAMPMenuItem
       // 
-      this.lAMPToolStripMenuItem.Name = "lAMPToolStripMenuItem";
-      this.lAMPToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
-      this.lAMPToolStripMenuItem.Text = "LAMP";
+      this.LAMPMenuItem.Name = "LAMPMenuItem";
+      this.LAMPMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.LAMPMenuItem.Text = "LAMP";
+      this.LAMPMenuItem.Click += new System.EventHandler(this.LAMPMenuItem_Click);
       // 
       // tkb_ninputpoints
       // 
@@ -462,13 +480,6 @@
       this.label8.Size = new System.Drawing.Size(172, 13);
       this.label8.TabIndex = 23;
       this.label8.Text = "TODO: LAMP add point interaction";
-      // 
-      // updateMaxValuesUsingAllDataPointsToolStripMenuItem
-      // 
-      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Name = "updateMaxValuesUsingAllDataPointsToolStripMenuItem";
-      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
-      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Text = "Update Max Values Using all DataPoints";
-      this.updateMaxValuesUsingAllDataPointsToolStripMenuItem.Click += new System.EventHandler(this.updateMaxValuesUsingAllDataPointsToolStripMenuItem_Click);
       // 
       // Form1
       // 
@@ -543,8 +554,8 @@
     private System.Windows.Forms.ToolStripMenuItem exportSelectedDataPointsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem usingOnlySelectedDataPointsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem projectionModeToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem mDSToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem lAMPToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem MDSMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem LAMPMenuItem;
     private System.Windows.Forms.TrackBar tkb_ninputpoints;
     private System.Windows.Forms.TextBox txb_max_track_n_cases;
     private System.Windows.Forms.TextBox txb_min_track_n_cases;
