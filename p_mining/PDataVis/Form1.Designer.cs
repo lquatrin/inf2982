@@ -29,13 +29,13 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-      System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-      System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+      System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+      System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
       this.openCFGDialog = new System.Windows.Forms.OpenFileDialog();
       this.tgl_vis_peding_series = new System.Windows.Forms.CheckBox();
@@ -69,7 +69,6 @@
       this.txb_min_track_n_cases = new System.Windows.Forms.TextBox();
       this.label7 = new System.Windows.Forms.Label();
       this.tkb_lamp_progress = new System.Windows.Forms.TrackBar();
-      this.label8 = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.creditscoretrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.requestamounttrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.numberofofferstrackbar)).BeginInit();
@@ -255,54 +254,54 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.chart1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-      chartArea1.AxisX.IsLabelAutoFit = false;
-      chartArea1.AxisY.IsLabelAutoFit = false;
-      chartArea1.Name = "ChartArea1";
-      this.chart1.ChartAreas.Add(chartArea1);
-      legend1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
-      legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-      legend1.Name = "Legend1";
-      this.chart1.Legends.Add(legend1);
+      chartArea2.AxisX.IsLabelAutoFit = false;
+      chartArea2.AxisY.IsLabelAutoFit = false;
+      chartArea2.Name = "ChartArea1";
+      this.chart1.ChartAreas.Add(chartArea2);
+      legend2.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
+      legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+      legend2.Name = "Legend1";
+      this.chart1.Legends.Add(legend2);
       this.chart1.Location = new System.Drawing.Point(11, 75);
       this.chart1.Name = "chart1";
-      series1.ChartArea = "ChartArea1";
-      series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series1.Legend = "Legend1";
-      series1.MarkerColor = System.Drawing.Color.Green;
-      series1.MarkerSize = 11;
-      series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
-      series1.Name = "A_Pending";
-      series2.ChartArea = "ChartArea1";
-      series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series2.Legend = "Legend1";
-      series2.MarkerColor = System.Drawing.Color.Red;
-      series2.MarkerSize = 10;
-      series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
-      series2.Name = "A_Denied";
-      series3.ChartArea = "ChartArea1";
-      series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series3.Legend = "Legend1";
-      series3.MarkerColor = System.Drawing.Color.Blue;
-      series3.MarkerSize = 8;
-      series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-      series3.Name = "A_Cancelled";
-      series4.ChartArea = "ChartArea1";
-      series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series4.Legend = "Legend1";
-      series4.MarkerColor = System.Drawing.Color.Black;
-      series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-      series4.Name = "Undefined";
-      series5.ChartArea = "ChartArea1";
-      series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series5.Enabled = false;
-      series5.Legend = "Legend1";
-      series5.Name = "ControlPoints";
-      series5.YValuesPerPoint = 2;
-      this.chart1.Series.Add(series1);
-      this.chart1.Series.Add(series2);
-      this.chart1.Series.Add(series3);
-      this.chart1.Series.Add(series4);
-      this.chart1.Series.Add(series5);
+      series6.ChartArea = "ChartArea1";
+      series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series6.Legend = "Legend1";
+      series6.MarkerColor = System.Drawing.Color.Green;
+      series6.MarkerSize = 11;
+      series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
+      series6.Name = "A_Pending";
+      series7.ChartArea = "ChartArea1";
+      series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series7.Legend = "Legend1";
+      series7.MarkerColor = System.Drawing.Color.Red;
+      series7.MarkerSize = 10;
+      series7.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
+      series7.Name = "A_Denied";
+      series8.ChartArea = "ChartArea1";
+      series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series8.Legend = "Legend1";
+      series8.MarkerColor = System.Drawing.Color.Blue;
+      series8.MarkerSize = 8;
+      series8.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+      series8.Name = "A_Cancelled";
+      series9.ChartArea = "ChartArea1";
+      series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series9.Legend = "Legend1";
+      series9.MarkerColor = System.Drawing.Color.Black;
+      series9.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+      series9.Name = "Undefined";
+      series10.ChartArea = "ChartArea1";
+      series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series10.Enabled = false;
+      series10.Legend = "Legend1";
+      series10.Name = "ControlPoints";
+      series10.YValuesPerPoint = 2;
+      this.chart1.Series.Add(series6);
+      this.chart1.Series.Add(series7);
+      this.chart1.Series.Add(series8);
+      this.chart1.Series.Add(series9);
+      this.chart1.Series.Add(series10);
       this.chart1.Size = new System.Drawing.Size(659, 527);
       this.chart1.TabIndex = 0;
       this.chart1.Text = "chart1";
@@ -398,14 +397,14 @@
       // MDSMenuItem
       // 
       this.MDSMenuItem.Name = "MDSMenuItem";
-      this.MDSMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.MDSMenuItem.Size = new System.Drawing.Size(106, 22);
       this.MDSMenuItem.Text = "MDS";
       this.MDSMenuItem.Click += new System.EventHandler(this.MDSMenuItem_Click);
       // 
       // LAMPMenuItem
       // 
       this.LAMPMenuItem.Name = "LAMPMenuItem";
-      this.LAMPMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.LAMPMenuItem.Size = new System.Drawing.Size(106, 22);
       this.LAMPMenuItem.Text = "LAMP";
       this.LAMPMenuItem.Click += new System.EventHandler(this.LAMPMenuItem_Click);
       // 
@@ -470,23 +469,11 @@
       this.tkb_lamp_progress.TabIndex = 22;
       this.tkb_lamp_progress.Value = 5;
       // 
-      // label8
-      // 
-      this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.label8.AutoSize = true;
-      this.label8.Location = new System.Drawing.Point(288, 624);
-      this.label8.Name = "label8";
-      this.label8.Size = new System.Drawing.Size(172, 13);
-      this.label8.TabIndex = 23;
-      this.label8.Text = "TODO: LAMP add point interaction";
-      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(984, 665);
-      this.Controls.Add(this.label8);
       this.Controls.Add(this.tkb_lamp_progress);
       this.Controls.Add(this.label7);
       this.Controls.Add(this.txb_min_track_n_cases);
@@ -561,7 +548,6 @@
     private System.Windows.Forms.TextBox txb_min_track_n_cases;
     private System.Windows.Forms.Label label7;
     private System.Windows.Forms.TrackBar tkb_lamp_progress;
-    private System.Windows.Forms.Label label8;
     private System.Windows.Forms.ToolStripMenuItem autoUpdateChartToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem updateMaxValuesUsingAllDataPointsToolStripMenuItem;
   }

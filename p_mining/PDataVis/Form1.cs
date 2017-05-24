@@ -30,6 +30,7 @@ namespace ClassCppToCS_CS
     int CONTROL_POINT_SERIES = 4;
 
 
+    int axis_number_of_intervals = 8;
     int param_number_of_cases = 250;
     bool auto_update_chart = false;
 
@@ -71,13 +72,19 @@ namespace ClassCppToCS_CS
 
       MDSMenuItem.Checked = project_mode == ProjectionMode.MDS;
       LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
-
-      //chart1.ChartAreas[0].AxisX.Interval = 1;
+      tkb_lamp_progress.Enabled = project_mode == ProjectionMode.LAMP;
+ 
       chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
       chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
 
-
       UpdateCurrentChartProjection();
+    }
+
+    private void UpdateInterfaceElements ()
+    {
+      MDSMenuItem.Checked = project_mode == ProjectionMode.MDS;
+      LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
+      tkb_lamp_progress.Enabled = project_mode == ProjectionMode.LAMP;
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -477,6 +484,9 @@ namespace ClassCppToCS_CS
       chart.ChartAreas[0].AxisY.Minimum = min_max_axis_limits[2];
       chart.ChartAreas[0].AxisY.Maximum = min_max_axis_limits[3];
 
+      chart.ChartAreas[0].AxisX.Interval = (min_max_axis_limits[1] - min_max_axis_limits[0]) / (double)axis_number_of_intervals;
+      chart.ChartAreas[0].AxisY.Interval = (min_max_axis_limits[3] - min_max_axis_limits[2]) / (double)axis_number_of_intervals;
+      
       //Update selectedPoints
       ///////////////////////////////////////////////////////
       if (selectedPoints.Count > 0)
@@ -515,6 +525,7 @@ namespace ClassCppToCS_CS
 
     private void UpdateCurrentChartProjection ()
     {
+      UpdateInterfaceElements();
       if(project_mode == ProjectionMode.MDS)
         MDSProjectDataCasesToChart();
       else if (project_mode == ProjectionMode.LAMP)
@@ -540,18 +551,12 @@ namespace ClassCppToCS_CS
     {
       project_mode = ProjectionMode.MDS;
       
-      MDSMenuItem.Checked = project_mode == ProjectionMode.MDS;
-      LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
-
       UpdateCurrentChartProjection();
     }
 
     private void LAMPMenuItem_Click(object sender, EventArgs e)
     {
       project_mode = ProjectionMode.LAMP;
-
-      MDSMenuItem.Checked = project_mode == ProjectionMode.MDS;
-      LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
 
       UpdateCurrentChartProjection();
     }
@@ -616,6 +621,9 @@ namespace ClassCppToCS_CS
       chart.ChartAreas[0].AxisY.Minimum = min_max_axis_limits[2];
       chart.ChartAreas[0].AxisY.Maximum = min_max_axis_limits[3];
 
+      chart.ChartAreas[0].AxisX.Interval = (min_max_axis_limits[1] - min_max_axis_limits[0]) / (double)axis_number_of_intervals;
+      chart.ChartAreas[0].AxisY.Interval = (min_max_axis_limits[3] - min_max_axis_limits[2]) / (double)axis_number_of_intervals;
+                                            
       //Update selectedPoints
       ///////////////////////////////////////////////////////
       if (selectedPoints.Count > 0)
