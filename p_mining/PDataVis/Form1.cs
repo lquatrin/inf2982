@@ -73,6 +73,9 @@ namespace ClassCppToCS_CS
       LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
 
       //chart1.ChartAreas[0].AxisX.Interval = 1;
+      chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+      chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+
 
       UpdateCurrentChartProjection();
     }
