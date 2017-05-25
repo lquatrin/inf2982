@@ -27,15 +27,17 @@ namespace CppWrapper {
     CppDataProjProviderWrapper();
 
     array<double, 2>^ DataProviderMDS ();
+    array<double, 2>^ DataProviderMDSCP (array<int>^ case_index, int case_length);
+	  array<double, 2>^ DataProviderMDSEditDist ();
 
     void SetCreditScoreCoeficientValue (double coef);
     void SetRequestAmountCoeficientValue (double coef);
     void SetNumberOfOffersCoeficientValue (double coef);
     void SetLoanGoalCoeficientValue (double coef);
 
+    int GetMaxCasesCount ();
     void SetNumberOfCases (int n_cases);
     int GetNumberOfCases ();
-    int GetMaxCasesCount ();
     // 0 - Success / A_Pending
     // 1 - Denied
     // 2 - Cancelled
@@ -47,14 +49,15 @@ namespace CppWrapper {
 
     System::String^ GetCaseDataInfo (int id);
 
-    void InitLAMP(int* pInt, int arraySize);
-    array<double, 2>^ GetLAMP(array<double, 2>^ tvalues, array<double, 2>^ controlPoints, array<int>^controlsidx, int controlsize, int arraySize);
-	array<double, 2>^ DataProviderMDSEditDist();
+    void InitLAMP (int* pInt, int arraySize);
+    array<double, 2>^ GetLAMP (array<double, 2>^ tvalues, array<double, 2>^ controlPoints, array<int>^controlsidx, int controlsize, int arraySize);
 
-    double GetSum();
+    double GetSum ();
     double sum;
 
-    void testLamp();
+    void testLamp ();
+
+    array<int>^ FirstNVariants (int n_variants);
 
   private:
     std::vector<CaseData*>* casedata_v;

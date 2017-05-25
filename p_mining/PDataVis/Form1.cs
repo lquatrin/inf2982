@@ -29,6 +29,8 @@ namespace ClassCppToCS_CS
     ProjectionMode project_mode = ProjectionMode.MDS;
     int CONTROL_POINT_SERIES = 4;
 
+    int lamp_n_variants = 10;
+    int[] lamp_control_points_id;
 
     int axis_number_of_intervals = 8;
     int param_number_of_cases = 250;
@@ -89,6 +91,19 @@ namespace ClassCppToCS_CS
 
     private void Form1_Load(object sender, EventArgs e)
     {
+
+    }
+
+    private MarkerStyle GetPointMarkerStyle (int id_end_sit)
+    {
+      if (id_end_sit == 0)
+        return MarkerStyle.Star5;
+      else if (id_end_sit == 1)
+        return MarkerStyle.Cross;
+      else if (id_end_sit == 2)
+        return MarkerStyle.Diamond;
+
+      return MarkerStyle.Square;
 
     }
 
@@ -563,6 +578,13 @@ namespace ClassCppToCS_CS
 
     private void LAMPProjectDataCasesToChart()
     {
+      lamp_control_points_id = data_prov_wrapper.FirstNVariants(lamp_n_variants);
+      double[,] arrayMDSCP = data_prov_wrapper.DataProviderMDSCP(lamp_control_points_id, lamp_n_variants);
+
+      //for (int v = 0; v < array_control_points.Length; v++)
+      //  Console.Out.Write(array_control_points[v] + " ");
+      //Console.Out.WriteLine();
+
       Chart chart = chart1;
       for (int v = 0; v < chart.Series.Count; v++)
         chart.Series[v].Points.Clear();
@@ -584,20 +606,23 @@ namespace ClassCppToCS_CS
       double expand_limtis = 1.2;
 
       //Adding static controlPoints
-      for (int i = 0; i < 4; i++)
+      for (int i = 0; i < lamp_n_variants; i++)
       {
-        double mm_x = i;
-        double mm_y = i;
+        if (lamp_control_points_id[i] == -1) continue;
+        
+        double mm_x = arrayMDSCP[i, 0]; //Math.Round(arrayMDS[i, 0], 5);
+        double mm_y = arrayMDSCP[i, 1]; //Math.Round(arrayMDS[i, 1], 5);
 
-        chart.Series[4].Points.AddXY(mm_x, mm_y);
-        chart.Series[4].Points[i].LegendToolTip = "controlpoint";
-        chart.Series[4].Points[i].Tag = (i + 1).ToString();
+        chart.Series[CONTROL_POINT_SERIES].Points.AddXY(mm_x, mm_y);
+        chart.Series[CONTROL_POINT_SERIES].Points[i].LegendToolTip = "controlpoint";
+        chart.Series[CONTROL_POINT_SERIES].Points[i].Tag = (i + 1).ToString();
+        chart.Series[CONTROL_POINT_SERIES].Points[i].ToolTip = data_prov_wrapper.GetCaseDataInfo(lamp_control_points_id[i]);
 
-        chart.Series[4].Points[i].MarkerStyle = MarkerStyle.Circle;
-        chart.Series[4].Points[i].MarkerColor = Color.Chartreuse;
-        chart.Series[4].Points[i].MarkerSize = 15;
-        chart.Series[4].Points[i].MarkerBorderColor = Color.Indigo;
-        chart.Series[4].Points[i].MarkerBorderWidth = 3;
+        chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerStyle = GetPointMarkerStyle(data_prov_wrapper.GetCaseEndInfo(lamp_control_points_id[i]));
+        chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerColor = GetPointColor(data_prov_wrapper.GetCaseEndInfo(lamp_control_points_id[i]));
+        chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerSize = 18;
+        chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerBorderColor = Color.DarkOrange;
+        chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerBorderWidth = 2;
 
         min_max_axis_limits[0] = Math.Min(min_max_axis_limits[0], mm_x);
         min_max_axis_limits[1] = Math.Max(min_max_axis_limits[1], mm_x);

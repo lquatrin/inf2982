@@ -97,6 +97,35 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDS ()
 }
 
 
+array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDSCP(array<int>^ case_index, int case_length)
+{
+  double **m = (double**)malloc(case_length * sizeof(double*));
+  for (int i = 0; i < case_length; i++)
+  {
+    m[i] = (double*)malloc(case_length * sizeof(double));
+    for (int j = 0; j < case_length; j++)
+    {
+      m[i][j] = CaseData::CompositeDistance(casedata_v->at(case_index[i]), casedata_v->at(case_index[j]), pCF);
+    }
+  }
+
+  if (pMDS)
+    delete pMDS;
+  pMDS = new MDSClass(m, case_length);
+  std::vector<std::vector<double>> vec = pMDS->calcMDS();
+
+  array<double, 2>^ dists = gcnew array<double, 2>(case_length, 2);
+  for (int i = 0; i < case_length; i++)
+  {
+    for (int j = 0; j < 2; j++)
+    {
+      dists[i, j] = vec[i][j];
+    }
+  }
+
+  return dists;
+}
+
 
 //TO DO -> separa
 array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDSEditDist()
@@ -217,6 +246,10 @@ System::String^ CppWrapper::CppDataProjProviderWrapper::GetCaseDataInfo (int id)
   std::string str = casedata_v->at(id)->casename;
   str.append("\n");
 
+  str.append("Variant: ");
+  str.append(std::to_string(casedata_v->at(id)->variant));
+  str.append("\n");
+
   str.append("Goal: ");
   str.append(casedata_v->at(id)->loangoal);
   str.append("\n");
@@ -288,4 +321,28 @@ double CppWrapper::CppDataProjProviderWrapper::GetSum()
 void CppWrapper::CppDataProjProviderWrapper::testLamp()
 {
   pCC->lampTest();
+}
+
+array<int>^ CppWrapper::CppDataProjProviderWrapper::FirstNVariants (int n_variants)
+{
+  array<int>^ datapoints = gcnew array<int>(n_variants);
+  for (int v = 0; v < n_variants; v++)
+  {
+    datapoints[v] = -1;
+  }
+
+  for (int v = 0; v < n_variants; v++)
+  {
+    int variant = v+1;
+    for (int p = 0; p < casedata_v->size(); p++)
+    {
+      if (casedata_v->at(p)->variant == variant)
+      {
+        datapoints[v] = p;
+        break;
+      }
+    }
+  }
+
+  return datapoints;
 }
