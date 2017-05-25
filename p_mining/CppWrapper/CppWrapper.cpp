@@ -277,6 +277,82 @@ void CppWrapper::CppDataProjProviderWrapper::InitLAMP (int *pInt, int arraySize)
   pCC = new LAMPClass(pInt, arraySize);
 }
 
+array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderCasesLAMP (int id_init
+  , int id_end
+  , int lamp_control_points
+  , array<int>^ lamp_control_points_index
+  , array<double, 2>^ lamp_control_point_positions)
+{
+  int array_size = id_end - id_init;
+  std::cout << array_size << std::endl;
+  if (array_size <= 0) return nullptr;
+  
+  array_size = array_size + lamp_control_points;
+
+  // just put the control points first
+  int *control_points_ids = (int*)malloc(lamp_control_points * sizeof(int));
+  for (int i = 0; i < lamp_control_points; i++)
+    control_points_ids[i] = i;
+
+
+  double **control_points = (double**)malloc(lamp_control_points * sizeof(double*));
+  for (int i = 0; i < lamp_control_points; i++) {
+    control_points[i] = (double*)malloc(2 * sizeof(double));
+    for (int j = 0; j < 2; j++) {
+      control_points[i][j] = lamp_control_point_positions[i, j];
+    }
+  }
+
+  double **m = (double**)malloc(array_size * sizeof(double*));
+  for (int i = 0; i < array_size; i++) {
+    m[i] = (double*)malloc(array_size * sizeof(double));
+
+    // Get the correct case_id
+    int index_f;
+    if (i < lamp_control_points)
+      index_f = lamp_control_points_index[i];
+    else
+      index_f = id_init + (i - lamp_control_points);
+
+    for (int j = 0; j < array_size; j++) {
+      
+      // Get the correct case_id
+      int index_e;
+      if (j < lamp_control_points)
+        index_e = lamp_control_points_index[j];
+      else
+        index_e = id_init + (j - lamp_control_points);
+      m[i][j] = CaseData::CompositeDistance(casedata_v->at(index_f), casedata_v->at(index_e), pCF);
+    }
+  }
+
+  if (pCC) delete pCC;
+  
+  pCC = new LAMPClass();
+  std::vector<std::vector<double>> vec = pCC->calcLAMP(m
+    , control_points_ids
+    , control_points
+    , array_size
+    , lamp_control_points);
+
+  std::cout << vec.size() << std::endl;
+  for (int i = 0; i < vec.size(); i++) {
+    for (int j = 0; j < vec[i].size(); j++) {
+      std::cout << vec[i][j] << " ";
+    }
+    std::cout << std::endl;
+  }
+
+  array<double, 2>^ r_points = gcnew array<double, 2>(vec.size(), 2);
+  for (int i = 0; i < vec.size(); i++) {
+    for (int j = 0; j < vec[i].size(); j++) {
+      r_points[i, j] = vec[i][j];
+    }
+  }
+
+  return r_points;
+}
+
 array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::GetLAMP(array<double, 2>^ tvalues, array<double, 2>^ controlPoints, array<int>^controlsidx, int controlsize, int arraySize)
 {
   lamp_dists = tvalues;

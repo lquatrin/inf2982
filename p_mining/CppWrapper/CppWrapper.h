@@ -50,7 +50,21 @@ namespace CppWrapper {
     System::String^ GetCaseDataInfo (int id);
 
     void InitLAMP (int* pInt, int arraySize);
-    array<double, 2>^ GetLAMP (array<double, 2>^ tvalues, array<double, 2>^ controlPoints, array<int>^controlsidx, int controlsize, int arraySize);
+    
+    array<double, 2>^ DataProviderCasesLAMP (int id_init
+      , int id_end
+      , int lamp_control_points
+      , array<int>^ lamp_control_points_index
+      , array<double, 2>^ lamp_control_point_positions
+    );
+
+    array<double, 2>^ GetLAMP (array<double, 2>^ tvalues
+      , array<double, 2>^ controlPoints
+      , array<int>^controlsidx
+      , int controlsize
+      , int arraySize
+    );
+
 
     double GetSum ();
     double sum;
