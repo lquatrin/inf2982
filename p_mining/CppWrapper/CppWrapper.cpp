@@ -116,8 +116,8 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDSEditDis
 		m[i] = (double*)malloc(number_of_cases * sizeof(double));
 		for (int j = 0; j < number_of_cases; j++)
 		{
-			int vari = casedata_v->at(i)->variant;
-			int varj = casedata_v->at(j)->variant;
+			int vari = casedata_v->at(i)->variant -1;
+			int varj = casedata_v->at(j)->variant -1;
 			m[i][j] = editdist[vari][varj];
 
 		}
