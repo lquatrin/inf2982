@@ -49,6 +49,7 @@ namespace CppWrapper {
 
     void InitLAMP(int* pInt, int arraySize);
     array<double, 2>^ GetLAMP(array<double, 2>^ tvalues, array<double, 2>^ controlPoints, array<int>^controlsidx, int controlsize, int arraySize);
+	array<double, 2>^ DataProviderMDSEditDist();
 
     double GetSum();
     double sum;
@@ -67,6 +68,7 @@ namespace CppWrapper {
 
     LAMPClass* pCC;
     array<double, 2>^ lamp_dists;
+	double **editdist;
   };
 
 }

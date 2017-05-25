@@ -29,6 +29,36 @@ CppWrapper::CppDataProjProviderWrapper::CppDataProjProviderWrapper()
   param_number_of_cases = 0;
   casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF));
 
+
+  std::vector<std::vector<double>> data;
+  std::ifstream file("../../data/editDist.csv");
+
+  editdist = (double**)malloc(3097 * sizeof(double*));
+  for (int row = 0; row < 3097; ++row)
+  {
+	  std::string line;
+	  std::getline(file, line);
+	  if (!file.good())
+		  break;
+
+	  std::stringstream iss(line);
+	  editdist[row] = (double*)malloc(3097 * sizeof(double));
+	  for (int col = 0; col < 3097; ++col)
+	  {
+		  std::string val;
+		  std::getline(iss, val, ';');
+		  if (!iss.good())
+			  break;
+
+		  std::stringstream convertor(val);
+		  double k;
+		  convertor >> k;
+		  editdist[row][col] = abs(1 - k);
+	  }
+	  //data.push_back(a);
+  }
+
+
   pCC = new LAMPClass();
 }
 
@@ -65,6 +95,54 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDS ()
 
   return dists;
 }
+
+
+
+//TO DO -> separa
+array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDSEditDist()
+{
+	//casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF, 2000));
+
+
+
+	printf("Number of Cases: %d\n", param_number_of_cases);
+	assert(param_number_of_cases <= (int)casedata_v->size());
+
+	int number_of_cases = param_number_of_cases;
+
+	double **m = (double**)malloc(number_of_cases * sizeof(double*));
+	for (int i = 0; i < number_of_cases; i++)
+	{
+		m[i] = (double*)malloc(number_of_cases * sizeof(double));
+		for (int j = 0; j < number_of_cases; j++)
+		{
+			int vari = casedata_v->at(i)->variant;
+			int varj = casedata_v->at(j)->variant;
+			m[i][j] = editdist[vari][varj];
+
+		}
+	}
+
+	if (pMDS)
+		delete pMDS;
+	pMDS = new MDSClass(m, number_of_cases);
+	std::vector<std::vector<double>> vec = pMDS->calcMDS();
+
+	array<double, 2>^ dists = gcnew array<double, 2>(number_of_cases, 2);
+	for (int i = 0; i < number_of_cases; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			dists[i, j] = vec[i][j];
+		}
+	}
+
+	return dists;
+	
+	
+}
+
+
 
 void CppWrapper::CppDataProjProviderWrapper::SetCreditScoreCoeficientValue (double coef)
 {
