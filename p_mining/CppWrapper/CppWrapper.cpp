@@ -284,7 +284,7 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderCasesLAMP 
   , array<double, 2>^ lamp_control_point_positions)
 {
   int array_size = id_end - id_init;
-  std::cout << array_size << std::endl;
+  //std::cout << array_size << std::endl;
   if (array_size <= 0) return nullptr;
   
   array_size = array_size + lamp_control_points;
@@ -335,13 +335,13 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderCasesLAMP 
     , array_size
     , lamp_control_points);
 
-  std::cout << vec.size() << std::endl;
-  for (int i = 0; i < vec.size(); i++) {
-    for (int j = 0; j < vec[i].size(); j++) {
-      std::cout << vec[i][j] << " ";
-    }
-    std::cout << std::endl;
-  }
+  //std::cout << vec.size() << std::endl;
+  //for (int i = 0; i < vec.size(); i++) {
+  //  for (int j = 0; j < vec[i].size(); j++) {
+  //    std::cout << vec[i][j] << " ";
+  //  }
+  //  std::cout << std::endl;
+  //}
 
   array<double, 2>^ r_points = gcnew array<double, 2>(vec.size(), 2);
   for (int i = 0; i < vec.size(); i++) {

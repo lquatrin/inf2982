@@ -586,10 +586,6 @@ namespace ClassCppToCS_CS
       lamp_control_points_id = data_prov_wrapper.FirstNVariants(lamp_n_variants);
       double[,] arrayMDSCP = data_prov_wrapper.DataProviderMDSCP(lamp_control_points_id, lamp_n_variants);
 
-      //for (int v = 0; v < array_control_points.Length; v++)
-      //  Console.Out.Write(array_control_points[v] + " ");
-      //Console.Out.WriteLine();
-
       Chart chart = chart1;
       for (int v = 0; v < chart.Series.Count; v++)
         chart.Series[v].Points.Clear();
@@ -599,6 +595,9 @@ namespace ClassCppToCS_CS
       chart.Series[2].Enabled = tgl_vis_cancelled_series.Checked;
       chart.Series[3].Enabled = tgl_vis_undefined_series.Checked;
       chart.Series[CONTROL_POINT_SERIES].Enabled = true;
+
+      lamp_projected_points = 0;
+      tkb_lamp_progress.Value = lamp_projected_points;
 
       hst_cases_to_points.Clear();
 
@@ -615,8 +614,8 @@ namespace ClassCppToCS_CS
       {
         if (lamp_control_points_id[i] == -1) continue;
         
-        double mm_x = arrayMDSCP[i, 0]; //Math.Round(arrayMDS[i, 0], 5);
-        double mm_y = arrayMDSCP[i, 1]; //Math.Round(arrayMDS[i, 1], 5);
+        double mm_x = arrayMDSCP[i, 0];
+        double mm_y = arrayMDSCP[i, 1];
 
         chart.Series[CONTROL_POINT_SERIES].Points.AddXY(mm_x, mm_y);
         chart.Series[CONTROL_POINT_SERIES].Points[i].LegendToolTip = "controlpoint";
@@ -679,11 +678,21 @@ namespace ClassCppToCS_CS
       
       if (proj == null) return;
 
-      Console.Out.WriteLine("Passou!");
-
-      for (int i = 0; i < (pid_end - pid_init) + lamp_n_variants; i++)
+      for (int i = 0; i < (pid_end - pid_init); i++)
       {
-        Console.Out.WriteLine(proj[i, 0] + " " + proj[i, 1]);
+        double mm_x = proj[lamp_n_variants + i, 0];
+        double mm_y = proj[lamp_n_variants + i, 1];
+
+        int series_id = data_prov_wrapper.GetCaseEndInfo(pid_init + i);
+
+        hst_cases_to_points.Add((pid_init + i).ToString(), chart1.Series[series_id].Points.Count);
+
+        int id_point = chart1.Series[series_id].Points.Count;
+
+        chart1.Series[series_id].Points.AddXY(mm_x, mm_y);
+        chart1.Series[series_id].Points[id_point].LegendToolTip = "loadedpoint";
+        chart1.Series[series_id].Points[id_point].Tag = (pid_init + i + 1).ToString();
+        chart1.Series[series_id].Points[id_point].ToolTip = data_prov_wrapper.GetCaseDataInfo(i);
       }
     }
     
@@ -796,8 +805,9 @@ namespace ClassCppToCS_CS
       tooltiptrackbar.SetToolTip(tkb_lamp_progress, n_proj_points.ToString());
 
       UpdateLAMPProjection(lamp_projected_points, (int)n_proj_points);
-      
-      lamp_projected_points = (int)n_proj_points;
+
+      if (lamp_projected_points < (int)n_proj_points)
+        lamp_projected_points = (int)n_proj_points;
     }
   };
 }

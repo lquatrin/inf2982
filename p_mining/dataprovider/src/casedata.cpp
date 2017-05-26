@@ -23,20 +23,19 @@ CaseDataCoeficients::CaseDataCoeficients()
 
 double CaseData::CompositeDistance(CaseData* a, CaseData* b, CaseDataCoeficients* cf)
 {
-  return
+  return 1.0 - (
     // Credit Score
-    exp(cf->coef_creditscore * std::fabs((double)(a->creditscore - b->creditscore)) / cf->max_creditscore)
+    exp(-cf->coef_creditscore * std::fabs((double)(a->creditscore - b->creditscore)) / cf->max_creditscore)
     *
     // Request Amount
-    exp(cf->coef_requestamount * std::fabs((double)(a->requestamount - b->requestamount)) / cf->max_requestamount)
+    exp(-cf->coef_requestamount * std::fabs((double)(a->requestamount - b->requestamount)) / cf->max_requestamount)
     *
     // Number Of Offers
-    exp(cf->coef_numberofoffers * std::fabs((double)(a->numberofoffers - b->numberofoffers)) / cf->max_numberofoffers)
+    exp(-cf->coef_numberofoffers * std::fabs((double)(a->numberofoffers - b->numberofoffers)) / cf->max_numberofoffers)
     *
     // Loan Goal
-    exp(cf->coef_loangoal * (double)(a->loangoal == b->loangoal))
-    + 
-    EPSILON_DISTANCE
+    exp(-cf->coef_loangoal * (double)(a->loangoal == b->loangoal))
+    )
     ;
 }
 

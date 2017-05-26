@@ -34,7 +34,7 @@ std::vector<std::vector<double>> LAMPClass::calcLAMP(double** X, int* cp_index, 
   cv::Mat mcpoints = cv::Mat(numCPoints, 2, cv::DataType<double>::type, **Ys);
 
   std::vector<int> index;
-  printf("matriz de distancias iniciais\n");
+  //printf("matriz de distancias iniciais\n");
 
   for (int k = 0; k < mpoints.rows; ++k)
   {
