@@ -601,14 +601,6 @@ namespace ClassCppToCS_CS
 
       hst_cases_to_points.Clear();
 
-      double[] min_max_axis_limits = new Double[4];
-      min_max_axis_limits[0] = Double.MaxValue;
-      min_max_axis_limits[1] = Double.MinValue;
-      min_max_axis_limits[2] = Double.MaxValue;
-      min_max_axis_limits[3] = Double.MinValue;
-
-      double expand_limtis = 1.2;
-
       //Adding static controlPoints
       for (int i = 0; i < lamp_n_variants; i++)
       {
@@ -627,31 +619,19 @@ namespace ClassCppToCS_CS
         chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerSize = 18;
         chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerBorderColor = Color.DarkOrange;
         chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerBorderWidth = 2;
-
-        min_max_axis_limits[0] = Math.Min(min_max_axis_limits[0], mm_x);
-        min_max_axis_limits[1] = Math.Max(min_max_axis_limits[1], mm_x);
-
-        min_max_axis_limits[2] = Math.Min(min_max_axis_limits[2], mm_y);
-        min_max_axis_limits[3] = Math.Max(min_max_axis_limits[3], mm_y);
       }
 
-      chart.ChartAreas[0].AxisY.LabelStyle.Format = "{0:0.00}";
-      chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.00}";
+      chart.ChartAreas[0].AxisY.LabelStyle.Format = "{0:0.0}";
+      chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.0}";
 
-      min_max_axis_limits[0] *= expand_limtis;
-      min_max_axis_limits[1] *= expand_limtis;
-
-      min_max_axis_limits[2] *= expand_limtis;
-      min_max_axis_limits[3] *= expand_limtis;
-
-      chart.ChartAreas[0].AxisX.Minimum = min_max_axis_limits[0];
-      chart.ChartAreas[0].AxisX.Maximum = min_max_axis_limits[1];
-
-      chart.ChartAreas[0].AxisY.Minimum = min_max_axis_limits[2];
-      chart.ChartAreas[0].AxisY.Maximum = min_max_axis_limits[3];
-
-      chart.ChartAreas[0].AxisX.Interval = (min_max_axis_limits[1] - min_max_axis_limits[0]) / (double)axis_number_of_intervals;
-      chart.ChartAreas[0].AxisY.Interval = (min_max_axis_limits[3] - min_max_axis_limits[2]) / (double)axis_number_of_intervals;
+      chart.ChartAreas[0].AxisX.Minimum = -0.5;
+      chart.ChartAreas[0].AxisX.Maximum =  0.5;
+      
+      chart.ChartAreas[0].AxisY.Minimum = -0.5;
+      chart.ChartAreas[0].AxisY.Maximum =  0.5;
+      
+      chart.ChartAreas[0].AxisX.Interval = 0.1;
+      chart.ChartAreas[0].AxisY.Interval = 0.1;
                                             
       //Update selectedPoints
       ///////////////////////////////////////////////////////
