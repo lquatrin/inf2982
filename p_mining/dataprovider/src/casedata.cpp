@@ -34,7 +34,7 @@ double CaseData::CompositeDistance(CaseData* a, CaseData* b, CaseDataCoeficients
     exp(-cf->coef_numberofoffers * std::fabs((double)(a->numberofoffers - b->numberofoffers)) / cf->max_numberofoffers)
     *
     // Loan Goal
-    exp(-cf->coef_loangoal * (double)(a->loangoal == b->loangoal))
+    exp(-cf->coef_loangoal * (double)(a->loangoal != b->loangoal))
     )
     ;
 }
