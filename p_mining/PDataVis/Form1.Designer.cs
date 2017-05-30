@@ -29,13 +29,13 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-      System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-      System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+      System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+      System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
       this.openCFGDialog = new System.Windows.Forms.OpenFileDialog();
       this.tgl_vis_peding_series = new System.Windows.Forms.CheckBox();
@@ -102,8 +102,8 @@
       // 
       // tgl_vis_peding_series
       // 
-      this.tgl_vis_peding_series.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tgl_vis_peding_series.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
       this.tgl_vis_peding_series.AutoSize = true;
       this.tgl_vis_peding_series.Checked = true;
       this.tgl_vis_peding_series.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -117,8 +117,8 @@
       // 
       // tgl_vis_denied_series
       // 
-      this.tgl_vis_denied_series.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tgl_vis_denied_series.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
       this.tgl_vis_denied_series.AutoSize = true;
       this.tgl_vis_denied_series.Checked = true;
       this.tgl_vis_denied_series.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -132,8 +132,8 @@
       // 
       // tgl_vis_cancelled_series
       // 
-      this.tgl_vis_cancelled_series.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tgl_vis_cancelled_series.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
       this.tgl_vis_cancelled_series.AutoSize = true;
       this.tgl_vis_cancelled_series.Checked = true;
       this.tgl_vis_cancelled_series.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -147,8 +147,8 @@
       // 
       // tgl_vis_undefined_series
       // 
-      this.tgl_vis_undefined_series.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tgl_vis_undefined_series.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
       this.tgl_vis_undefined_series.AutoSize = true;
       this.tgl_vis_undefined_series.Checked = true;
       this.tgl_vis_undefined_series.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -260,55 +260,55 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.chart1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-      chartArea2.AxisX.IsLabelAutoFit = false;
-      chartArea2.AxisY.IsLabelAutoFit = false;
-      chartArea2.Name = "ChartArea1";
-      this.chart1.ChartAreas.Add(chartArea2);
-      legend2.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
-      legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-      legend2.Name = "Legend1";
-      this.chart1.Legends.Add(legend2);
-      this.chart1.Location = new System.Drawing.Point(11, 75);
+      chartArea1.AxisX.IsLabelAutoFit = false;
+      chartArea1.AxisY.IsLabelAutoFit = false;
+      chartArea1.Name = "ChartArea1";
+      this.chart1.ChartAreas.Add(chartArea1);
+      legend1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
+      legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+      legend1.Name = "Legend1";
+      this.chart1.Legends.Add(legend1);
+      this.chart1.Location = new System.Drawing.Point(11, 93);
       this.chart1.Name = "chart1";
-      series6.ChartArea = "ChartArea1";
-      series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series6.Legend = "Legend1";
-      series6.MarkerColor = System.Drawing.Color.Green;
-      series6.MarkerSize = 11;
-      series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
-      series6.Name = "A_Pending";
-      series7.ChartArea = "ChartArea1";
-      series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series7.Legend = "Legend1";
-      series7.MarkerColor = System.Drawing.Color.Red;
-      series7.MarkerSize = 10;
-      series7.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
-      series7.Name = "A_Denied";
-      series8.ChartArea = "ChartArea1";
-      series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series8.Legend = "Legend1";
-      series8.MarkerColor = System.Drawing.Color.Blue;
-      series8.MarkerSize = 8;
-      series8.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-      series8.Name = "A_Cancelled";
-      series9.ChartArea = "ChartArea1";
-      series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series9.Legend = "Legend1";
-      series9.MarkerColor = System.Drawing.Color.Black;
-      series9.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-      series9.Name = "Undefined";
-      series10.ChartArea = "ChartArea1";
-      series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series10.Enabled = false;
-      series10.Legend = "Legend1";
-      series10.Name = "ControlPoints";
-      series10.YValuesPerPoint = 2;
-      this.chart1.Series.Add(series6);
-      this.chart1.Series.Add(series7);
-      this.chart1.Series.Add(series8);
-      this.chart1.Series.Add(series9);
-      this.chart1.Series.Add(series10);
-      this.chart1.Size = new System.Drawing.Size(770, 442);
+      series1.ChartArea = "ChartArea1";
+      series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series1.Legend = "Legend1";
+      series1.MarkerColor = System.Drawing.Color.Green;
+      series1.MarkerSize = 11;
+      series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
+      series1.Name = "A_Pending";
+      series2.ChartArea = "ChartArea1";
+      series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series2.Legend = "Legend1";
+      series2.MarkerColor = System.Drawing.Color.Red;
+      series2.MarkerSize = 10;
+      series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
+      series2.Name = "A_Denied";
+      series3.ChartArea = "ChartArea1";
+      series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series3.Legend = "Legend1";
+      series3.MarkerColor = System.Drawing.Color.Blue;
+      series3.MarkerSize = 8;
+      series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+      series3.Name = "A_Cancelled";
+      series4.ChartArea = "ChartArea1";
+      series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series4.Legend = "Legend1";
+      series4.MarkerColor = System.Drawing.Color.Black;
+      series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+      series4.Name = "Undefined";
+      series5.ChartArea = "ChartArea1";
+      series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series5.Enabled = false;
+      series5.Legend = "Legend1";
+      series5.Name = "ControlPoints";
+      series5.YValuesPerPoint = 2;
+      this.chart1.Series.Add(series1);
+      this.chart1.Series.Add(series2);
+      this.chart1.Series.Add(series3);
+      this.chart1.Series.Add(series4);
+      this.chart1.Series.Add(series5);
+      this.chart1.Size = new System.Drawing.Size(770, 424);
       this.chart1.TabIndex = 0;
       this.chart1.Text = "chart1";
       this.chart1.Paint += new System.Windows.Forms.PaintEventHandler(this.chart_Paint);
@@ -564,7 +564,7 @@
       this.groupBox2.Controls.Add(this.panel2);
       this.groupBox2.Location = new System.Drawing.Point(11, 27);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(770, 43);
+      this.groupBox2.Size = new System.Drawing.Size(770, 60);
       this.groupBox2.TabIndex = 29;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Visible Series";
@@ -582,7 +582,7 @@
       this.panel2.Location = new System.Drawing.Point(7, 16);
       this.panel2.Name = "panel2";
       this.panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-      this.panel2.Size = new System.Drawing.Size(757, 21);
+      this.panel2.Size = new System.Drawing.Size(757, 38);
       this.panel2.TabIndex = 0;
       // 
       // Form1
