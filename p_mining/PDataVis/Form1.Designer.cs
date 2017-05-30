@@ -39,7 +39,6 @@
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
       this.openCFGDialog = new System.Windows.Forms.OpenFileDialog();
       this.tgl_vis_peding_series = new System.Windows.Forms.CheckBox();
-      this.label5 = new System.Windows.Forms.Label();
       this.tgl_vis_denied_series = new System.Windows.Forms.CheckBox();
       this.tgl_vis_cancelled_series = new System.Windows.Forms.CheckBox();
       this.tgl_vis_undefined_series = new System.Windows.Forms.CheckBox();
@@ -52,7 +51,6 @@
       this.loangoaltrackbar = new System.Windows.Forms.TrackBar();
       this.label1 = new System.Windows.Forms.Label();
       this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-      this.label6 = new System.Windows.Forms.Label();
       this.tooltiptrackbar = new System.Windows.Forms.ToolTip(this.components);
       this.button1 = new System.Windows.Forms.Button();
       this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -69,7 +67,15 @@
       this.txb_min_track_n_cases = new System.Windows.Forms.TextBox();
       this.label7 = new System.Windows.Forms.Label();
       this.tkb_lamp_progress = new System.Windows.Forms.TrackBar();
+      this.trackBar1 = new System.Windows.Forms.TrackBar();
+      this.label8 = new System.Windows.Forms.Label();
+      this.trackBar2 = new System.Windows.Forms.TrackBar();
+      this.label9 = new System.Windows.Forms.Label();
       this.button2 = new System.Windows.Forms.Button();
+      this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.panel1 = new System.Windows.Forms.Panel();
+      this.groupBox2 = new System.Windows.Forms.GroupBox();
+      this.panel2 = new System.Windows.Forms.Panel();
       ((System.ComponentModel.ISupportInitialize)(this.creditscoretrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.requestamounttrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.numberofofferstrackbar)).BeginInit();
@@ -78,6 +84,12 @@
       this.menuStrip1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.tkb_ninputpoints)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.tkb_lamp_progress)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+      this.groupBox1.SuspendLayout();
+      this.panel1.SuspendLayout();
+      this.groupBox2.SuspendLayout();
+      this.panel2.SuspendLayout();
       this.SuspendLayout();
       // 
       // openFileDialog1
@@ -95,24 +107,13 @@
       this.tgl_vis_peding_series.AutoSize = true;
       this.tgl_vis_peding_series.Checked = true;
       this.tgl_vis_peding_series.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.tgl_vis_peding_series.Location = new System.Drawing.Point(8, 52);
+      this.tgl_vis_peding_series.Location = new System.Drawing.Point(3, 3);
       this.tgl_vis_peding_series.Name = "tgl_vis_peding_series";
       this.tgl_vis_peding_series.Size = new System.Drawing.Size(78, 17);
       this.tgl_vis_peding_series.TabIndex = 9;
       this.tgl_vis_peding_series.Text = "A_Pending";
       this.tgl_vis_peding_series.UseVisualStyleBackColor = true;
       this.tgl_vis_peding_series.CheckedChanged += new System.EventHandler(this.tgl_vis_peding_series_CheckedChanged);
-      // 
-      // label5
-      // 
-      this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.label5.AutoSize = true;
-      this.label5.Location = new System.Drawing.Point(8, 33);
-      this.label5.Name = "label5";
-      this.label5.Size = new System.Drawing.Size(69, 13);
-      this.label5.TabIndex = 10;
-      this.label5.Text = "Visible Series";
       // 
       // tgl_vis_denied_series
       // 
@@ -121,7 +122,7 @@
       this.tgl_vis_denied_series.AutoSize = true;
       this.tgl_vis_denied_series.Checked = true;
       this.tgl_vis_denied_series.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.tgl_vis_denied_series.Location = new System.Drawing.Point(92, 52);
+      this.tgl_vis_denied_series.Location = new System.Drawing.Point(87, 3);
       this.tgl_vis_denied_series.Name = "tgl_vis_denied_series";
       this.tgl_vis_denied_series.Size = new System.Drawing.Size(73, 17);
       this.tgl_vis_denied_series.TabIndex = 11;
@@ -136,7 +137,7 @@
       this.tgl_vis_cancelled_series.AutoSize = true;
       this.tgl_vis_cancelled_series.Checked = true;
       this.tgl_vis_cancelled_series.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.tgl_vis_cancelled_series.Location = new System.Drawing.Point(171, 52);
+      this.tgl_vis_cancelled_series.Location = new System.Drawing.Point(166, 3);
       this.tgl_vis_cancelled_series.Name = "tgl_vis_cancelled_series";
       this.tgl_vis_cancelled_series.Size = new System.Drawing.Size(86, 17);
       this.tgl_vis_cancelled_series.TabIndex = 12;
@@ -151,7 +152,7 @@
       this.tgl_vis_undefined_series.AutoSize = true;
       this.tgl_vis_undefined_series.Checked = true;
       this.tgl_vis_undefined_series.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.tgl_vis_undefined_series.Location = new System.Drawing.Point(263, 52);
+      this.tgl_vis_undefined_series.Location = new System.Drawing.Point(258, 3);
       this.tgl_vis_undefined_series.Name = "tgl_vis_undefined_series";
       this.tgl_vis_undefined_series.Size = new System.Drawing.Size(75, 17);
       this.tgl_vis_undefined_series.TabIndex = 13;
@@ -161,10 +162,11 @@
       // 
       // creditscoretrackbar
       // 
-      this.creditscoretrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.creditscoretrackbar.Location = new System.Drawing.Point(765, 52);
+      this.creditscoretrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.creditscoretrackbar.Location = new System.Drawing.Point(3, 21);
       this.creditscoretrackbar.Name = "creditscoretrackbar";
-      this.creditscoretrackbar.Size = new System.Drawing.Size(156, 45);
+      this.creditscoretrackbar.Size = new System.Drawing.Size(222, 45);
       this.creditscoretrackbar.TabIndex = 1;
       this.creditscoretrackbar.Value = 10;
       this.creditscoretrackbar.Scroll += new System.EventHandler(this.trackBar1_Scroll);
@@ -172,10 +174,10 @@
       // 
       // label2
       // 
-      this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+      this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(676, 103);
+      this.label2.Location = new System.Drawing.Point(3, 69);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(83, 13);
       this.label2.TabIndex = 3;
@@ -183,10 +185,11 @@
       // 
       // requestamounttrackbar
       // 
-      this.requestamounttrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.requestamounttrackbar.Location = new System.Drawing.Point(765, 103);
+      this.requestamounttrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.requestamounttrackbar.Location = new System.Drawing.Point(3, 85);
       this.requestamounttrackbar.Name = "requestamounttrackbar";
-      this.requestamounttrackbar.Size = new System.Drawing.Size(156, 45);
+      this.requestamounttrackbar.Size = new System.Drawing.Size(222, 45);
       this.requestamounttrackbar.TabIndex = 4;
       this.requestamounttrackbar.Value = 10;
       this.requestamounttrackbar.Scroll += new System.EventHandler(this.trackBar1_Scroll_1);
@@ -194,10 +197,10 @@
       // 
       // label3
       // 
-      this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+      this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(676, 154);
+      this.label3.Location = new System.Drawing.Point(3, 133);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(83, 13);
       this.label3.TabIndex = 5;
@@ -205,10 +208,11 @@
       // 
       // numberofofferstrackbar
       // 
-      this.numberofofferstrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.numberofofferstrackbar.Location = new System.Drawing.Point(765, 154);
+      this.numberofofferstrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.numberofofferstrackbar.Location = new System.Drawing.Point(3, 149);
       this.numberofofferstrackbar.Name = "numberofofferstrackbar";
-      this.numberofofferstrackbar.Size = new System.Drawing.Size(156, 45);
+      this.numberofofferstrackbar.Size = new System.Drawing.Size(222, 45);
       this.numberofofferstrackbar.TabIndex = 6;
       this.numberofofferstrackbar.Value = 10;
       this.numberofofferstrackbar.Scroll += new System.EventHandler(this.numberofofferstrackbar_Scroll);
@@ -216,10 +220,10 @@
       // 
       // label4
       // 
-      this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+      this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(676, 205);
+      this.label4.Location = new System.Drawing.Point(3, 197);
       this.label4.Name = "label4";
       this.label4.Size = new System.Drawing.Size(53, 13);
       this.label4.TabIndex = 7;
@@ -228,10 +232,11 @@
       // 
       // loangoaltrackbar
       // 
-      this.loangoaltrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.loangoaltrackbar.Location = new System.Drawing.Point(765, 205);
+      this.loangoaltrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.loangoaltrackbar.Location = new System.Drawing.Point(3, 213);
       this.loangoaltrackbar.Name = "loangoaltrackbar";
-      this.loangoaltrackbar.Size = new System.Drawing.Size(156, 45);
+      this.loangoaltrackbar.Size = new System.Drawing.Size(222, 45);
       this.loangoaltrackbar.TabIndex = 8;
       this.loangoaltrackbar.Value = 10;
       this.loangoaltrackbar.Scroll += new System.EventHandler(this.trackBar1_Scroll_2);
@@ -239,10 +244,10 @@
       // 
       // label1
       // 
-      this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+      this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(676, 52);
+      this.label1.Location = new System.Drawing.Point(3, 5);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(62, 13);
       this.label1.TabIndex = 2;
@@ -303,7 +308,7 @@
       this.chart1.Series.Add(series8);
       this.chart1.Series.Add(series9);
       this.chart1.Series.Add(series10);
-      this.chart1.Size = new System.Drawing.Size(659, 527);
+      this.chart1.Size = new System.Drawing.Size(770, 442);
       this.chart1.TabIndex = 0;
       this.chart1.Text = "chart1";
       this.chart1.Paint += new System.Windows.Forms.PaintEventHandler(this.chart_Paint);
@@ -311,23 +316,13 @@
       this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart_MouseMove);
       this.chart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart_MouseUp);
       // 
-      // label6
-      // 
-      this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(676, 29);
-      this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(110, 13);
-      this.label6.TabIndex = 14;
-      this.label6.Text = "Weights for each field";
-      // 
       // button1
       // 
-      this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.button1.Location = new System.Drawing.Point(676, 256);
+      this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.button1.Location = new System.Drawing.Point(3, 421);
       this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(245, 23);
+      this.button1.Size = new System.Drawing.Size(222, 23);
       this.button1.TabIndex = 15;
       this.button1.Text = "Project Cases";
       this.button1.UseVisualStyleBackColor = true;
@@ -341,7 +336,7 @@
             this.projectionModeToolStripMenuItem});
       this.menuStrip1.Location = new System.Drawing.Point(0, 0);
       this.menuStrip1.Name = "menuStrip1";
-      this.menuStrip1.Size = new System.Drawing.Size(984, 24);
+      this.menuStrip1.Size = new System.Drawing.Size(1095, 24);
       this.menuStrip1.TabIndex = 16;
       this.menuStrip1.Text = "menuStrip1";
       // 
@@ -415,12 +410,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tkb_ninputpoints.BackColor = System.Drawing.SystemColors.Control;
       this.tkb_ninputpoints.Cursor = System.Windows.Forms.Cursors.SizeNS;
-      this.tkb_ninputpoints.Location = new System.Drawing.Point(927, 76);
+      this.tkb_ninputpoints.Location = new System.Drawing.Point(1038, 76);
       this.tkb_ninputpoints.Maximum = 30000;
       this.tkb_ninputpoints.Minimum = 5;
       this.tkb_ninputpoints.Name = "tkb_ninputpoints";
       this.tkb_ninputpoints.Orientation = System.Windows.Forms.Orientation.Vertical;
-      this.tkb_ninputpoints.Size = new System.Drawing.Size(45, 551);
+      this.tkb_ninputpoints.Size = new System.Drawing.Size(45, 466);
       this.tkb_ninputpoints.TabIndex = 17;
       this.tkb_ninputpoints.TickStyle = System.Windows.Forms.TickStyle.Both;
       this.tkb_ninputpoints.Value = 5;
@@ -430,7 +425,7 @@
       // txb_max_track_n_cases
       // 
       this.txb_max_track_n_cases.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.txb_max_track_n_cases.Location = new System.Drawing.Point(927, 50);
+      this.txb_max_track_n_cases.Location = new System.Drawing.Point(1038, 50);
       this.txb_max_track_n_cases.Name = "txb_max_track_n_cases";
       this.txb_max_track_n_cases.Size = new System.Drawing.Size(45, 20);
       this.txb_max_track_n_cases.TabIndex = 19;
@@ -438,7 +433,7 @@
       // txb_min_track_n_cases
       // 
       this.txb_min_track_n_cases.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.txb_min_track_n_cases.Location = new System.Drawing.Point(927, 633);
+      this.txb_min_track_n_cases.Location = new System.Drawing.Point(1038, 548);
       this.txb_min_track_n_cases.Name = "txb_min_track_n_cases";
       this.txb_min_track_n_cases.Size = new System.Drawing.Size(45, 20);
       this.txb_min_track_n_cases.TabIndex = 20;
@@ -450,7 +445,7 @@
       this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label7.AutoSize = true;
-      this.label7.Location = new System.Drawing.Point(930, 33);
+      this.label7.Location = new System.Drawing.Point(1041, 33);
       this.label7.Name = "label7";
       this.label7.Size = new System.Drawing.Size(36, 13);
       this.label7.TabIndex = 21;
@@ -463,54 +458,148 @@
       this.tkb_lamp_progress.BackColor = System.Drawing.SystemColors.Control;
       this.tkb_lamp_progress.Cursor = System.Windows.Forms.Cursors.SizeWE;
       this.tkb_lamp_progress.Enabled = false;
-      this.tkb_lamp_progress.Location = new System.Drawing.Point(11, 608);
+      this.tkb_lamp_progress.Location = new System.Drawing.Point(11, 523);
       this.tkb_lamp_progress.Minimum = 5;
       this.tkb_lamp_progress.Name = "tkb_lamp_progress";
-      this.tkb_lamp_progress.Size = new System.Drawing.Size(659, 45);
+      this.tkb_lamp_progress.Size = new System.Drawing.Size(770, 45);
       this.tkb_lamp_progress.TabIndex = 22;
       this.tkb_lamp_progress.Value = 5;
       this.tkb_lamp_progress.Scroll += new System.EventHandler(this.tkb_lamp_progress_Scroll);
       // 
+      // trackBar1
+      // 
+      this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.trackBar1.Location = new System.Drawing.Point(3, 277);
+      this.trackBar1.Name = "trackBar1";
+      this.trackBar1.Size = new System.Drawing.Size(222, 45);
+      this.trackBar1.TabIndex = 25;
+      this.trackBar1.Value = 10;
+      // 
+      // label8
+      // 
+      this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.label8.AutoSize = true;
+      this.label8.Location = new System.Drawing.Point(3, 261);
+      this.label8.Name = "label8";
+      this.label8.Size = new System.Drawing.Size(110, 13);
+      this.label8.TabIndex = 24;
+      this.label8.Text = "Levenshtein Distance";
+      // 
+      // trackBar2
+      // 
+      this.trackBar2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.trackBar2.Location = new System.Drawing.Point(3, 341);
+      this.trackBar2.Name = "trackBar2";
+      this.trackBar2.Size = new System.Drawing.Size(222, 45);
+      this.trackBar2.TabIndex = 27;
+      this.trackBar2.Value = 10;
+      // 
+      // label9
+      // 
+      this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.label9.AutoSize = true;
+      this.label9.Location = new System.Drawing.Point(3, 325);
+      this.label9.Name = "label9";
+      this.label9.Size = new System.Drawing.Size(90, 13);
+      this.label9.TabIndex = 26;
+      this.label9.Text = "Jaccard Distance";
+      // 
       // button2
       // 
-      this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.button2.Location = new System.Drawing.Point(679, 286);
+      this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.button2.Location = new System.Drawing.Point(3, 392);
       this.button2.Name = "button2";
-      this.button2.Size = new System.Drawing.Size(242, 23);
+      this.button2.Size = new System.Drawing.Size(222, 23);
       this.button2.TabIndex = 23;
       this.button2.Text = "Levenshtein Distance";
       this.button2.UseVisualStyleBackColor = true;
       this.button2.Click += new System.EventHandler(this.button2_Click);
       // 
+      // groupBox1
+      // 
+      this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.groupBox1.Controls.Add(this.panel1);
+      this.groupBox1.Location = new System.Drawing.Point(790, 27);
+      this.groupBox1.Name = "groupBox1";
+      this.groupBox1.Size = new System.Drawing.Size(242, 541);
+      this.groupBox1.TabIndex = 28;
+      this.groupBox1.TabStop = false;
+      this.groupBox1.Text = "Weights for each field";
+      // 
+      // panel1
+      // 
+      this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.panel1.AutoScroll = true;
+      this.panel1.Controls.Add(this.button1);
+      this.panel1.Controls.Add(this.trackBar1);
+      this.panel1.Controls.Add(this.label8);
+      this.panel1.Controls.Add(this.trackBar2);
+      this.panel1.Controls.Add(this.label9);
+      this.panel1.Controls.Add(this.button2);
+      this.panel1.Controls.Add(this.loangoaltrackbar);
+      this.panel1.Controls.Add(this.label4);
+      this.panel1.Controls.Add(this.numberofofferstrackbar);
+      this.panel1.Controls.Add(this.label3);
+      this.panel1.Controls.Add(this.requestamounttrackbar);
+      this.panel1.Controls.Add(this.label2);
+      this.panel1.Controls.Add(this.label1);
+      this.panel1.Controls.Add(this.creditscoretrackbar);
+      this.panel1.Location = new System.Drawing.Point(7, 20);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(228, 515);
+      this.panel1.TabIndex = 0;
+      // 
+      // groupBox2
+      // 
+      this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.groupBox2.Controls.Add(this.panel2);
+      this.groupBox2.Location = new System.Drawing.Point(11, 27);
+      this.groupBox2.Name = "groupBox2";
+      this.groupBox2.Size = new System.Drawing.Size(770, 43);
+      this.groupBox2.TabIndex = 29;
+      this.groupBox2.TabStop = false;
+      this.groupBox2.Text = "Visible Series";
+      // 
+      // panel2
+      // 
+      this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.panel2.AutoScroll = true;
+      this.panel2.Controls.Add(this.tgl_vis_peding_series);
+      this.panel2.Controls.Add(this.tgl_vis_denied_series);
+      this.panel2.Controls.Add(this.tgl_vis_cancelled_series);
+      this.panel2.Controls.Add(this.tgl_vis_undefined_series);
+      this.panel2.Location = new System.Drawing.Point(7, 16);
+      this.panel2.Name = "panel2";
+      this.panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+      this.panel2.Size = new System.Drawing.Size(757, 21);
+      this.panel2.TabIndex = 0;
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(984, 665);
-      this.Controls.Add(this.button2);
+      this.ClientSize = new System.Drawing.Size(1095, 580);
+      this.Controls.Add(this.groupBox2);
+      this.Controls.Add(this.groupBox1);
       this.Controls.Add(this.tkb_lamp_progress);
       this.Controls.Add(this.label7);
       this.Controls.Add(this.txb_min_track_n_cases);
       this.Controls.Add(this.txb_max_track_n_cases);
       this.Controls.Add(this.tkb_ninputpoints);
-      this.Controls.Add(this.button1);
-      this.Controls.Add(this.label6);
-      this.Controls.Add(this.tgl_vis_undefined_series);
-      this.Controls.Add(this.tgl_vis_cancelled_series);
-      this.Controls.Add(this.tgl_vis_denied_series);
-      this.Controls.Add(this.label5);
-      this.Controls.Add(this.tgl_vis_peding_series);
-      this.Controls.Add(this.loangoaltrackbar);
-      this.Controls.Add(this.label4);
-      this.Controls.Add(this.numberofofferstrackbar);
-      this.Controls.Add(this.label3);
-      this.Controls.Add(this.requestamounttrackbar);
-      this.Controls.Add(this.label2);
-      this.Controls.Add(this.label1);
-      this.Controls.Add(this.creditscoretrackbar);
       this.Controls.Add(this.chart1);
       this.Controls.Add(this.menuStrip1);
-      this.MinimumSize = new System.Drawing.Size(620, 400);
+      this.MinimumSize = new System.Drawing.Size(600, 400);
       this.Name = "Form1";
       this.Text = "Property Projection Analysis";
       this.Load += new System.EventHandler(this.Form1_Load);
@@ -523,6 +612,14 @@
       this.menuStrip1.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.tkb_ninputpoints)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.tkb_lamp_progress)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+      this.groupBox1.ResumeLayout(false);
+      this.panel1.ResumeLayout(false);
+      this.panel1.PerformLayout();
+      this.groupBox2.ResumeLayout(false);
+      this.panel2.ResumeLayout(false);
+      this.panel2.PerformLayout();
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -534,7 +631,6 @@
     private System.Windows.Forms.OpenFileDialog openFileDialog1;
     private System.Windows.Forms.OpenFileDialog openCFGDialog;
     private System.Windows.Forms.CheckBox tgl_vis_peding_series;
-    private System.Windows.Forms.Label label5;
     private System.Windows.Forms.CheckBox tgl_vis_denied_series;
     private System.Windows.Forms.CheckBox tgl_vis_cancelled_series;
     private System.Windows.Forms.CheckBox tgl_vis_undefined_series;
@@ -546,7 +642,6 @@
     private System.Windows.Forms.TrackBar loangoaltrackbar;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-    private System.Windows.Forms.Label label6;
     private System.Windows.Forms.TrackBar creditscoretrackbar;
     private System.Windows.Forms.ToolTip tooltiptrackbar;
     private System.Windows.Forms.Button button1;
@@ -564,7 +659,15 @@
     private System.Windows.Forms.TrackBar tkb_lamp_progress;
     private System.Windows.Forms.ToolStripMenuItem autoUpdateChartToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem updateMaxValuesUsingAllDataPointsToolStripMenuItem;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 
