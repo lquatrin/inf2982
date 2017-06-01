@@ -15,13 +15,14 @@ CaseDataCoeficients::CaseDataCoeficients()
   coef_requestamount = 1.0;
   coef_numberofoffers = 1.0;
   coef_loangoal = 1.0;
-
+  coef_jaccard = 1.0;
+  coef_editdist = 1.0;
   max_numberofoffers = -1.0;
   max_creditscore = -1.0;
   max_requestamount = -1.0;
 }
 
-double CaseData::CompositeDistance(CaseData* a, CaseData* b, CaseDataCoeficients* cf)
+double CaseData::CompositeDistance(CaseData* a, CaseData* b, CaseDataCoeficients* cf,double jaccard,double editdist)
 {
   return 1.0 - (
     // Credit Score
@@ -35,6 +36,14 @@ double CaseData::CompositeDistance(CaseData* a, CaseData* b, CaseDataCoeficients
     *
     // Loan Goal
     exp(-cf->coef_loangoal * (double)(a->loangoal != b->loangoal))
+
+	*
+	// jaccard
+	exp(-cf->coef_jaccard * jaccard)
+
+	*
+	// editdist
+	exp(-cf->coef_editdist * editdist)
     )
     ;
 }

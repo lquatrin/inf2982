@@ -13,9 +13,13 @@ public:
   double coef_requestamount;
   double coef_numberofoffers;
   double coef_loangoal;
+  double coef_editdist;
+  double coef_jaccard;
 
   double max_numberofoffers;
   double max_creditscore;
+
+
   double max_requestamount;
 
 private:
@@ -25,7 +29,7 @@ private:
 class CaseData
 {
 public:
-  static double CompositeDistance (CaseData* a, CaseData* b, CaseDataCoeficients* cf);
+  static double CompositeDistance (CaseData* a, CaseData* b, CaseDataCoeficients* cf,double jaccard,double edit);
 
   CaseData ();
   CaseData (std::string casename,
