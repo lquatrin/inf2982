@@ -28,12 +28,15 @@ namespace CppWrapper {
 
     array<double, 2>^ DataProviderMDS ();
     array<double, 2>^ DataProviderMDSCP (array<int>^ case_index, int case_length);
-	  array<double, 2>^ DataProviderMDSEditDist ();
+	array<double, 2>^ DataProviderMDSEditDist ();
+	array<double, 2>^ DataProviderMDSJaccard();
 
     void SetCreditScoreCoeficientValue (double coef);
     void SetRequestAmountCoeficientValue (double coef);
     void SetNumberOfOffersCoeficientValue (double coef);
     void SetLoanGoalCoeficientValue (double coef);
+	void SetJaccardCoeficientValue(double coef);
+	void SetEditCoeficientValue(double coef);
 
     int GetMaxCasesCount ();
     void SetNumberOfCases (int n_cases);
@@ -86,6 +89,7 @@ namespace CppWrapper {
     LAMPClass* pCC;
     array<double, 2>^ lamp_dists;
 	double **editdist;
+	double **jaccard;
   };
 
 }

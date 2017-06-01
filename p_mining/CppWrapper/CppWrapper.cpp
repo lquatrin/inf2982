@@ -58,6 +58,32 @@ CppWrapper::CppDataProjProviderWrapper::CppDataProjProviderWrapper()
 	  //data.push_back(a);
   }
 
+  std::ifstream file2("../../data/all_SimilarityMatrix.csv");
+
+  jaccard = (double**)malloc(3097 * sizeof(double*));
+  for (int row = 0; row < 3097; ++row)
+  {
+	  std::string line;
+	  std::getline(file2, line);
+	  if (!file2.good())
+		  break;
+
+	  std::stringstream iss(line);
+	  jaccard[row] = (double*)malloc(3097 * sizeof(double));
+	  for (int col = 0; col < 3097; ++col)
+	  {
+		  std::string val;
+		  std::getline(iss, val, ';');
+		  if (!iss.good())
+			  break;
+
+		  std::stringstream convertor(val);
+		  double k;
+		  convertor >> k;
+		  jaccard[row][col] = abs(1 - k);
+	  }
+	  //data.push_back(a);
+  }
 
   pCC = new LAMPClass();
 }
@@ -75,7 +101,11 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDS ()
     m[i] = (double*)malloc(number_of_cases * sizeof(double));
     for (int j = 0; j < number_of_cases; j++)
     {
-      m[i][j] = CaseData::CompositeDistance(casedata_v->at(i), casedata_v->at(j), pCF);
+	  int vari = casedata_v->at(i)->variant - 1;
+	  int varj = casedata_v->at(j)->variant - 1;
+	  double edition = editdist[vari][varj];
+	  double jac = jaccard[vari][varj];
+	  m[i][j] = CaseData::CompositeDistance(casedata_v->at(i), casedata_v->at(j), pCF,jac,edition);
     }
   }
 
@@ -105,7 +135,11 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDSCP(arra
     m[i] = (double*)malloc(case_length * sizeof(double));
     for (int j = 0; j < case_length; j++)
     {
-      m[i][j] = CaseData::CompositeDistance(casedata_v->at(case_index[i]), casedata_v->at(case_index[j]), pCF);
+		int vari = casedata_v->at(i)->variant - 1;
+		int varj = casedata_v->at(j)->variant - 1;
+		double edition = editdist[vari][varj];
+		double jac = jaccard[vari][varj];
+		m[i][j] = CaseData::CompositeDistance(casedata_v->at(case_index[i]), casedata_v->at(case_index[j]), pCF,jac,edition);
     }
   }
 
@@ -172,6 +206,48 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDSEditDis
 }
 
 
+array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderMDSJaccard()
+{
+	//casedata_v->swap(ReadCaseData("../../data/case_data.txt", pCF, 2000));
+
+	printf("Number of Cases: %d\n", param_number_of_cases);
+	assert(param_number_of_cases <= (int)casedata_v->size());
+
+	int number_of_cases = param_number_of_cases;
+
+	double **m = (double**)malloc(number_of_cases * sizeof(double*));
+	for (int i = 0; i < number_of_cases; i++)
+	{
+		m[i] = (double*)malloc(number_of_cases * sizeof(double));
+		for (int j = 0; j < number_of_cases; j++)
+		{
+			int vari = casedata_v->at(i)->variant - 1;
+			int varj = casedata_v->at(j)->variant - 1;
+			m[i][j] = jaccard[vari][varj];
+
+		}
+	}
+
+	if (pMDS)
+		delete pMDS;
+	pMDS = new MDSClass(m, number_of_cases);
+	std::vector<std::vector<double>> vec = pMDS->calcMDS();
+
+	array<double, 2>^ dists = gcnew array<double, 2>(number_of_cases, 2);
+	for (int i = 0; i < number_of_cases; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			dists[i, j] = vec[i][j];
+		}
+	}
+
+	return dists;
+
+
+}
+
+
 
 void CppWrapper::CppDataProjProviderWrapper::SetCreditScoreCoeficientValue (double coef)
 {
@@ -195,6 +271,18 @@ void CppWrapper::CppDataProjProviderWrapper::SetLoanGoalCoeficientValue (double 
 {
   if (pCF)
     pCF->coef_loangoal = coef;
+}
+
+void CppWrapper::CppDataProjProviderWrapper::SetJaccardCoeficientValue(double coef)
+{
+	if (pCF)
+		pCF->coef_jaccard = coef;
+}
+
+void CppWrapper::CppDataProjProviderWrapper::SetEditCoeficientValue(double coef)
+{
+	if (pCF)
+		pCF->coef_editdist = coef;
 }
 
 int CppWrapper::CppDataProjProviderWrapper::GetMaxCasesCount()
@@ -322,7 +410,11 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderCasesLAMP 
         index_e = lamp_control_points_index[j];
       else
         index_e = id_init + (j - lamp_control_points);
-      m[i][j] = CaseData::CompositeDistance(casedata_v->at(index_f), casedata_v->at(index_e), pCF);
+	  int vari = casedata_v->at(i)->variant - 1;
+	  int varj = casedata_v->at(j)->variant - 1;
+	  double edition = editdist[vari][varj];
+	  double jac = jaccard[vari][varj];
+      m[i][j] = CaseData::CompositeDistance(casedata_v->at(index_f), casedata_v->at(index_e), pCF,jac,edition);
     }
   }
 
