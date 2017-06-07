@@ -29,7 +29,7 @@ namespace ClassCppToCS_CS
     ProjectionMode project_mode = ProjectionMode.MDS;
     int CONTROL_POINT_SERIES = 4;
 
-    int lamp_n_variants = 10;
+    int lamp_n_variants = 19;
     int[] lamp_control_points_id;
     int lamp_projected_points = 0;
 
@@ -92,6 +92,7 @@ namespace ClassCppToCS_CS
       MDSMenuItem.Checked = project_mode == ProjectionMode.MDS;
       LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
       tkb_lamp_progress.Enabled = project_mode == ProjectionMode.LAMP;
+      tkb_ninputpoints.Enabled = project_mode == ProjectionMode.MDS;
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -421,16 +422,6 @@ namespace ClassCppToCS_CS
       }
     }
 
-    private void tkb_ninputpoints_Scroll(object sender, EventArgs e)
-    {
-      double npoints = tkb_ninputpoints.Value;
-      //data_prov_wrapper.SetLoanGoalCoeficientValue(npoints);
-      tooltiptrackbar.SetToolTip(tkb_ninputpoints, npoints.ToString());
-      param_number_of_cases = (int)npoints;
-
-      data_prov_wrapper.SetNumberOfCases(param_number_of_cases);
-    }
-
     private void label7_Click(object sender, EventArgs e)
     {
 
@@ -564,20 +555,6 @@ namespace ClassCppToCS_CS
     
       data_prov_wrapper.UpdateMaxValuesUsingAllDataPoints(updateMaxValuesUsingAllDataPointsToolStripMenuItem.Checked);
     
-      UpdateCurrentChartProjection();
-    }
-
-    private void MDSMenuItem_Click(object sender, EventArgs e)
-    {
-      project_mode = ProjectionMode.MDS;
-      
-      UpdateCurrentChartProjection();
-    }
-
-    private void LAMPMenuItem_Click(object sender, EventArgs e)
-    {
-      project_mode = ProjectionMode.LAMP;
-
       UpdateCurrentChartProjection();
     }
 
@@ -778,132 +755,161 @@ namespace ClassCppToCS_CS
       }
     }
 
-    private void tkb_lamp_progress_Scroll(object sender, EventArgs e)
+    private void MDSMenuItem_Click(object sender, EventArgs e)
     {
-      double n_proj_points = tkb_lamp_progress.Value;
+      project_mode = ProjectionMode.MDS;
 
-      tooltiptrackbar.SetToolTip(tkb_lamp_progress, n_proj_points.ToString());
-
-      UpdateLAMPProjection(lamp_projected_points, (int)n_proj_points);
-
-      if (lamp_projected_points < (int)n_proj_points)
-        lamp_projected_points = (int)n_proj_points;
+      UpdateCurrentChartProjection();
     }
 
-        private void button3_Click(object sender, EventArgs e)
+    private void LAMPMenuItem_Click(object sender, EventArgs e)
+    {
+      project_mode = ProjectionMode.LAMP;
+
+      UpdateCurrentChartProjection();
+    }
+
+    private void tkb_lamp_progress_Scroll(object sender, EventArgs e)
+    {
+      if (project_mode == ProjectionMode.LAMP)
+      {
+        double n_proj_points = tkb_lamp_progress.Value;
+
+        tooltiptrackbar.SetToolTip(tkb_lamp_progress, n_proj_points.ToString());
+
+        UpdateLAMPProjection(lamp_projected_points, (int)n_proj_points);
+
+        if (lamp_projected_points < (int)n_proj_points)
+          lamp_projected_points = (int)n_proj_points;
+      }
+    }
+    private void tkb_ninputpoints_Scroll(object sender, EventArgs e)
+    {
+      if (project_mode == ProjectionMode.MDS)
+      {
+        double npoints = tkb_ninputpoints.Value;
+        //data_prov_wrapper.SetLoanGoalCoeficientValue(npoints);
+        tooltiptrackbar.SetToolTip(tkb_ninputpoints, npoints.ToString());
+        param_number_of_cases = (int)npoints;
+
+        data_prov_wrapper.SetNumberOfCases(param_number_of_cases);
+      }
+    }
+
+    private void button3_Click(object sender, EventArgs e)
+    {
+        UpdateInterfaceElements();
+        double[,] arrayMDS = data_prov_wrapper.DataProviderMDSJaccard();
+
+        Chart chart = chart1;
+        for (int v = 0; v < chart.Series.Count; v++)
+            chart.Series[v].Points.Clear();
+
+        chart.Series[0].Enabled = tgl_vis_peding_series.Checked;
+        chart.Series[1].Enabled = tgl_vis_denied_series.Checked;
+        chart.Series[2].Enabled = tgl_vis_cancelled_series.Checked;
+        chart.Series[3].Enabled = tgl_vis_undefined_series.Checked;
+        chart.Series[CONTROL_POINT_SERIES].Enabled = false;
+
+        hst_cases_to_points.Clear();
+
+        double[] min_max_axis_limits = new Double[4];
+        min_max_axis_limits[0] = Double.MaxValue;
+        min_max_axis_limits[1] = Double.MinValue;
+        min_max_axis_limits[2] = Double.MaxValue;
+        min_max_axis_limits[3] = Double.MinValue;
+
+        double expand_limtis = 1.2;
+
+        for (int i = 0; i < data_prov_wrapper.GetNumberOfCases(); i++)
         {
-            UpdateInterfaceElements();
-            double[,] arrayMDS = data_prov_wrapper.DataProviderMDSJaccard();
+            double mm_x = arrayMDS[i, 0]; //Math.Round(arrayMDS[i, 0], 5);
+            double mm_y = arrayMDS[i, 1]; //Math.Round(arrayMDS[i, 1], 5);
 
-            Chart chart = chart1;
-            for (int v = 0; v < chart.Series.Count; v++)
-                chart.Series[v].Points.Clear();
+            //Console.Out.WriteLine(i + " [" + mm_x + ", " + mm_y + "]");
 
-            chart.Series[0].Enabled = tgl_vis_peding_series.Checked;
-            chart.Series[1].Enabled = tgl_vis_denied_series.Checked;
-            chart.Series[2].Enabled = tgl_vis_cancelled_series.Checked;
-            chart.Series[3].Enabled = tgl_vis_undefined_series.Checked;
-            chart.Series[CONTROL_POINT_SERIES].Enabled = false;
+            int series_id = data_prov_wrapper.GetCaseEndInfo(i);
 
-            hst_cases_to_points.Clear();
+            hst_cases_to_points.Add(i.ToString(), chart.Series[series_id].Points.Count);
+            int id_point = chart.Series[series_id].Points.Count;
 
-            double[] min_max_axis_limits = new Double[4];
-            min_max_axis_limits[0] = Double.MaxValue;
-            min_max_axis_limits[1] = Double.MinValue;
-            min_max_axis_limits[2] = Double.MaxValue;
-            min_max_axis_limits[3] = Double.MinValue;
+            chart.Series[series_id].Points.AddXY(mm_x, mm_y);
+            chart.Series[series_id].Points[id_point].LegendToolTip = "loadedpoint";
+            chart.Series[series_id].Points[id_point].Tag = (i + 1).ToString();
+            chart.Series[series_id].Points[id_point].ToolTip = data_prov_wrapper.GetCaseDataInfo(i);
 
-            double expand_limtis = 1.2;
+            min_max_axis_limits[0] = Math.Min(min_max_axis_limits[0], mm_x);
+            min_max_axis_limits[1] = Math.Max(min_max_axis_limits[1], mm_x);
 
-            for (int i = 0; i < data_prov_wrapper.GetNumberOfCases(); i++)
+            min_max_axis_limits[2] = Math.Min(min_max_axis_limits[2], mm_y);
+            min_max_axis_limits[3] = Math.Max(min_max_axis_limits[3], mm_y);
+        }
+
+        chart.ChartAreas[0].AxisY.LabelStyle.Format = "{0:0.00}";
+        chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.00}";
+
+        min_max_axis_limits[0] *= expand_limtis;
+        min_max_axis_limits[1] *= expand_limtis;
+
+        min_max_axis_limits[2] *= expand_limtis;
+        min_max_axis_limits[3] *= expand_limtis;
+
+        chart.ChartAreas[0].AxisX.Minimum = min_max_axis_limits[0];
+        chart.ChartAreas[0].AxisX.Maximum = min_max_axis_limits[1];
+
+        chart.ChartAreas[0].AxisY.Minimum = min_max_axis_limits[2];
+        chart.ChartAreas[0].AxisY.Maximum = min_max_axis_limits[3];
+
+        chart.ChartAreas[0].AxisX.Interval = (min_max_axis_limits[1] - min_max_axis_limits[0]) / (double)axis_number_of_intervals;
+        chart.ChartAreas[0].AxisY.Interval = (min_max_axis_limits[3] - min_max_axis_limits[2]) / (double)axis_number_of_intervals;
+
+        //Update selectedPoints
+        ///////////////////////////////////////////////////////
+        if (selectedPoints.Count > 0)
+        {
+            DataPoint[] cpy_selectedPoints = new DataPoint[selectedPoints.Count];
+            selectedPoints.CopyTo(cpy_selectedPoints);
+            selectedPoints.Clear();
+
+            for (int v = 0; v < cpy_selectedPoints.Length; v++)
             {
-                double mm_x = arrayMDS[i, 0]; //Math.Round(arrayMDS[i, 0], 5);
-                double mm_y = arrayMDS[i, 1]; //Math.Round(arrayMDS[i, 1], 5);
+                DataPoint dp = cpy_selectedPoints[v];
 
-                //Console.Out.WriteLine(i + " [" + mm_x + ", " + mm_y + "]");
+                // Get Global Point ID
+                // [1, size] to [0, size-1]
+                int point_id = int.Parse(dp.Tag.ToString()) - 1;
 
-                int series_id = data_prov_wrapper.GetCaseEndInfo(i);
+                // Get Series ID
+                int series_id = data_prov_wrapper.GetCaseEndInfo(point_id);
 
-                hst_cases_to_points.Add(i.ToString(), chart.Series[series_id].Points.Count);
-                int id_point = chart.Series[series_id].Points.Count;
-
-                chart.Series[series_id].Points.AddXY(mm_x, mm_y);
-                chart.Series[series_id].Points[id_point].LegendToolTip = "loadedpoint";
-                chart.Series[series_id].Points[id_point].Tag = (i + 1).ToString();
-                chart.Series[series_id].Points[id_point].ToolTip = data_prov_wrapper.GetCaseDataInfo(i);
-
-                min_max_axis_limits[0] = Math.Min(min_max_axis_limits[0], mm_x);
-                min_max_axis_limits[1] = Math.Max(min_max_axis_limits[1], mm_x);
-
-                min_max_axis_limits[2] = Math.Min(min_max_axis_limits[2], mm_y);
-                min_max_axis_limits[3] = Math.Max(min_max_axis_limits[3], mm_y);
+                // Add DataPoint using hashtable
+                int hash_point_series_id = (int)hst_cases_to_points[point_id.ToString()];
+                selectedPoints.Add(chart.Series[series_id].Points[hash_point_series_id]);
             }
 
-            chart.ChartAreas[0].AxisY.LabelStyle.Format = "{0:0.00}";
-            chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.00}";
-
-            min_max_axis_limits[0] *= expand_limtis;
-            min_max_axis_limits[1] *= expand_limtis;
-
-            min_max_axis_limits[2] *= expand_limtis;
-            min_max_axis_limits[3] *= expand_limtis;
-
-            chart.ChartAreas[0].AxisX.Minimum = min_max_axis_limits[0];
-            chart.ChartAreas[0].AxisX.Maximum = min_max_axis_limits[1];
-
-            chart.ChartAreas[0].AxisY.Minimum = min_max_axis_limits[2];
-            chart.ChartAreas[0].AxisY.Maximum = min_max_axis_limits[3];
-
-            chart.ChartAreas[0].AxisX.Interval = (min_max_axis_limits[1] - min_max_axis_limits[0]) / (double)axis_number_of_intervals;
-            chart.ChartAreas[0].AxisY.Interval = (min_max_axis_limits[3] - min_max_axis_limits[2]) / (double)axis_number_of_intervals;
-
-            //Update selectedPoints
-            ///////////////////////////////////////////////////////
-            if (selectedPoints.Count > 0)
+            // Update Marker Colors
+            for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
             {
-                DataPoint[] cpy_selectedPoints = new DataPoint[selectedPoints.Count];
-                selectedPoints.CopyTo(cpy_selectedPoints);
-                selectedPoints.Clear();
-
-                for (int v = 0; v < cpy_selectedPoints.Length; v++)
+                foreach (DataPoint dp in chart1.Series[ith_series].Points)
                 {
-                    DataPoint dp = cpy_selectedPoints[v];
-
-                    // Get Global Point ID
-                    // [1, size] to [0, size-1]
-                    int point_id = int.Parse(dp.Tag.ToString()) - 1;
-
-                    // Get Series ID
-                    int series_id = data_prov_wrapper.GetCaseEndInfo(point_id);
-
-                    // Add DataPoint using hashtable
-                    int hash_point_series_id = (int)hst_cases_to_points[point_id.ToString()];
-                    selectedPoints.Add(chart.Series[series_id].Points[hash_point_series_id]);
-                }
-
-                // Update Marker Colors
-                for (int ith_series = 0; ith_series < chart1.Series.Count; ith_series++)
-                {
-                    foreach (DataPoint dp in chart1.Series[ith_series].Points)
-                    {
-                        dp.MarkerColor = selectedPoints.Contains(dp) ? Color.DarkOrange : GetPointColor(GetCaseEndInfo(dp));
-                    }
+                    dp.MarkerColor = selectedPoints.Contains(dp) ? Color.DarkOrange : GetPointColor(GetCaseEndInfo(dp));
                 }
             }
         }
+    }
 
-        private void trackBar1_Scroll_3(object sender, EventArgs e)
-        {
-            double norm_edit = (trackBar1.Value - trackBar1.Minimum) / (double)trackBar1.Maximum;
-            data_prov_wrapper.SetEditCoeficientValue(norm_edit);
-            tooltiptrackbar.SetToolTip(trackBar1, norm_edit.ToString());
-        }
+    private void trackBar1_Scroll_3(object sender, EventArgs e)
+    {
+        double norm_edit = (trackBar1.Value - trackBar1.Minimum) / (double)trackBar1.Maximum;
+        data_prov_wrapper.SetEditCoeficientValue(norm_edit);
+        tooltiptrackbar.SetToolTip(trackBar1, norm_edit.ToString());
+    }
 
-        private void trackBar2_Scroll(object sender, EventArgs e)
-        {
-            double norm_jaccard = (trackBar2.Value - trackBar2.Minimum) / (double)trackBar2.Maximum;
-            data_prov_wrapper.SetJaccardCoeficientValue(norm_jaccard);
-            tooltiptrackbar.SetToolTip(trackBar2, norm_jaccard.ToString());
-        }
-    };
+    private void trackBar2_Scroll(object sender, EventArgs e)
+    {
+        double norm_jaccard = (trackBar2.Value - trackBar2.Minimum) / (double)trackBar2.Maximum;
+        data_prov_wrapper.SetJaccardCoeficientValue(norm_jaccard);
+        tooltiptrackbar.SetToolTip(trackBar2, norm_jaccard.ToString());
+    }
+  };
 }

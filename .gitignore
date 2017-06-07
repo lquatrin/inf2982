@@ -43,3 +43,7 @@ p_mining/Release
 data/app_log_cap.csv
 
 p_mining/PDataVis/obj
+
+data/editDist.csv
+data/19_SimilarityMatrix.csv
+data/all_SimilarityMatrix.csv
