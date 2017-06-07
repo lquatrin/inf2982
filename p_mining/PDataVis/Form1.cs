@@ -61,28 +61,26 @@ namespace ClassCppToCS_CS
 
       txb_max_track_n_cases.Text = data_prov_wrapper.GetMaxCasesCount().ToString();
       tkb_ninputpoints.Maximum = data_prov_wrapper.GetMaxCasesCount();
-      tkb_lamp_progress.Maximum = data_prov_wrapper.GetMaxCasesCount();
       
       txb_min_track_n_cases.Text = "0";
       tkb_ninputpoints.Minimum = 0;
-
       data_prov_wrapper.SetNumberOfCases(param_number_of_cases);
       data_prov_wrapper.UpdateMaxValuesUsingAllDataPoints(updateMaxValuesUsingAllDataPointsToolStripMenuItem.Checked);
 
-      // Set Number of Projected Cases
-      tkb_ninputpoints.Value = param_number_of_cases;
       // Set Menu Item Auto Update Chart
       autoUpdateChartToolStripMenuItem.Checked = auto_update_chart;
 
-      tkb_lamp_progress.Minimum = 0;
-      tkb_lamp_progress.Value = lamp_projected_points;
+      // Set Number of Projected Cases
+      if (project_mode == ProjectionMode.MDS)
+        tkb_ninputpoints.Value = param_number_of_cases;
+      else if (project_mode == ProjectionMode.LAMP)
+        tkb_ninputpoints.Value = lamp_projected_points;
 
-      MDSMenuItem.Checked = project_mode == ProjectionMode.MDS;
-      LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
-      tkb_lamp_progress.Enabled = project_mode == ProjectionMode.LAMP;
- 
+
       chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
       chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+
+      UpdateInterfaceElements();
 
       UpdateCurrentChartProjection();
     }
@@ -91,8 +89,7 @@ namespace ClassCppToCS_CS
     {
       MDSMenuItem.Checked = project_mode == ProjectionMode.MDS;
       LAMPMenuItem.Checked = project_mode == ProjectionMode.LAMP;
-      tkb_lamp_progress.Enabled = project_mode == ProjectionMode.LAMP;
-      tkb_ninputpoints.Enabled = project_mode == ProjectionMode.MDS;
+      tkb_ninputpoints.Enabled = project_mode == ProjectionMode.MDS || project_mode == ProjectionMode.LAMP;
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -560,6 +557,7 @@ namespace ClassCppToCS_CS
 
     private void LAMPProjectDataCasesToChart()
     {
+      //Console.Out.WriteLine("LAMPProjectDataCasesToChart");
       lamp_control_points_id = data_prov_wrapper.FirstNVariants(lamp_n_variants);
       double[,] arrayMDSCP = data_prov_wrapper.DataProviderMDSCP(lamp_control_points_id, lamp_n_variants);
 
@@ -574,7 +572,7 @@ namespace ClassCppToCS_CS
       chart.Series[CONTROL_POINT_SERIES].Enabled = true;
 
       lamp_projected_points = 0;
-      tkb_lamp_progress.Value = lamp_projected_points;
+      tkb_ninputpoints.Value = lamp_projected_points;
 
       hst_cases_to_points.Clear();
 
@@ -619,6 +617,7 @@ namespace ClassCppToCS_CS
 
     private void UpdateLAMPProjection (int pid_init, int pid_end)
     {
+      //Console.Out.WriteLine("UpdateLAMPProjection");
       double[,] pts_control = new double[lamp_n_variants, 2];
       for (int p = 0; p < chart1.Series[CONTROL_POINT_SERIES].Points.Count; p ++)
       {
@@ -759,6 +758,11 @@ namespace ClassCppToCS_CS
     {
       project_mode = ProjectionMode.MDS;
 
+      tkb_ninputpoints.Value = param_number_of_cases;
+
+      double npoints = param_number_of_cases;
+      tooltiptrackbar.SetToolTip(tkb_ninputpoints, npoints.ToString());
+
       UpdateCurrentChartProjection();
     }
 
@@ -766,33 +770,35 @@ namespace ClassCppToCS_CS
     {
       project_mode = ProjectionMode.LAMP;
 
+      lamp_projected_points = 0;
+      tkb_ninputpoints.Value = lamp_projected_points;
+
+      double n_proj_points = lamp_projected_points;
+      tooltiptrackbar.SetToolTip(tkb_ninputpoints, n_proj_points.ToString());
+
       UpdateCurrentChartProjection();
     }
 
-    private void tkb_lamp_progress_Scroll(object sender, EventArgs e)
-    {
-      if (project_mode == ProjectionMode.LAMP)
-      {
-        double n_proj_points = tkb_lamp_progress.Value;
-
-        tooltiptrackbar.SetToolTip(tkb_lamp_progress, n_proj_points.ToString());
-
-        UpdateLAMPProjection(lamp_projected_points, (int)n_proj_points);
-
-        if (lamp_projected_points < (int)n_proj_points)
-          lamp_projected_points = (int)n_proj_points;
-      }
-    }
     private void tkb_ninputpoints_Scroll(object sender, EventArgs e)
     {
       if (project_mode == ProjectionMode.MDS)
       {
         double npoints = tkb_ninputpoints.Value;
-        //data_prov_wrapper.SetLoanGoalCoeficientValue(npoints);
         tooltiptrackbar.SetToolTip(tkb_ninputpoints, npoints.ToString());
+
         param_number_of_cases = (int)npoints;
 
         data_prov_wrapper.SetNumberOfCases(param_number_of_cases);
+      }else if (project_mode == ProjectionMode.LAMP)
+      {
+        double n_proj_points = tkb_ninputpoints.Value;
+
+        tooltiptrackbar.SetToolTip(tkb_ninputpoints, n_proj_points.ToString());
+
+        UpdateLAMPProjection(lamp_projected_points, (int)n_proj_points);
+
+        if (lamp_projected_points < (int)n_proj_points)
+          lamp_projected_points = (int)n_proj_points;
       }
     }
 
