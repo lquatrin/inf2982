@@ -54,6 +54,7 @@ namespace CppWrapper {
 
     void InitLAMP (int* pInt, int arraySize);
     
+    // Evaluate new points for lamp
     array<double, 2>^ DataProviderCasesLAMP (int id_init
       , int id_end
       , int lamp_control_points
@@ -77,6 +78,7 @@ namespace CppWrapper {
     array<int>^ FirstNVariants (int n_variants);
 
   private:
+    double** EvaluateDistanceMatrixBetweenCases (std::vector<int> case_index, int case_length);
     std::vector<CaseData*>* casedata_v;
 
 	  MDSClass* pMDS;

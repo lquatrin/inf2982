@@ -22,6 +22,8 @@ public:
 
   double max_requestamount;
 
+  int number_of_features;
+
 private:
 
 };
@@ -30,6 +32,8 @@ class CaseData
 {
 public:
   static double CompositeDistance (CaseData* a, CaseData* b, CaseDataCoeficients* cf,double jaccard,double edit);
+  static int GetNumberOfFeatures (CaseDataCoeficients* cf);
+  static std::vector<double> ConvertCaseToPoint (CaseData* p, CaseDataCoeficients* cf);
 
   CaseData ();
   CaseData (std::string casename,

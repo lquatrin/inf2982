@@ -29,9 +29,10 @@ namespace ClassCppToCS_CS
     ProjectionMode project_mode = ProjectionMode.MDS;
     int CONTROL_POINT_SERIES = 4;
 
-    int lamp_n_variants = 19;
+    int lamp_n_variants = 100;
     int[] lamp_control_points_id;
     int lamp_projected_points = 0;
+    double[] lamp_min_max_axis_limits;
 
     int axis_number_of_intervals = 8;
     int param_number_of_cases = 250;
@@ -558,6 +559,7 @@ namespace ClassCppToCS_CS
     private void LAMPProjectDataCasesToChart()
     {
       //Console.Out.WriteLine("LAMPProjectDataCasesToChart");
+      //EVALUATE MDS FOR THE FIRST N VARIANTS TO BE SET AS CONTROL POINTS
       lamp_control_points_id = data_prov_wrapper.FirstNVariants(lamp_n_variants);
       double[,] arrayMDSCP = data_prov_wrapper.DataProviderMDSCP(lamp_control_points_id, lamp_n_variants);
 
@@ -575,6 +577,14 @@ namespace ClassCppToCS_CS
       tkb_ninputpoints.Value = lamp_projected_points;
 
       hst_cases_to_points.Clear();
+
+      lamp_min_max_axis_limits = new Double[4];
+      lamp_min_max_axis_limits[0] = Double.MaxValue;
+      lamp_min_max_axis_limits[1] = Double.MinValue;
+      lamp_min_max_axis_limits[2] = Double.MaxValue;
+      lamp_min_max_axis_limits[3] = Double.MinValue;
+
+      double expand_limtis = 1.2;
 
       //Adding static controlPoints
       for (int i = 0; i < lamp_n_variants; i++)
@@ -594,19 +604,30 @@ namespace ClassCppToCS_CS
         chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerSize = 18;
         chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerBorderColor = Color.DarkOrange;
         chart.Series[CONTROL_POINT_SERIES].Points[i].MarkerBorderWidth = 2;
+
+        lamp_min_max_axis_limits[0] = Math.Min(lamp_min_max_axis_limits[0], mm_x);
+        lamp_min_max_axis_limits[1] = Math.Max(lamp_min_max_axis_limits[1], mm_x);
+
+        lamp_min_max_axis_limits[2] = Math.Min(lamp_min_max_axis_limits[2], mm_y);
+        lamp_min_max_axis_limits[3] = Math.Max(lamp_min_max_axis_limits[3], mm_y);
       }
 
-      chart.ChartAreas[0].AxisY.LabelStyle.Format = "{0:0.0}";
-      chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.0}";
+      chart.ChartAreas[0].AxisY.LabelStyle.Format = "{0:0.00}";
+      chart.ChartAreas[0].AxisX.LabelStyle.Format = "{0:0.00}";
 
-      chart.ChartAreas[0].AxisX.Minimum = -0.5;
-      chart.ChartAreas[0].AxisX.Maximum =  0.5;
-      
-      chart.ChartAreas[0].AxisY.Minimum = -0.5;
-      chart.ChartAreas[0].AxisY.Maximum =  0.5;
-      
-      chart.ChartAreas[0].AxisX.Interval = 0.1;
-      chart.ChartAreas[0].AxisY.Interval = 0.1;
+      lamp_min_max_axis_limits[0] *= expand_limtis;
+      lamp_min_max_axis_limits[1] *= expand_limtis;
+      lamp_min_max_axis_limits[2] *= expand_limtis;
+      lamp_min_max_axis_limits[3] *= expand_limtis;
+
+      chart.ChartAreas[0].AxisX.Minimum = lamp_min_max_axis_limits[0];
+      chart.ChartAreas[0].AxisX.Maximum = lamp_min_max_axis_limits[1];
+
+      chart.ChartAreas[0].AxisY.Minimum = lamp_min_max_axis_limits[2];
+      chart.ChartAreas[0].AxisY.Maximum = lamp_min_max_axis_limits[3];
+
+      chart.ChartAreas[0].AxisX.Interval = (lamp_min_max_axis_limits[1] - lamp_min_max_axis_limits[0]) / (double)axis_number_of_intervals;
+      chart.ChartAreas[0].AxisY.Interval = (lamp_min_max_axis_limits[3] - lamp_min_max_axis_limits[2]) / (double)axis_number_of_intervals;
                                             
       //Update selectedPoints
       ///////////////////////////////////////////////////////
@@ -649,7 +670,27 @@ namespace ClassCppToCS_CS
         chart1.Series[series_id].Points[id_point].LegendToolTip = "loadedpoint";
         chart1.Series[series_id].Points[id_point].Tag = (pid_init + i + 1).ToString();
         chart1.Series[series_id].Points[id_point].ToolTip = data_prov_wrapper.GetCaseDataInfo(i);
+
+
+        //if (mm_x < lamp_min_max_axis_limits[0])
+        //  lamp_min_max_axis_limits[0] = mm_x;
+        //if (mm_x > lamp_min_max_axis_limits[1])
+        //  lamp_min_max_axis_limits[1] = mm_x;
+        //
+        //if (mm_y < lamp_min_max_axis_limits[2])
+        //  lamp_min_max_axis_limits[2] = mm_y;
+        //if (mm_y > lamp_min_max_axis_limits[3])
+        //  lamp_min_max_axis_limits[3] = mm_y;
       }
+
+      //chart1.ChartAreas[0].AxisX.Minimum = lamp_min_max_axis_limits[0];
+      //chart1.ChartAreas[0].AxisX.Maximum = lamp_min_max_axis_limits[1];
+      //
+      //chart1.ChartAreas[0].AxisY.Minimum = lamp_min_max_axis_limits[2];
+      //chart1.ChartAreas[0].AxisY.Maximum = lamp_min_max_axis_limits[3];
+      //
+      //chart1.ChartAreas[0].AxisX.Interval = (lamp_min_max_axis_limits[1] - lamp_min_max_axis_limits[0]) / (double)axis_number_of_intervals;
+      //chart1.ChartAreas[0].AxisY.Interval = (lamp_min_max_axis_limits[3] - lamp_min_max_axis_limits[2]) / (double)axis_number_of_intervals;
     }
     
     private void button2_Click(object sender, EventArgs e)
@@ -916,6 +957,12 @@ namespace ClassCppToCS_CS
         double norm_jaccard = (trackBar2.Value - trackBar2.Minimum) / (double)trackBar2.Maximum;
         data_prov_wrapper.SetJaccardCoeficientValue(norm_jaccard);
         tooltiptrackbar.SetToolTip(trackBar2, norm_jaccard.ToString());
+    }
+
+    private void disableControlPointsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      disableControlPointsToolStripMenuItem.Checked = !disableControlPointsToolStripMenuItem.Checked;
+      chart1.Series[CONTROL_POINT_SERIES].Enabled = !disableControlPointsToolStripMenuItem.Checked;
     }
   };
 }

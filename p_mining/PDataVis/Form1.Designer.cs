@@ -29,13 +29,13 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-      System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-      System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-      System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+      System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+      System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+      System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
       this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
       this.openCFGDialog = new System.Windows.Forms.OpenFileDialog();
       this.tgl_vis_peding_series = new System.Windows.Forms.CheckBox();
@@ -76,6 +76,8 @@
       this.button3 = new System.Windows.Forms.Button();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
       this.panel2 = new System.Windows.Forms.Panel();
+      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+      this.disableControlPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.creditscoretrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.requestamounttrackbar)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.numberofofferstrackbar)).BeginInit();
@@ -165,7 +167,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.creditscoretrackbar.Location = new System.Drawing.Point(3, 21);
       this.creditscoretrackbar.Name = "creditscoretrackbar";
-      this.creditscoretrackbar.Size = new System.Drawing.Size(224, 45);
+      this.creditscoretrackbar.Size = new System.Drawing.Size(225, 45);
       this.creditscoretrackbar.TabIndex = 1;
       this.creditscoretrackbar.Value = 10;
       this.creditscoretrackbar.Scroll += new System.EventHandler(this.trackBar1_Scroll);
@@ -188,7 +190,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.requestamounttrackbar.Location = new System.Drawing.Point(3, 85);
       this.requestamounttrackbar.Name = "requestamounttrackbar";
-      this.requestamounttrackbar.Size = new System.Drawing.Size(224, 45);
+      this.requestamounttrackbar.Size = new System.Drawing.Size(225, 45);
       this.requestamounttrackbar.TabIndex = 4;
       this.requestamounttrackbar.Value = 10;
       this.requestamounttrackbar.Scroll += new System.EventHandler(this.trackBar1_Scroll_1);
@@ -211,7 +213,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.numberofofferstrackbar.Location = new System.Drawing.Point(3, 149);
       this.numberofofferstrackbar.Name = "numberofofferstrackbar";
-      this.numberofofferstrackbar.Size = new System.Drawing.Size(224, 45);
+      this.numberofofferstrackbar.Size = new System.Drawing.Size(225, 45);
       this.numberofofferstrackbar.TabIndex = 6;
       this.numberofofferstrackbar.Value = 10;
       this.numberofofferstrackbar.Scroll += new System.EventHandler(this.numberofofferstrackbar_Scroll);
@@ -235,7 +237,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.loangoaltrackbar.Location = new System.Drawing.Point(3, 213);
       this.loangoaltrackbar.Name = "loangoaltrackbar";
-      this.loangoaltrackbar.Size = new System.Drawing.Size(224, 45);
+      this.loangoaltrackbar.Size = new System.Drawing.Size(225, 45);
       this.loangoaltrackbar.TabIndex = 8;
       this.loangoaltrackbar.Value = 10;
       this.loangoaltrackbar.Scroll += new System.EventHandler(this.trackBar1_Scroll_2);
@@ -259,54 +261,54 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.chart1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
-      chartArea1.AxisX.IsLabelAutoFit = false;
-      chartArea1.AxisY.IsLabelAutoFit = false;
-      chartArea1.Name = "ChartArea1";
-      this.chart1.ChartAreas.Add(chartArea1);
-      legend1.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
-      legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-      legend1.Name = "Legend1";
-      this.chart1.Legends.Add(legend1);
+      chartArea4.AxisX.IsLabelAutoFit = false;
+      chartArea4.AxisY.IsLabelAutoFit = false;
+      chartArea4.Name = "ChartArea1";
+      this.chart1.ChartAreas.Add(chartArea4);
+      legend4.BackImageAlignment = System.Windows.Forms.DataVisualization.Charting.ChartImageAlignmentStyle.Top;
+      legend4.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+      legend4.Name = "Legend1";
+      this.chart1.Legends.Add(legend4);
       this.chart1.Location = new System.Drawing.Point(11, 93);
       this.chart1.Name = "chart1";
-      series1.ChartArea = "ChartArea1";
-      series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series1.Legend = "Legend1";
-      series1.MarkerColor = System.Drawing.Color.Green;
-      series1.MarkerSize = 11;
-      series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
-      series1.Name = "A_Pending";
-      series2.ChartArea = "ChartArea1";
-      series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series2.Legend = "Legend1";
-      series2.MarkerColor = System.Drawing.Color.Red;
-      series2.MarkerSize = 10;
-      series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
-      series2.Name = "A_Denied";
-      series3.ChartArea = "ChartArea1";
-      series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series3.Legend = "Legend1";
-      series3.MarkerColor = System.Drawing.Color.Blue;
-      series3.MarkerSize = 8;
-      series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-      series3.Name = "A_Cancelled";
-      series4.ChartArea = "ChartArea1";
-      series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series4.Legend = "Legend1";
-      series4.MarkerColor = System.Drawing.Color.Black;
-      series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
-      series4.Name = "Undefined";
-      series5.ChartArea = "ChartArea1";
-      series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-      series5.Enabled = false;
-      series5.Legend = "Legend1";
-      series5.Name = "ControlPoints";
-      series5.YValuesPerPoint = 2;
-      this.chart1.Series.Add(series1);
-      this.chart1.Series.Add(series2);
-      this.chart1.Series.Add(series3);
-      this.chart1.Series.Add(series4);
-      this.chart1.Series.Add(series5);
+      series16.ChartArea = "ChartArea1";
+      series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series16.Legend = "Legend1";
+      series16.MarkerColor = System.Drawing.Color.Green;
+      series16.MarkerSize = 11;
+      series16.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star5;
+      series16.Name = "A_Pending";
+      series17.ChartArea = "ChartArea1";
+      series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series17.Legend = "Legend1";
+      series17.MarkerColor = System.Drawing.Color.Red;
+      series17.MarkerSize = 10;
+      series17.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Cross;
+      series17.Name = "A_Denied";
+      series18.ChartArea = "ChartArea1";
+      series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series18.Legend = "Legend1";
+      series18.MarkerColor = System.Drawing.Color.Blue;
+      series18.MarkerSize = 8;
+      series18.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+      series18.Name = "A_Cancelled";
+      series19.ChartArea = "ChartArea1";
+      series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series19.Legend = "Legend1";
+      series19.MarkerColor = System.Drawing.Color.Black;
+      series19.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Square;
+      series19.Name = "Undefined";
+      series20.ChartArea = "ChartArea1";
+      series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+      series20.Enabled = false;
+      series20.Legend = "Legend1";
+      series20.Name = "ControlPoints";
+      series20.YValuesPerPoint = 2;
+      this.chart1.Series.Add(series16);
+      this.chart1.Series.Add(series17);
+      this.chart1.Series.Add(series18);
+      this.chart1.Series.Add(series19);
+      this.chart1.Series.Add(series20);
       this.chart1.Size = new System.Drawing.Size(770, 475);
       this.chart1.TabIndex = 0;
       this.chart1.Text = "chart1";
@@ -321,7 +323,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.button1.Location = new System.Drawing.Point(3, 450);
       this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(224, 23);
+      this.button1.Size = new System.Drawing.Size(225, 23);
       this.button1.TabIndex = 15;
       this.button1.Text = "Project Cases";
       this.button1.UseVisualStyleBackColor = true;
@@ -344,7 +346,9 @@
       this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportSelectedDataPointsToolStripMenuItem,
             this.autoUpdateChartToolStripMenuItem,
-            this.updateMaxValuesUsingAllDataPointsToolStripMenuItem});
+            this.updateMaxValuesUsingAllDataPointsToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.disableControlPointsToolStripMenuItem});
       this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
       this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
       this.fileToolStripMenuItem.Text = "File";
@@ -392,14 +396,14 @@
       // MDSMenuItem
       // 
       this.MDSMenuItem.Name = "MDSMenuItem";
-      this.MDSMenuItem.Size = new System.Drawing.Size(106, 22);
+      this.MDSMenuItem.Size = new System.Drawing.Size(152, 22);
       this.MDSMenuItem.Text = "MDS";
       this.MDSMenuItem.Click += new System.EventHandler(this.MDSMenuItem_Click);
       // 
       // LAMPMenuItem
       // 
       this.LAMPMenuItem.Name = "LAMPMenuItem";
-      this.LAMPMenuItem.Size = new System.Drawing.Size(106, 22);
+      this.LAMPMenuItem.Size = new System.Drawing.Size(152, 22);
       this.LAMPMenuItem.Text = "LAMP";
       this.LAMPMenuItem.Click += new System.EventHandler(this.LAMPMenuItem_Click);
       // 
@@ -456,7 +460,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.trackBar1.Location = new System.Drawing.Point(3, 277);
       this.trackBar1.Name = "trackBar1";
-      this.trackBar1.Size = new System.Drawing.Size(224, 45);
+      this.trackBar1.Size = new System.Drawing.Size(225, 45);
       this.trackBar1.TabIndex = 25;
       this.trackBar1.Value = 10;
       this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll_3);
@@ -478,7 +482,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.trackBar2.Location = new System.Drawing.Point(3, 341);
       this.trackBar2.Name = "trackBar2";
-      this.trackBar2.Size = new System.Drawing.Size(224, 45);
+      this.trackBar2.Size = new System.Drawing.Size(225, 45);
       this.trackBar2.TabIndex = 27;
       this.trackBar2.Value = 10;
       this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
@@ -500,7 +504,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.button2.Location = new System.Drawing.Point(3, 392);
       this.button2.Name = "button2";
-      this.button2.Size = new System.Drawing.Size(224, 23);
+      this.button2.Size = new System.Drawing.Size(225, 23);
       this.button2.TabIndex = 23;
       this.button2.Text = "Levenshtein Distance";
       this.button2.UseVisualStyleBackColor = true;
@@ -581,6 +585,18 @@
       this.panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
       this.panel2.Size = new System.Drawing.Size(757, 38);
       this.panel2.TabIndex = 0;
+      // 
+      // toolStripSeparator1
+      // 
+      this.toolStripSeparator1.Name = "toolStripSeparator1";
+      this.toolStripSeparator1.Size = new System.Drawing.Size(279, 6);
+      // 
+      // disableControlPointsToolStripMenuItem
+      // 
+      this.disableControlPointsToolStripMenuItem.Name = "disableControlPointsToolStripMenuItem";
+      this.disableControlPointsToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+      this.disableControlPointsToolStripMenuItem.Text = "Disable Control Points";
+      this.disableControlPointsToolStripMenuItem.Click += new System.EventHandler(this.disableControlPointsToolStripMenuItem_Click);
       // 
       // Form1
       // 
@@ -663,6 +679,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem disableControlPointsToolStripMenuItem;
     }
 }
 

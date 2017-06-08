@@ -3,6 +3,8 @@
 #include "lamp.h"
 #include <opencv2/core/core_c.h>
 
+#include <iostream>
+
 /**
 * Code From Guilherme G. Schardong [gschardong@inf.puc-rio.br]
 * Available at: https://github.com/schardong/mpalg/blob/master/src/lamp.cpp
@@ -33,7 +35,6 @@ static bool s_CheckInputErrorsLAMP(const cv::Mat& X, const std::vector<int> cp_i
 
   return true;
 }
-
 
 cv::Mat LAMPClass::lamp(const cv::Mat& X, const std::vector<int> cp_index, const cv::Mat& Ys)
 {
@@ -70,6 +71,100 @@ cv::Mat LAMPClass::lamp(const cv::Mat& X, const std::vector<int> cp_index, const
       cv::Mat t = Xs.row(j) - X.row(proj_idx[i]);
       alpha.at<double>(0, j) = 1 / cv::max(t.dot(t), tol);
       //alpha.at<float>(0, j) = 1 / cv::max(cv::norm(Xs.row(j), X.row(proj_idx[i])), tol);
+    }
+
+    double sum_alpha = cv::sum(alpha)[0];
+
+    cv::Mat T = cv::Mat::zeros(Xs.rows, Xs.cols, Xs.depth());
+    for (int k = 0; k < Xs.cols; ++k)
+      T.col(k) = Xs.col(k).mul(alpha.t());
+
+    // Building the x-tilde and y-tilde variables (Eq. 3).
+    cv::Mat Xtil;
+    cv::reduce(T, Xtil, 0, CV_REDUCE_SUM);
+    Xtil = Xtil * (1 / sum_alpha);
+
+    T = cv::Mat::zeros(Ys.rows, Ys.cols, Ys.depth());
+    for (int k = 0; k < Ys.cols; ++k)
+      T.col(k) = Ys.col(k).mul(alpha.t());
+
+    cv::Mat Ytil;
+    cv::reduce(T, Ytil, 0, CV_REDUCE_SUM);
+    Ytil = Ytil * (1 / sum_alpha);
+
+    // Building the x-hat and y-hat variables (Eq. 4).
+    cv::Mat Xhat = cv::Mat::zeros(Xs.rows, Xs.cols, Xs.depth());
+    for (int k = 0; k < Xs.rows; ++k)
+      Xhat.row(k) = Xs.row(k) - Xtil;
+
+    cv::Mat Yhat = cv::Mat::zeros(Ys.rows, Ys.cols, Ys.depth());
+    for (int k = 0; k < Ys.rows; ++k)
+      Yhat.row(k) = Ys.row(k) - Ytil;
+
+    // Building the A and B matrices (Eq. 6) and calculating the SVD of t(A) * B.
+    cv::Mat sqrt_alpha;
+    cv::sqrt(alpha, sqrt_alpha);
+    sqrt_alpha = sqrt_alpha.t();
+
+    cv::Mat A;
+    Xhat.copyTo(A);
+    for (int k = 0; k < A.cols; ++k)
+      A.col(k) = A.col(k).mul(sqrt_alpha);
+
+    cv::Mat B;
+    Yhat.copyTo(B);
+    for (int k = 0; k < B.cols; k++)
+      B.col(k) = B.col(k).mul(sqrt_alpha);
+
+    cv::SVD udv(A.t() * B);
+
+    // Calculating the affine transform matrix (Eq. 7).
+    cv::Mat M = udv.u * udv.vt;
+
+    // Projecting X[i] using the matrix M (Eq 8)
+    Y.row(proj_idx[i]) = (X.row(proj_idx[i]) - Xtil) * M + Ytil;
+  }
+
+  return Y;
+}
+
+cv::Mat LAMPClass::lamp(const cv::Mat& X, const std::vector<int> cp_index, const cv::Mat& Ys, const cv::Mat& Ds)
+{
+  if (!s_CheckInputErrorsLAMP(X, cp_index, Ys)) {
+    fprintf(stderr, "ERROR: lamp - Invalid input.\n");
+    return cv::Mat::zeros(1, 1, CV_8UC1);
+  }
+
+  double tol = 1E-003;
+
+  // Building an array with the indices of the points to be projected.
+  std::vector<int> proj_idx(X.rows);
+  for (int i = 0; i < X.rows; ++i)
+    proj_idx[i] = i;
+  for (int i = 0; i < cp_index.size(); ++i)
+  {
+    proj_idx[cp_index[i]] = -1;
+  }
+
+  // Building the control points and projected points matrices.
+  cv::Mat Xs = cv::Mat::zeros(cp_index.size(), X.cols, X.depth());
+  cv::Mat Y = cv::Mat::zeros(X.rows, Ys.cols, Ys.depth());
+  for (int i = 0; i < Xs.rows; ++i) {
+    X.row(cp_index[i]).copyTo(Xs.row(i));
+    Ys.row(i).copyTo(Y.row(cp_index[i]));
+  }
+
+  cv::Mat alpha = cv::Mat::zeros(1, cp_index.size(), CV_64FC1);
+  for (int i = 0; i < X.rows; ++i) {
+    if (proj_idx[i] == -1)
+      continue;
+
+    // Building the weights of each control point over the current point.
+    for (int j = 0; j < cp_index.size(); ++j)
+    {
+      cv::Mat t = Xs.row(j) - X.row(proj_idx[i]);
+      alpha.at<double>(0, j) = 1.0 / cv::max(t.dot(t), tol);
+      //alpha.at<double>(0, j) = 1 / cv::max(Ds.at<double>(proj_idx[i], j), tol);
     }
 
     double sum_alpha = cv::sum(alpha)[0];

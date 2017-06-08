@@ -372,7 +372,7 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderCasesLAMP 
   , array<double, 2>^ lamp_control_point_positions)
 {
   int array_size = id_end - id_init;
-  //std::cout << array_size << std::endl;
+
   if (array_size <= 0) return nullptr;
   
   array_size = array_size + lamp_control_points;
@@ -382,7 +382,6 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderCasesLAMP 
   for (int i = 0; i < lamp_control_points; i++)
     control_points_ids[i] = i;
 
-
   double **control_points = (double**)malloc(lamp_control_points * sizeof(double*));
   for (int i = 0; i < lamp_control_points; i++) {
     control_points[i] = (double*)malloc(2 * sizeof(double));
@@ -391,10 +390,14 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderCasesLAMP 
     }
   }
 
-  double **m = (double**)malloc(array_size * sizeof(double*));
+  double** X = (double**)malloc(array_size * sizeof(double*));
+  double **distances_l = (double**)malloc(array_size * sizeof(double*));
   for (int i = 0; i < array_size; i++) {
-    m[i] = (double*)malloc(array_size * sizeof(double));
-
+    X[i] = (double*)malloc(CaseData::GetNumberOfFeatures(pCF) * sizeof(double));
+    distances_l[i] = (double*)malloc(array_size * sizeof(double));
+  }
+  
+  for (int i = 0; i < array_size; i++) {
     // Get the correct case_id
     int index_f;
     if (i < lamp_control_points)
@@ -402,38 +405,43 @@ array<double, 2>^ CppWrapper::CppDataProjProviderWrapper::DataProviderCasesLAMP 
     else
       index_f = id_init + (i - lamp_control_points);
 
-    for (int j = 0; j < array_size; j++) {
-      
+    std::vector<double> r = CaseData::ConvertCaseToPoint(casedata_v->at(index_f), pCF);
+    for (int v_id = 0; v_id < r.size(); v_id++)
+    {
+      X[i][v_id] = r[v_id];
+    }
+
+    distances_l[i][i] = 0.0;
+    for (int j = i + 1; j < array_size; j++)
+    {
       // Get the correct case_id
       int index_e;
       if (j < lamp_control_points)
         index_e = lamp_control_points_index[j];
       else
         index_e = id_init + (j - lamp_control_points);
-	  int vari = casedata_v->at(i)->variant - 1;
-	  int varj = casedata_v->at(j)->variant - 1;
-	  double edition = editdist[vari][varj];
-	  double jac = jaccard[vari][varj];
-      m[i][j] = CaseData::CompositeDistance(casedata_v->at(index_f), casedata_v->at(index_e), pCF,jac,edition);
+	  
+      int vari = casedata_v->at(i)->variant - 1;
+	    int varj = casedata_v->at(j)->variant - 1;
+	    double edition = editdist[vari][varj];
+	    double jac = jaccard[vari][varj];
+      distances_l[i][j] = distances_l[j][i] = CaseData::CompositeDistance(casedata_v->at(index_f), casedata_v->at(index_e), pCF, jac, edition);
     }
   }
 
   if (pCC) delete pCC;
   
   pCC = new LAMPClass();
-  std::vector<std::vector<double>> vec = pCC->calcLAMP(m
-    , control_points_ids
-    , control_points
-    , array_size
-    , lamp_control_points);
-
-  //std::cout << vec.size() << std::endl;
-  //for (int i = 0; i < vec.size(); i++) {
-  //  for (int j = 0; j < vec[i].size(); j++) {
-  //    std::cout << vec[i][j] << " ";
-  //  }
-  //  std::cout << std::endl;
-  //}
+  
+  std::vector<std::vector<double>> vec = pCC->calcLAMP(
+    X,
+    control_points_ids,
+    control_points,
+    array_size,
+    lamp_control_points,
+    distances_l,
+    CaseData::GetNumberOfFeatures(pCF)
+  );
 
   array<double, 2>^ r_points = gcnew array<double, 2>(vec.size(), 2);
   for (int i = 0; i < vec.size(); i++) {
@@ -514,3 +522,22 @@ array<int>^ CppWrapper::CppDataProjProviderWrapper::FirstNVariants (int n_varian
 
   return datapoints;
 }
+
+double** CppWrapper::CppDataProjProviderWrapper::EvaluateDistanceMatrixBetweenCases (std::vector<int> case_index, int case_length)
+{
+  double **m = (double**)malloc(case_length * sizeof(double*));
+  for (int i = 0; i < case_length; i++)
+  {
+    m[i] = (double*)malloc(case_length * sizeof(double));
+    for (int j = 0; j < case_length; j++)
+    {
+      int vari = casedata_v->at(i)->variant - 1;
+      int varj = casedata_v->at(j)->variant - 1;
+      double edition = editdist[vari][varj];
+      double jac = jaccard[vari][varj];
+      m[i][j] = CaseData::CompositeDistance(casedata_v->at(case_index[i]), casedata_v->at(case_index[j]), pCF, jac, edition);
+    }
+  }
+  return m;
+}
+

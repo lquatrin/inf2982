@@ -15,8 +15,10 @@ public:
   double SumArray();
 
   cv::Mat lamp(const cv::Mat& X, const std::vector<int> cp_index, const cv::Mat& Ys);
+  cv::Mat lamp(const cv::Mat& X, const std::vector<int> cp_index, const cv::Mat& Ys, const cv::Mat& Ds);
 
   std::vector<std::vector<double>> calcLAMP(double** X, int* cp_index, double** Ys,int numPoints,int numCPoints);
+  std::vector<std::vector<double>> calcLAMP(double** X, int* cp_index, double** Ys, int numPoints, int numCPoints, double** distances, int org_dim);
 
   void lampTest();
   void PrintCVMAT(cv::Mat m);

@@ -69,6 +69,65 @@ std::vector<std::vector<double>> LAMPClass::calcLAMP(double** X, int* cp_index, 
   return vect;
 }
 
+std::vector<std::vector<double>> LAMPClass::calcLAMP(double** X, int* cp_index, double** Ys, int numPoints, int numCPoints, double** dist, int org_dim)
+{
+  cv::Mat mpoints = cv::Mat(numPoints, org_dim, cv::DataType<double>::type);
+  cv::Mat mcpoints = cv::Mat(numCPoints, 2, cv::DataType<double>::type, **Ys);
+  cv::Mat mdists = cv::Mat(numPoints, numPoints, cv::DataType<double>::type);
+
+  std::vector<int> index;
+  //printf("matriz de distancias iniciais\n");
+
+  for (int k = 0; k < numPoints; ++k)
+  {
+    for (int c = 0; c < numPoints; ++c)
+    {
+      mdists.at<double>(k, c) = dist[k][c];
+    }
+  }
+
+  for (int k = 0; k < mpoints.rows; ++k)
+  {
+    for (int c = 0; c < mpoints.cols; ++c)
+    {
+      mpoints.at<double>(k, c) = X[k][c];
+    }
+  }
+
+  for (int k = 0; k < mcpoints.rows; ++k)
+  {
+    index.push_back(cp_index[k]);
+    for (int c = 0; c < mcpoints.cols; ++c)
+    {
+      mcpoints.at<double>(k, c) = Ys[k][c];
+    }
+  }
+
+  //for (int k = 0; k < mcpoints.rows; ++k)
+  //{
+  //  std::cout << index[k] <<  " ";
+  //}
+  //std::cout << std::endl;
+  //std::cout << mcpoints << std::endl;
+  //std::cout << mpoints << std::endl;
+  //std::cout << mdists << std::endl;
+
+  m_lampRes = lamp(mpoints, index, mcpoints, mdists);
+
+  std::vector<std::vector<double>> vect;
+  for (int k = 0; k < m_lampRes.rows; ++k)
+  {
+    std::vector<double> aux;
+    for (int c = 0; c < m_lampRes.cols; ++c)
+    {
+      aux.push_back(m_lampRes.at<double>(k, c));
+
+    }
+    vect.push_back(aux);
+  }
+  return vect;
+}
+
 double LAMPClass::SumArray()
 {
   int sum = 0;
